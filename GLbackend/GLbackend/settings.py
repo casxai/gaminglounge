@@ -20,7 +20,7 @@ DEBUG = False
 
 ALLOWED_HOSTS = ['api.gaminglounge.com','gaminglounge.com','165.22.62.72','localhost','127.0.0.1']
 
-# WEBSITE_URL = "http://api.gaminglounge.com"
+WEBSITE_URL = "http://api.gaminglounge.com"
 
 LOGIN_URL = "admin_login"
 LOGOUT_REDIRECT_URL = "admin_login"
