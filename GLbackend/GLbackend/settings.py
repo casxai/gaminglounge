@@ -119,14 +119,14 @@ TEMPLATES = [
 WSGI_APPLICATION = "GLbackend.wsgi.application"
 
 
-DATABASES = {
-    "default": {
-        "ENGINE": "django.db.backends.sqlite3",
-        "NAME":  BASE_DIR / "db.sqlite3",
-        "HOST": "localhost",
-        "PORT": "",
-    }
-}
+# DATABASES = {
+#     "default": {
+#         "ENGINE": "django.db.backends.sqlite3",
+#         "NAME":  BASE_DIR / "db.sqlite3",
+#         "HOST": "localhost",
+#         "PORT": "",
+#     }
+# }
 
 # DATABASES = {
 #     "default": {
@@ -177,7 +177,7 @@ USE_TZ = True
 STATIC_URL = "static/"
 MEDIA_URL = "media/"
 
-STATICFILES_DIRS = ['/webapps/gamingloung/GLbackend/static/']
+# STATICFILES_DIRS = ['/webapps/gaminglounge/GLbackend/static/']
 STATIC_ROOT = os.path.join(BASE_DIR, 'static')
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 
