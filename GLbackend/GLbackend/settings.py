@@ -128,16 +128,16 @@ WSGI_APPLICATION = "GLbackend.wsgi.application"
 #     }
 # }
 
-# DATABASES = {
-#     "default": {
-#         "ENGINE": "django.db.backends.postgresql_psycopg2",
-#         "NAME":  "gaminglounge",
-#         "USER": "gluser",
-#         "PASSWORD": "adminadmin02",
-#         "HOST": "localhost",
-#         "PORT": "",
-#     }
-# }
+DATABASES = {
+    "default": {
+        "ENGINE": "django.db.backends.postgresql_psycopg2",
+        "NAME":  "gaminglounge",
+        "USER": "gluser",
+        "PASSWORD": "adminadmin02",
+        "HOST": "localhost",
+        "PORT": "",
+     }
+}
 
 
 # Password validation
