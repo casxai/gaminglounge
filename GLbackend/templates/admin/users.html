@@ -1,0 +1,213 @@
+{% extends 'base.html'%}
+{% load static %}
+
+{% block content %}
+<header>
+    <div class="header-title-wrapper">
+        <label for="menu-toggle">
+            <i class="fa-solid fa-bars"></i>
+        </label>
+        <div class="header-title">
+            <h1>USERS <span class="las la-users"></span></h1>   
+        </div>
+    </div>
+    {% comment %} <div class="header-action">
+        <button class="btn btn-main">
+            <span class="las la-video"></span>
+            UPLOAD
+        </button>
+    </div> {% endcomment %}
+</header>
+
+        <main>
+
+        <div class="block-grid">
+            <section>
+                    <h3 class="section-head">Overview</h3>
+                    <div class="analytics-post">
+                        <div class="analytic">
+                            <div class="analytic-icon">
+                                <i class="fa-solid fa-users"></i>
+                            </div>
+                            <div class="analytic-info">
+                                <h4>TOTAL USERS</h4>
+                                <h1>{{ total_users_count }}</h1> 
+                            </div>
+                        </div>
+        
+                        <div class="analytic">
+                            <div class="analytic-icon">
+                                <i class="fa-solid fa-user-slash"></i>
+                            </div>
+                            <div class="analytic-info">
+                                <h4>BANNED USERS</h4>
+                                <h1>00</h1> 
+                            </div>
+                        </div>
+        
+                    </div>
+
+                    <div class="analytics-post">
+                        <div class="analytic">
+                            <div class="analytic-icon">
+                                <i class="fa-solid fa-globe"></i>
+                            </div>
+                            <div class="analytic-info">
+                                <h4>Active Users</h4>
+                                <h4>(November)</h4>
+                                <h1>{{ active_users_november_count }}</h1>
+                            </div>
+                        </div>
+        
+                        <div class="analytic">
+                            <div class="analytic-icon">
+                                <i class="fa-solid fa-user-plus"></i>
+                            </div>
+                            <div class="analytic-info">
+                                <h4>New Users</h4>
+                                <h4>(November)</h4>
+                                <h1>{{ new_users_november }}</h1>
+                            </div>
+                        </div>
+            </section>
+            <section>
+                <div class="graph-card">
+                    <h3 class="section-head">User Visits</h3>
+                    <div class="bar-content" style="max-height: 450px;">
+                        <div>
+                            <canvas id="visitsChart" style="max-height: 400px; overflow: hidden;"></canvas>
+                        </div>
+                    </div>
+                </div>
+            </section>
+                
+
+        </div>           
+            <h3 class="section-head">LIST OF USERS</h3>   
+            <div class="table-box">
+                <section>
+                    <div class="">
+                        <span><a href="{% url 'add_user' %}" class="btn btn-main btn-span">Add New User</a></span>
+                    </div>
+                    
+                </section>
+                <section>
+                    <div class="table-data">
+                        <div class="table-responsive">
+                            <table id="bootstrapdatatable" class="table table-striped table-bordered" width="100%">
+                                <thead>
+                                    <th><input type ="checkbox" id="checkall"></th>
+                                    <th>ID</th>
+                                    <th>Name</th>
+                                    <th>Email</th>
+                                    <th>Avatar</th>
+                                    <th>Friends Count</th>
+                                    <th>Posts Count</th>
+                                    <th>Active</th>
+                                    <th>Last Login</th>
+                                    <th>edit</th>
+                                    <th>delete</th>
+                                </thead>
+                                </tbody>
+                                {% for user in users %}
+                                    <tr>
+                                        <td><input type="checkbox" class="checkthis" /></td>
+                                        <td>{{ user.id }} </td>
+                                        <td>{{ user.name }}</td>
+                                        <td>{{ user.email }}</td>
+                                        <td><img src="{{ user.get_avatar }}" alt="Avatar" width="96" height="96" style="width: 0.5in; height: 0.5in;"></td>
+                                        <td>{{ user.friends_count }}</td>
+                                        <td>{{ user.posts_count }}</td>
+                                        <td>{% if user.is_active %} Active {% else %} Inactive {% endif %}</td>
+                                        <td>{% if user.last_login %} {{ user.last_login }} {% else %} Never Logged In {% endif %}</td>
+                                        <td><div class="edit-button" class="btn-outline-primary" style="display: flex; justify-content: center; align-items: center;" ><a href="{% url 'edit_user' user.id %}"><i class="fa-solid fa-pen-to-square"></i></a></div></td>
+                                        <td>
+                                            <form method="post" action="{% url 'delete_user' user.id %}">
+                                            {% csrf_token %}
+                                            <div style="padding-top: 4px; display: flex; justify-content: center; align-items: center;">
+                                                <button type="submit" class="btn btn-danger">
+                                                    <i class="fa-solid fa-square-minus"></i>
+                                                </button>
+                                            </div>
+                                            </form>
+                                        </td>
+                                    </tr>
+                                {% endfor %}
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </section>
+            </div>
+            
+            <div id="chartData"
+                data-discussion="{{ discussion_visits }}"
+                data-connect="{{ connect_visits }}"
+                data-marketplace="{{ marketplace_visits }}"
+                data-tournament="{{ tournament_visits }}"
+                data-beta="{{ beta_visits }}">
+            </div>
+
+            {% comment %} For ChartJS {% endcomment %}
+            <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+            {% comment %}
+            <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.3/Chart.min.js"></script>
+            <script src="https://cdn.jsdelivr.net/gh/emn178/chartjs-plugin-labels/src/chartjs-plugin-labels.js"></script> 
+            {% endcomment %}
+
+            <script>
+                const ctx3 = document.getElementById('visitsChart').getContext('2d');
+    
+                const discussionVisits = document.getElementById('chartData').getAttribute('data-discussion');
+                const connectVisits = document.getElementById('chartData').getAttribute('data-connect');
+                const marketplaceVisits = document.getElementById('chartData').getAttribute('data-marketplace');
+                const tournamentVisits = document.getElementById('chartData').getAttribute('data-tournament');
+                const betaVisits = document.getElementById('chartData').getAttribute('data-beta');
+
+                new Chart(ctx3, {
+                type: 'bar',
+                data: {
+                    labels: ['Discussions', 'Connect', 'Marketplace', 'Tournament', 'Beta Testing'],
+                    datasets: [{
+                    label: 'Number of Visits',
+                    data: [
+                        discussionVisits,
+                        connectVisits,
+                        marketplaceVisits,
+                        tournamentVisits,
+                        betaVisits
+                    ], 
+                    backgroundColor: [
+                        'rgba(255, 99, 132, 0.4)',
+                        'rgba(54, 162, 235, 0.4)',
+                        'rgba(255, 206, 86, 0.4)',
+                        'rgba(75, 192, 192, 0.4)',
+                        'rgba(153, 102, 255, 0.4)',
+                    ],
+                    borderColor: [
+                        'rgba(255, 99, 132, 1)',
+                        'rgba(54, 162, 235, 1)',
+                        'rgba(255, 206, 86, 1)',
+                        'rgba(75, 192, 192, 1)',
+                        'rgba(153, 102, 255, 1)',
+                    ],
+                    borderWidth: 2,
+                    borderRadius: {
+                        topLeft: 10,
+                        topRight: 10,
+                    }
+                    }]
+                },
+                options: {
+                    scales: {
+                    y: {
+                        beginAtZero: true
+                    }
+                    }
+                }
+                });
+            </script>
+        </main>
+    
+{% endblock content %}

@@ -1,0 +1,75 @@
+<!-- edit_profile.html -->
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Edit Profile</title>
+    <link rel="stylesheet" href="{% static 'admin/css/login.css' %}" />
+    <link
+      href="https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css"
+      rel="stylesheet"
+    />
+    <meta name="viewport" content="width=device-width, minimum-scale=1" />
+  </head>
+
+  <body>
+    <div class="wrapper">
+      <form method="post">
+        {% csrf_token %}
+        <h1>Edit Profile</h1>
+        {% if profile_form.non_field_errors %}
+        <div class="error-message">
+          <ul>
+            {% for error in profile_form.non_field_errors %}
+            <li>{{ error }}</li>
+            {% endfor %}
+          </ul>
+        </div>
+        {% endif %} {% if profile_form.name.errors %}
+        <div class="error-message">{{ profile_form.name.errors }}</div>
+        {% endif %} {% if profile_form.email.errors %}
+        <div class="error-message">{{ profile_form.email.errors }}</div>
+        {% endif %} {% if profile_form.avatar.errors %}
+        <div class="error-message">{{ profile_form.avatar.errors }}</div>
+        {% endif %}
+
+        <div class="input-box">
+          <input
+            type="text"
+            name="name"
+            id="id_name"
+            placeholder="{{ profile_form.name.field.widget.attrs.placeholder }}"
+            value="{{ profile_form.name.value }}"
+          />
+          <i class="bx bx-user"></i>
+        </div>
+
+        <div class="input-box">
+          <input
+            type="email"
+            name="email"
+            id="id_email"
+            placeholder="{{ profile_form.email.field.widget.attrs.placeholder }}"
+            value="{{ profile_form.email.value }}"
+          />
+          <i class="bx bx-envelope"></i>
+        </div>
+
+        Display Picture:
+        <input
+          type="file"
+          name="avatar"
+          id="id_avatar"
+          accept="{{ profile_form.avatar.field.widget.attrs.accept }}"
+        />
+        <i class="fa-regular fa-image"></i>
+
+        <button type="submit" class="btn">Save Changes</button>
+        <a href="{% url 'change_password' %}">
+          <button class="btn">Change Password</button>
+        </a>
+      </form>
+    </div>
+  </body>
+</html>

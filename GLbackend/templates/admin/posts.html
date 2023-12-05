@@ -1,0 +1,237 @@
+{% extends 'base.html'%}
+{% load static %}
+
+{% block content %}
+<header>
+    <div class="header-title-wrapper">
+        <label for="menu-toggle">
+            <i class="fa-solid fa-bars"></i>
+        </label>
+        <div class="header-title">
+            <h1>POSTS <span class="las la-users"></span></h1>
+            </p>                    
+        </div>
+    </div>
+</header>
+
+        <main>
+        <div class="block-grid">
+            <div class="">
+                <section>
+                    <h3 class="section-head">Overview</h3>
+                    <div class="analytics-post">
+                        <div class="analytic">
+                            <div class="analytic-icon">
+                                <i class="fa-solid fa-pen-to-square"></i>
+                            </div>
+                            <div class="analytic-info">
+                                <h4>Total</h4>
+                                <h1>{{ total_posts_count }}</h1> 
+                            </div>
+                        </div>
+                        <div class="analytic">
+                            <div class="analytic-icon">
+                                <i class="fa-regular fa-comments"></i>
+                            </div>
+                            <div class="analytic-info">
+                                <h4>Discussions</h4>
+                                <h1>{{ discussion_posts }}</h1>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <section>
+                    <div class="analytics-post">
+                        <div class="analytic">
+                            <div class="analytic-icon">
+                                <i class="fa-solid fa-link"></i>
+                            </div>
+                            <div class="analytic-info">
+                                <h4>Connect</h4>
+                                <h1>{{ connect_posts }}</h1> 
+                            </div>
+                        </div>
+        
+                        <div class="analytic">
+                            <div class="analytic-icon">
+                                <i class="fa-solid fa-store"></i>
+                            </div>
+                            <div class="analytic-info">
+                                <h4>Marketplace</h4>
+                                <h1>{{ marketplace_posts }}</h1>
+                            </div>
+                        </div>
+                </section>
+
+                <section>
+                    <div class="analytics-post">
+                        <div class="analytic">
+                            <div class="analytic-icon">
+                                <i class="fa-solid fa-trophy"></i>
+                            </div>
+                            <div class="analytic-info">
+                                <h4>Tournament</h4>
+                                <h1>{{ tournament_posts }}</h1> 
+                            </div>
+                        </div>
+        
+                        <div class="analytic" > 
+                            <div class="analytic-icon">
+                                <i class="fa-brands fa-fantasy-flight-games"></i>
+                            </div>
+                            <div class="analytic-info">
+                                <h4>Beta-Testing</h4>
+                                <h1>{{ beta_posts }}</h1>
+                            </div>
+                        </div>
+                </section>
+            </div>
+            <div>
+                <div class="graph-card">
+                    <h3 class="section-head">Posts per Tab</h3>
+                    <div class="bar-content"style="max-height: 550px;">
+                        <div>     
+                            <canvas id="postsChart" style="max-height: 500px; overflow: hidden;"></canvas> 
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+            
+            <h3 class="section-head" style="margin-top: 80px;">List of Posts</h3>   
+            <div class="table-box">
+                <section>
+                    <div class="">
+                        <span><a href="{% url 'add_post' %}" class="btn btn-main btn-span">CREATE POST</a></span>
+                        <span><button id="deleteSelected" class="btn btn-main btn-span" disabled>DELETE</button></span>
+                    </div>
+                    
+                </section>
+                <section>
+                    <div class="table-data">
+                        <div class="table-responsive">
+
+                            <table id="bootstrapdatatable" class="table table-striped table-bordered">
+                                <thead>
+                                    <th><input type ="checkbox" id="checkall"></th>
+                                    <th>ID</th>
+                                    <th>Post Description</th>
+                                    <th>Game Title</th>
+                                    <th>Date Posted</th>
+                                    <th>Author</th>
+                                    <th>No. of Likes</th>
+                                    <th>No. of Comments</th>
+                                    <th>Privacy</th>
+                                    <th>Menu</th>
+                                    <th>Post Url</th>
+                                    <th>Edit</th>
+                                    <th>Delete</th>
+                                </thead>
+                                </tbody>
+                                {% for post in posts %}
+                                    <tr>
+                                        <td><input type="checkbox" class="checkthis" /></td>
+                                        <td>{{ post.id }} </td>
+                                        <td>{{ post.body }}</td>
+                                        <td>{{ post.game_title.title }}</td>
+                                        <td>{{ post.created_at}}</td>
+                                        <td>{{ post.created_by.name }}</td>
+                                        <td>{{ post.likes_count }}</td>
+                                        <td>{{ post.comments_count }}</td>
+                                        <td>{% if post.is_private %} Private {% else %} Public {% endif %}</td>
+                                        <td>{{ post.menu }}</td>
+                                        <td>{{ post.post_url }}</td>
+                                         <td><div class="edit-button" class="btn-outline-primary" style="display: flex; justify-content: center; align-items: center;" ><a href="{% url 'edit_post' post.id %}"><i class="fa-solid fa-pen-to-square fa-xs"></i></a></div></td>
+                                        <td><form method="post" action="{% url 'delete_post' post.id %}">
+                                            {% csrf_token %}
+                                            <div style="padding-top: 4px; display: flex; justify-content: center; align-items: center;">
+                                                <button type="submit" class="btn btn-danger">
+                                                    <i class="fa-solid fa-square-minus"></i>
+                                                </button>
+                                            </div>
+                                            </form>
+                                        </td>
+                                    </tr>
+                                {% endfor %}
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </section>
+            </div>
+
+            <div id="chartData"
+                data-discussion="{{ discussion_posts }}"
+                data-connect="{{ connect_posts }}"
+                data-marketplace="{{ marketplace_posts }}"
+                data-tournament="{{ tournament_posts }}"
+                data-beta="{{ beta_posts }}">
+            </div>
+            {% block scripts %}
+            {% comment %} For ChartJS {% endcomment %}
+            <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+            {% comment %}
+            <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.3/Chart.min.js"></script>
+            <script src="https://cdn.jsdelivr.net/gh/emn178/chartjs-plugin-labels/src/chartjs-plugin-labels.js"></script> {% endcomment %}
+            {% comment %} Posts per Tab {% endcomment %}
+            <script>
+
+                const discussionPosts = document.getElementById('chartData').getAttribute('data-discussion');
+                const connectPosts = document.getElementById('chartData').getAttribute('data-connect');
+                const marketplacePosts = document.getElementById('chartData').getAttribute('data-marketplace');
+                const tournamentPosts = document.getElementById('chartData').getAttribute('data-tournament');
+                const betaPosts = document.getElementById('chartData').getAttribute('data-beta');
+
+                const ctx4 = document.getElementById('postsChart').getContext('2d');
+
+                new Chart(ctx4, {
+                type: 'bar',
+                data: {
+                    labels: ['Discussions', 'Connect', 'Marketplace', 'Tournament', 'Beta Testing'],
+                    datasets: [{
+                    label: 'Number of Posts',
+                    data: [
+                        discussionPosts,
+                        connectPosts,
+                        marketplacePosts,
+                        tournamentPosts,
+                        betaPosts
+                    ], 
+                    backgroundColor: [
+                        'rgba(255, 99, 132, 0.4)',
+                        'rgba(54, 162, 235, 0.4)',
+                        'rgba(255, 206, 86, 0.4)',
+                        'rgba(75, 192, 192, 0.4)',
+                        'rgba(153, 102, 255, 0.4)',
+                    ],
+                    borderColor: [
+                        'rgba(255, 99, 132, 1)',
+                        'rgba(54, 162, 235, 1)',
+                        'rgba(255, 206, 86, 1)',
+                        'rgba(75, 192, 192, 1)',
+                        'rgba(153, 102, 255, 1)',
+                    ],
+                    borderWidth: 2,
+                    borderRadius: {
+                        topLeft: 10,
+                        topRight: 10,
+                    }
+                    }]
+                },
+                options: {
+                    scales: {
+                    y: {
+                        beginAtZero: true
+                    }
+                    }
+                }
+                });
+            </script>
+
+            {% endblock scripts %}
+        </main>
+
+
+{% endblock content %}

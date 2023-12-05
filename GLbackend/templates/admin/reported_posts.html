@@ -1,0 +1,63 @@
+{% extends 'base.html'%} {% load static %} {% block content %}
+<header>
+  <div class="header-title-wrapper">
+    <label for="menu-toggle">
+      <i class="fa-solid fa-bars"></i>
+    </label>
+    <div class="header-title">
+      <h1>REPORTED POSTS</h1>
+    </div>
+  </div>
+</header>
+
+<main>
+  <h3 class="section-head">Overview</h3>
+  <div class="analytics">
+    <div class="analytic">
+      <div class="analytic-icon">
+        <span class="las la-eye"></span>
+      </div>
+      <div class="analytic-info">
+        <h4>TOTAL REPORTED POSTS</h4>
+        <h1>{{ reported_posts_count }}</h1>
+      </div>
+    </div>
+  </div>
+
+  <div class="reported_box">
+    {% for post in reported_posts %}
+    <div class="reported-info">
+      <h4>Reported by: {{ post.report_count }} user(s)</h4>
+      <p>Post ID: {{ post.id }}</p>
+      <p>Game Title: {{ post.game_title.title }}</p>
+      <p>Body: {{ post.body }}</p>
+      <p>Menu: {{ post.menu }}</p>
+
+      <!-- Delete Post Form -->
+      <form method="POST" action="{% url 'delete_reported_post' post.id %}">
+        {% csrf_token %}
+        <button
+          type="submit"
+          class="btn btn-main"
+          style="position: absolute; bottom: 10px; right: 15px"
+        >
+          Delete Post
+        </button>
+      </form>
+
+      <!-- Remove Reports Form -->
+      <form method="POST" action="{% url 'remove_reports' post.id %}">
+        {% csrf_token %}
+        <button
+          type="submit"
+          class="btn btn-main"
+          style="position: absolute; bottom: 10px; right: 150px"
+        >
+          Remove Reports
+        </button>
+      </form>
+    </div>
+    {% endfor %}
+  </div>
+</main>
+{% endblock content %}

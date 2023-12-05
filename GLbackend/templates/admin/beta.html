@@ -1,0 +1,37 @@
+{% extends 'base.html'%} {% load static %} {% block content %}
+<header>
+  <div class="header-title-wrapper">
+    <label for="menu-toggle">
+      <span class="las la-bars"></span>
+    </label>
+    <div class="header-title">
+      <h1>BETA-TESTING</h1>
+    </div>
+  </div>
+</header>
+
+<main>
+  <h3 class="section-head">Overview</h3>
+  <div class="analytics">
+    <div class="analytic">
+      <div class="analytic-icon">
+        <span class="las la-eye"></span>
+      </div>
+      <div class="analytic-info">
+        <h4>PENDING POSTS</h4>
+        <h1>--</h1>
+      </div>
+    </div>
+
+    <div class="analytic">
+      <div class="analytic-icon">
+        <span class="las la-clock"></span>
+      </div>
+      <div class="analytic-info">
+        <h4>APPROVED POSTS</h4>
+        <h1>--</h1>
+      </div>
+    </div>
+  </div>
+</main>
+{% endblock content %}

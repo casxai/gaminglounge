@@ -1,0 +1,77 @@
+{% load static %}
+
+<input type="checkbox" name="" id="menu-toggle">
+<div class="overlay">
+    <label for="menu-toggle"></label>
+</div>
+
+
+    <div class="sidebar">
+        <div class="sidebar-container">
+            <div class="brand">
+                <h3>
+                    <img src="{% static 'admin/media/logo/gl_logo.png' %}"alt="logo"><br>
+                        Gaming Lounge.
+                </h3>
+            </div>
+
+            <div class="sidebar-menu" style="display: flex; flex-direction: column; align-items: center;">
+                <ul style="padding: 0; width: 100%;">
+                    <li style="padding-bottom: 10px; list-style: none; width: 100%;">
+                        <a href="{% url 'dashboard' %}" class="active">
+                            <i class="fa-solid fa-chart-simple"></i>
+                            <span>DASHBOARD</span>
+                        </a>
+                    </li>
+                    <li style="padding-bottom: 10px; list-style: none; width: 100%;">
+                        <a href="{% url 'admin_users' %}" class="active">
+                            <i class="fa-solid fa-users"></i>
+                            <span>USERS</span>
+                        </a>
+                    </li>
+                    <li style="padding-bottom: 10px; list-style: none; width: 100%;">
+                        <a href="{% url 'admin_posts' %}" class="active">
+                            <i class="fa-solid fa-pen-to-square"></i>
+                            <span>POSTS</span>
+                        </a>
+                    </li>
+                    <li style="padding-bottom: 10px; list-style: none; width: 100%;">
+                        <a href="{% url 'reported_posts' %}" class="active">
+                            <i class="fa-solid fa-flag"></i>
+                            <span>REPORTED POSTS</span>
+                        </a>
+                    </li>
+                </ul>
+            </div>
+
+            
+            <div class="sidebar-avartar">
+                <div>
+                    {% if admin_avatar %}
+                        <img src="{{ admin_avatar.url }}" alt="Admin Avatar">
+                    {% else %}
+                        <!-- If there's no avatar set, display a default placeholder image -->
+                        <img src="{% static 'media/dp.jpg' %}" alt="Default Avatar">
+                    {% endif %}
+                </div>
+                <div class="avartar-info">
+                    <div class="avartar-text">
+                        <h4>{{ admin_name }}</h4> 
+                        <small>{{ admin_email }}</small>
+                    </div>
+                </div>
+                <div class="edit-avartar">
+                    <a href="{% url 'edit_profile' %}">
+                    <i class="fa-solid fa-pen-to-square"></i>
+                </div>
+            </div>
+            
+            <div class="logout">
+                <a href="{% url 'logout' %}">
+                    <i class="fa-solid fa-right-from-bracket"></i>
+                    <span>Logout</span>
+                </a>
+            </div>
+        </div>
+    </div>
+

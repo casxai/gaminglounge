@@ -1,0 +1,110 @@
+{% load static %} {% block html %}
+<!DOCTYPE html>
+<html lang="en">
+  {% block head %}
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, minimum-scale=1" />
+    <title>G-LOUNGE ADMIN DASHBOARD</title>
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css"
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdn.datatables.net/1.13.7/css/jquery.dataTables.min.css"
+    />
+    <link rel="stylesheet" href="../admin/css/style.css" />
+    <script
+      src="https://kit.fontawesome.com/c490bd0788.js"
+      crossorigin="anonymous"
+    ></script>
+  </head>
+  {% endblock head %} {% block body %}
+  <body>
+    {% include 'admin/includes/sidebar.html' %}
+    <div class="main-content">{% block content %} {% endblock content %}</div>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/jquery@3.7.1/dist/jquery.min.js"></script>
+    <script src="https://cdn.datatables.net/1.13.7/js/jquery.dataTables.min.js"></script>
+
+    <form id="myForm">
+      {% csrf_token %}
+      <!-- Your table and JavaScript AJAX request code -->
+    </form>
+
+    <script>
+      var csrfToken = $('#myForm input[name="csrfmiddlewaretoken"]').val();
+      $(document).ready(function () {
+        $("#bootstrapdatatable").DataTable({
+          aLengthMenu: [
+            [5, 10, 15, 20, -1],
+            [5, 10, 15, 20, "All"],
+          ],
+          iDisplayLength: 5,
+        });
+
+        function updateDeleteButtonState() {
+          var checkedCheckboxes = $(".checkthis:checked");
+          var deleteButton = $("#deleteSelected");
+
+          if (checkedCheckboxes.length > 0) {
+            deleteButton.prop("disabled", false);
+          } else {
+            deleteButton.prop("disabled", true);
+          }
+        }
+
+        $("#checkall").click(function () {
+          $(".checkthis").prop("checked", this.checked);
+          updateDeleteButtonState();
+        });
+
+        $(".checkthis").click(function () {
+          if ($(".checkthis:checked").length == $(".checkthis").length) {
+            $("#checkall").prop("checked", true);
+          } else {
+            $("#checkall").prop("checked", false);
+          }
+          updateDeleteButtonState();
+        });
+
+        $("#deleteSelected").click(function () {
+          // Handle deletion of selected items here
+          var checkedCheckboxes = $(".checkthis:checked");
+          var checkedIds = checkedCheckboxes
+            .map(function () {
+              return $(this)
+                .closest("tr")
+                .find("td:nth-child(2)")
+                .text()
+                .trim(); // Assuming ID is in the second column
+            })
+            .get();
+
+          $.ajax({
+            url: "delete_selected_posts/",
+            method: "POST",
+            headers: {
+              "X-CSRFToken": csrfToken,
+            },
+            data: {
+              "selected_ids[]": checkedIds,
+            },
+            success: function (response) {
+              // Handle success response from the backend
+              console.log(response.message);
+              // Refresh the page
+              location.reload(); // This will reload the current page
+            },
+            error: function (xhr, errmsg, err) {
+              // Handle error response
+              console.log(xhr.status + ": " + xhr.responseText);
+            },
+          });
+        });
+      });
+    </script>
+  </body>
+  {% endblock body %} {% endblock html %}
+</html>

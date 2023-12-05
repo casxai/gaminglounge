@@ -1,0 +1,69 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Edit Post Information</title>
+    <link rel="stylesheet" href="{% static 'admin/css/login.css' %}" />
+    <link
+      href="https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css"
+      rel="stylesheet"
+    />
+    <meta name="viewport" content="width=device-width, minimum-scale=1" />
+  </head>
+
+  <body>
+    <div class="wrapper-post">
+      <h1>Create New Post</h1>
+      <form method="post" enctype="multipart/form-data">
+        {% csrf_token %} {% if form.non_field_errors %}
+        <div class="error-message">
+          <ul>
+            {% for error in form.non_field_errors %}
+            <li>{{ error }}</li>
+            {% endfor %}
+          </ul>
+        </div>
+        {% endif %} {% if form.game_title.errors %}
+        <div class="error-message">{{ form.game_title.errors }}</div>
+        {% endif %} {% if form.is_private.errors %}
+        <div class="error-message">{{ form.is_private.errors }}</div>
+        {% endif %} {% if form.menu.errors %}
+        <div class="error-message">{{ form.menu.errors }}</div>
+        {% endif %}
+
+        <div class="edit-box">
+          <label for="id_game_title">Game Title:</label><br />
+          <select id="id_game_title" name="game_title">
+            {% for game_title in form.fields.game_title.queryset %}
+            <option value="{{ game_title.id }}">{{ game_title.title }}</option>
+            {% endfor %}</select
+          ><br />
+        </div>
+
+        <div class="edit-box">
+          <label for="id_menu">Where to post:</label><br />
+          {{ form.menu }}
+        </div>
+
+        <div class="edit-box">
+          <h3 for="id_is_private">
+            <i class="bx bx-lock"></i> Privacy: {{ form.is_private }}
+          </h3>
+        </div>
+
+        <!-- New Section for Post Body Preview -->
+        <div class="preview">
+          Description:
+          <textarea id="id_body" name="body" rows="12" cols="80"></textarea
+          ><br />
+        </div>
+
+        <button type="submit" class="btn">Upload Post</button>
+        <a href="{% url 'admin_posts' %}"
+          ><button class="btn">Cancel</button></a
+        >
+      </form>
+    </div>
+  </body>
+</html>
