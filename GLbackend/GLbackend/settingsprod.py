@@ -18,9 +18,9 @@ SECRET_KEY = "django-insecure-jh+b7d0#gd$i_sd(6$5z8tvq19gonwi4t4uky10=&y0t4yr$w6
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = False
 
-ALLOWED_HOSTS = ['api.gaminglounge.com','165.22.62.72','localhost','127.0.0.1']
+ALLOWED_HOSTS = ["api.gaminglounge.com"]
 
-# WEBSITE_URL = "http://api.gaminglounge.com"
+WEBSITE_URL = "http://api.gaminglounge.com"
 
 LOGIN_URL = "admin_login"
 LOGOUT_REDIRECT_URL = "admin_login"
@@ -62,11 +62,11 @@ REST_FRAMEWORK = {
 
 
 CORS_ALLOWED_ORIGINS = [
-    'http://api.gaminglounge.com','http://gaminglounge.com','http://165.22.62.72','http://localhost','http://127.0.0.1'
+    "http://165.22.62.72",
 ]
 
 CSRF_TRUSTED_ORIGINS = [
-    'http://api.gaminglounge.com','http://gaminglounge.com','http://165.22.62.72','http://localhost','http://127.0.0.1'
+    "http://165.22.62.72",
 ]
 
 INSTALLED_APPS = [
@@ -121,24 +121,25 @@ WSGI_APPLICATION = "GLbackend.wsgi.application"
 
 
 
-DATABASES = {
-    "default": {
-        "ENGINE": "django.db.backends.sqlite3",
-        "NAME":  BASE_DIR / "db.sqlite3",
-        "HOST": "localhost",
-        "PORT": "",
-    }
-}
 # DATABASES = {
 #     "default": {
-#         "ENGINE": "django.db.backends.postgresql_psycopg2",
-#         "NAME":  "gaminglounge",
-#         "USER": "gluser",
-#         "PASSWORD": "adminadmin02",
+#         "ENGINE": "django.db.backends.sqlite3",
+#         "NAME":  BASE_DIR / "db.sqlite3",
 #         "HOST": "localhost",
 #         "PORT": "",
 #     }
 # }
+DATABASES = {
+    "default": {
+        "ENGINE": "django.db.backends.postgresql_psycopg2",
+        "NAME":  "gaminglounge",
+        "USER": "gluser",
+        "PASSWORD": "adminadmin02",
+        "HOST": "localhost",
+        "PORT": "",
+     }
+}
+
 
 # Password validation
 # https://docs.djangoproject.com/en/4.2/ref/settings/#auth-password-validators
