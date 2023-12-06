@@ -62,11 +62,11 @@ REST_FRAMEWORK = {
 
 
 CORS_ALLOWED_ORIGINS = [
-    "http://165.22.62.72",
+    "165.22.62.72",
 ]
 
 CSRF_TRUSTED_ORIGINS = [
-    "http://165.22.62.72",
+    "165.22.62.72",
 ]
 
 INSTALLED_APPS = [
