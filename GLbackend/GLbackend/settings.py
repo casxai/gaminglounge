@@ -60,12 +60,14 @@ REST_FRAMEWORK = {
     "PAGE_SIZE": 10,
 }
 
+SECURE_CROSS_ORIGIN_OPENER_POLICY = None
+
 CORS_ALLOWED_ORIGINS = [
-    "http://localhost:5173",
+    "http://localhost:5173","http://165.22.62.72",
 ]
 
 CSRF_TRUSTED_ORIGINS = [
-    "http://localhost:5173",
+    "http://localhost:5173","http://165.22.62.72",
 ]
 
 
