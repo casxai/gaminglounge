@@ -18,9 +18,9 @@ SECRET_KEY = "django-insecure-jh+b7d0#gd$i_sd(6$5z8tvq19gonwi4t4uky10=&y0t4yr$w6
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = False
 
-ALLOWED_HOSTS = ["165.22.62.72"]
+ALLOWED_HOSTS = ["api.gaminglounge.online"]
 
-WEBSITE_URL = "http://165.22.62.72"
+WEBSITE_URL = "http://api.gaminglounge.online"
 
 LOGIN_URL = "admin_login"
 LOGOUT_REDIRECT_URL = "admin_login"
@@ -62,11 +62,11 @@ REST_FRAMEWORK = {
 
 
 CORS_ALLOWED_ORIGINS = [
-    "http://165.22.62.72",
+    "https://gaminglounge.online",
 ]
 
 CSRF_TRUSTED_ORIGINS = [
-    "http://165.22.62.72",
+    "https://gaminglounge.online",
 ]
 
 INSTALLED_APPS = [
