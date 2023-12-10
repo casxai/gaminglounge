@@ -16,7 +16,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = "django-insecure-jh+b7d0#gd$i_sd(6$5z8tvq19gonwi4t4uky10=&y0t4yr$w6"
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = False
+DEBUG = True
 
 ALLOWED_HOSTS = []
 
@@ -119,25 +119,25 @@ TEMPLATES = [
 WSGI_APPLICATION = "GLbackend.wsgi.application"
 
 
-# DATABASES = {
-#     "default": {
-#         "ENGINE": "django.db.backends.sqlite3",
-#         "NAME":  BASE_DIR / "db.sqlite3",
-#         "HOST": "localhost",
-#         "PORT": "",
-#     }
-# }
-
 DATABASES = {
     "default": {
-        "ENGINE": "django.db.backends.postgresql_psycopg2",
-        "NAME":  "gaminglounge",
-        "USER": "gluser",
-        "PASSWORD": "adminadmin02",
+        "ENGINE": "django.db.backends.sqlite3",
+        "NAME":  BASE_DIR / "db.sqlite3",
         "HOST": "localhost",
         "PORT": "",
-     }
+    }
 }
+
+# DATABASES = {
+#     "default": {
+#         "ENGINE": "django.db.backends.postgresql_psycopg2",
+#         "NAME":  "gaminglounge",
+#         "USER": "gluser",
+#         "PASSWORD": "adminadmin02",
+#         "HOST": "localhost",
+#         "PORT": "",
+#      }
+# }
 
 
 # Password validation

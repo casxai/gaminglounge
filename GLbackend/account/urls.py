@@ -13,11 +13,7 @@ urlpatterns = [
     path("refresh/", TokenRefreshView.as_view(), name="token_refresh"),
     path("editprofile/", api.editprofile, name="editprofile"),
     path("editpassword/", api.editpassword, name="editpassword"),
-    path(
-        "friends/suggested/",
-        api.my_friendship_suggestions,
-        name="my_friendship_suggestions",
-    ),
+    path("friends/suggested/",api.my_friendship_suggestions,name="my_friendship_suggestions",),
     path("friends/<uuid:pk>/", api.friends, name="friends"),
     path(
         "friends/<uuid:pk>/request/",

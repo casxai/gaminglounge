@@ -267,10 +267,6 @@ def update_user_preferences(request, user_id):
         return JsonResponse(status=404)
 
     selected_category = request.data.get("pref_game_category")
-    print(
-        "Received pref_game_category:", selected_category
-    )  # Add this line for logging
-
     user.pref_game_category = selected_category
     user.save()
 

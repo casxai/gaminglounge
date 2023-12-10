@@ -25,6 +25,8 @@ WEBSITE_URL = "http://api.gaminglounge.com"
 LOGIN_URL = "admin_login"
 LOGOUT_REDIRECT_URL = "admin_login"
 
+
+
 # application definition
 
 EMAIL_BACKEND = "django.core.mail.backends.smtp.EmailBackend"

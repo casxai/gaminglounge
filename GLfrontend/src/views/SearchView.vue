@@ -58,7 +58,6 @@ export default {
     name: 'SearchView',
     components: {
         PeopleYouMayKnow,
-     
         FeedItem,
     },
 

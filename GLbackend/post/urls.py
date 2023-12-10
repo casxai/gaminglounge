@@ -29,6 +29,9 @@ urlpatterns = [
     path("tournament_posts/", api.tournament_posts, name="tournament_posts"),
     path("beta_posts/", api.beta_posts, name="beta_posts"),
     path("popular_games/", api.popular_games_endpoint, name="popular_games_endpoint"),
+    path('delete_comment/<uuid:post_id>/<uuid:comment_id>/', api.delete_comment, name='delete_comment'),
+    path("popular_game/<int:game_id>/", api.popular_game_view, name="popular_game_view"),
+    
     # admin
     path("gl-posts/", views.admin_posts, name="admin_posts"),
     path("gl-posts/add", views.add_post, name="add_post"),

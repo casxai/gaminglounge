@@ -1,6 +1,7 @@
 from django.core.exceptions import ValidationError
 from django.db.models import Q, Count
 from django.http import JsonResponse
+from django.shortcuts import get_object_or_404
 from rest_framework import status
 from rest_framework.response import Response
 from rest_framework.decorators import api_view
@@ -363,8 +364,7 @@ def post_detail(request, pk):
     )
 
     serialized_data = PostDetailSerializer(post).data
-    print(serialized_data)  # Check the console for the serialized data
-
+ 
     return JsonResponse({"post": serialized_data})
 
 
@@ -404,6 +404,25 @@ def post_list_profile(request, id):
         },
         safe=False,
     )
+
+@api_view(["GET"])
+def popular_game_view(request, game_id):
+
+    popular_game_posts = Post.objects.filter(
+        is_private=False, is_offensive=False, game_title_id=game_id
+    )
+
+    # Apply pagination
+    paginator = PageNumberPagination()
+    paginator.page_size = 5  # Number of posts per page
+    paginated_post = paginator.paginate_queryset(popular_game_posts, request)
+
+    # Serialize paginated posts
+    serializer = PostSerializer(paginated_post, many=True)
+
+    # Return paginated response
+    return paginator.get_paginated_response(serializer.data)
+
 
 
 @api_view(["POST"])
@@ -517,7 +536,29 @@ def post_delete(request, pk):
             )
     else:
         return JsonResponse({"error": "Post not found"}, status=404)
+    
+@api_view(["DELETE"])
+def delete_comment(request, post_id, comment_id):
+    if request.method == 'DELETE':
+        # Retrieve the post and the comment
+        post = get_object_or_404(Post, id=post_id)
+        comment = get_object_or_404(Comment, id=comment_id)
 
+        # Check if the user is the creator of the comment
+        if comment.created_by == request.user:
+            # Remove the comment from the post
+            post.comments.remove(comment)
+            post.comments_count = post.comments.count()
+            post.save()
+
+            # Delete the comment
+            comment.delete()
+            return JsonResponse({'message': 'Comment deleted successfully'})
+        else:
+            # If the user is not the creator, return an error response
+            return JsonResponse(
+                {"error": "You do not have permission to delete this comment"}, status=403
+            )
 
 @api_view(["POST"])
 def post_report(request, pk):
@@ -568,7 +609,7 @@ def get_popular_games():
     popular_games = (
         GameTitle.objects.annotate(num_posts=Count("post"))
         .order_by("-num_posts")
-        .values("title", "num_posts")[:5]  # Fetch top 5 GameTitles by post count
+        .values("id", "title", "num_posts")[:5]  # Fetch top 5 GameTitles by post count
     )
     return popular_games
 

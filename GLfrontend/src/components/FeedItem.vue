@@ -12,7 +12,7 @@
                     </RouterLink>
                     </p>
                 <!-- time posted -->
-                <p class="text-gray-300 text-xs font-light">{{ post.created_at_formatted }}</p>
+                <p class="text-gray-400 text-xs font-light">{{ post.created_at_formatted }}</p>
                 </div>
             </div>
             <p class="mb-4 tracking-wider font-semibold">{{ post.game_title ? post.game_title.title : 'No Game Title' }}</p>
@@ -136,6 +136,9 @@
 .break-words {
     word-break: break-all;
 }
+.fill-red {
+    fill: rgb(248 113 113); 
+}
 </style>
 
 
@@ -237,9 +240,3 @@ export default {
     },
 }
 </script>
-
-<style>
-.fill-red {
-    fill: rgb(248 113 113); 
-}
-</style>

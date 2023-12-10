@@ -122,7 +122,11 @@ const router = createRouter({
       name: 'popup',
       component: () => import('../views/PopupView.vue')
     },
-
+    {
+      path: '/populargames/:id',
+      name: 'PopularGamesView',
+      component: () => import('../views/PopularGamesView.vue')
+    },
 
     
   ]
