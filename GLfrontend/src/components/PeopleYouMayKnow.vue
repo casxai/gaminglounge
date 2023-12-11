@@ -1,42 +1,52 @@
 <template>
     <div class="space-y-6">
 
-        <div class="p-6 bg-purple_main border-gray-400 border-2 rounded-full">
-            <h3 class="mb-2 font-semibold text-xl tracking-wide text-center">Most talked about Games</h3>
-            <div class="space-y-4 text-left ">
+        <div class="py-4 bg-purple_main border-gray-400 border-2 rounded-full">
+            <h3 class="rounded-full font-semibold text-xl tracking-wide pl-6 mb-3">Most talked about Games</h3>
+
                 <div v-for="(game, index) in popularGames" :key="index"
-                    class="flex flex-col justify-between border-gray-200 my-3 ">
-                    <RouterLink :to="'/populargames/' + game.id" class="font-semibold text-lg w-full">
+                    class="flex items-center justify-between border-gray-200 hover:bg-[#120719] text-left">
+                    <div class="flex flex-col my-3 px-6">
+                        <RouterLink :to="'/populargames/' + game.id" class="font-semibold text-lg w-full">
                         {{ game.title }}
-                    </RouterLink>
-                    <p class="text-sm text-gray-400">{{ game.num_posts }} posts</p>
+                        </RouterLink>
+                        <p class="text-sm text-gray-400">{{ game.num_posts }} posts</p>
+                    </div>
+
                 </div>
-            </div>
+         
         </div>
 
         <!-- ------------------------- -->
 
-        <div class="p-6 bg-purple_main border-gray-400 border-2 rounded-full">
-            <h3 class="mb-2 font-semibold text-xl tracking-wide text-center">People you may know</h3>
+        <div class="mt-4 bg-purple_main border-gray-400 border-2 rounded-full h-fit">
+            <h3 class="rounded-full font-semibold text-xl tracking-wide pl-6 py-4">People you may know</h3>
 
-<div class="text-left">
-    <div v-for="user in users" :key="user.id" class="flex items-center justify-between border-b-2 font-medium">
-        <div class="flex items-center py-4">
-            <img :src="user.get_avatar" alt="avatar" class="h-12 rounded-img" width="50" height="50">
-            <RouterLink :to="{ name: 'profile', params: { 'id': user.id } }" class="ml-4">
-                <span class="font-semibold">{{ user.name }}</span>
-            </RouterLink>
-        </div>
+            
+                <div v-for="user in users" :key="user.id" class="flex items-center justify-between border-gray-200 hover:bg-[#120719] hover:rounded-full">
+                    
+                    <div class="justify-self-start items-center flex my-3 px-6">
+                        <img :src="user.get_avatar" alt="avatar" class="h-12 rounded-img" width="50" height="50">
+                        <div class="flex flex-col">
+                            <RouterLink :to="{ name: 'profile', params: { 'id': user.id } }" >
+                            <span class="font-medium">{{ user.name }}</span>
+                            </RouterLink>
+                            <span class=" text-sm text-gray-400">{{ user.charisma_score }} charisma</span>
+                        </div>
+ 
+                    </div>
 
-        <div>
-            <RouterLink :to="{ name: 'profile', params: { 'id': user.id } }">
-                <a href="#" class="py-3 px-4 bg-violet-600 text-white rounded-lg">Follow</a>
-            </RouterLink>
-        </div>
-    </div>
-</div>
+                    <!-- <div>
+                        <RouterLink :to="{ name: 'profile', params: { 'id': user.id } }" class="py-3 px-6 hover:bg-[#120719] bg-[#28183e] text-sm rounded-img">
+                            view
+                        </RouterLink>
+                    </div> -->
+                </div>
+       
 
 
+
+         
         </div>
 
     </div>

@@ -1,12 +1,12 @@
 <template>
 
-    <div data-te-infinite-scroll-init class="max-w-screen-2xl mx-auto grid grid-cols-4 gap-4 pt-4">
+    <div data-te-infinite-scroll-init class="max-w-screen-2xl mx-auto grid grid-cols-4 gap-6 pt-4">
         <div class="main-left space-y-6 sticky h-screen "> 
             <LeftPanel />    
         </div>
 
         <!-- center -->
-        <div class="px-4 main-center col-span-2 space-y-6 ">
+        <div class="main-center col-span-2 space-y-6 ">
         <div class="p-5 bg-purple_main rounded-full border-2 border-gray-400" v-for="post in posts" v-bind:key="post.id"> <!-- loop ng post -->
                 <FeedItem :post="post" @postDeleted="handlePostDeleted" />
             </div>

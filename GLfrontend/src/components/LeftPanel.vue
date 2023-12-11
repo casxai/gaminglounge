@@ -1,30 +1,30 @@
 <template>
   
-    <div class="p-6 bg-purple_main border-gray-400 border-2 rounded-full">
-            <h3 class="mb-2 font-semibold text-xl tracking-wide text-center">Leaderboards</h3>
+    <div class="py-4 bg-purple_main border-gray-400 border-2 rounded-full">
+            <h3 class="rounded-full font-semibold text-xl tracking-wide pl-7 mb-3">Leaderboards</h3>
 
-            <div class="text-left">
+    
                 <div v-for="user in leaderboard" :key="user.id"
-                    class="flex items-center justify-between border-gray-200 font-medium">
+                    class="flex items-center justify-between border-gray-200 hover:bg-[#120719] rounded-full text-left ">
 
-                    <div class="justify-self-start flex my-3">
+                    <div class="justify-self-start items-center flex my-3 px-6">
                         <img :src="user.avatar" alt="avatar" class="h-12 rounded-img" width="50" height="50">
                         <div class="flex flex-col">
-                            <RouterLink :to="{ name: 'profile', params: { 'id': user.id } }"><span class="font-semibold">{{
+                            <RouterLink :to="{ name: 'profile', params: { 'id': user.id } }"><span class=" font-medium">{{
                                 user.name }}</span>
                             </RouterLink>
-                            <span class="">{{ user.charisma_score }}</span>
+                            <span class="text-sm text-gray-400">{{ user.charisma_score }} charisma</span>
                         </div>
                     </div>
 
+        
                 </div>
-            </div>
 
         </div>
     <!-- game links -->
     <div class="p-6 bg-purple_main border-gray-400 h-fit border-2 rounded-full ">
         
-        <h3 class="mb-2 font-semibold text-xl tracking-wide text-center">Useful Links</h3>
+        <!-- <h3 class="mb-2 font-semibold text-xl tracking-wide ">Useful Links</h3> -->
             <div class="space-y-4">
                 <div class="game news ">  
                     <p class="font-semibold">Gaming News:</p>
@@ -96,11 +96,7 @@
                                           src="/assets/img/logo/epic_logo.png" class="h-auto max-w-full" alt="logo" /><span>Epic Games</span></a>
                               </li>
 
-                              <li class="hover:underline">
-                                  <a href="https://us.shop.battle.net/en-us" target="_blank" rel="noopener noreferrer" class="flex items-center"><img
-                                          src="/assets/img/logo/battle_logo.png" class="h-auto max-w-full" alt="logo" /><span>Battle.net</span></a>
-                              </li>
-                         
+              
 
                      
                           </ul>

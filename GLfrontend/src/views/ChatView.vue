@@ -1,46 +1,42 @@
 <template>
     <!-- scroll: h-full overflow-y-scroll -->
-    <div class="max-w-screen-2xl mx-auto grid grid-cols-4 gap-4 pt-4">
+    <div class="max-w-screen-2xl mx-auto grid grid-cols-3 gap-6 pt-4">
         <!-- inbox -->
-        <div class="main-left col-span-1 flex flex-col bg-purple_main rounded-full p-6 overflow-auto h-full">
+        <div class="main-left col-span-1 flex flex-col bg-purple_main rounded-full overflow-auto h-fit py-4 border-2 border-gray-400">
             
-            <label for="" class="text-center text-xl font-semibold border-b pb-4">messages</label>
+            <label for="" class="rounded-full font-semibold text-xl tracking-wide pl-7 mb-3">Messages</label>
 
                         <a 
-                            class="mt-4 flex justify-between items-center" 
+                            class="flex items-center justify-between border-gray-200 hover:bg-[#120719] rounded-full text-left " 
                             v-for="conversation in conversations"
                             v-bind:key="conversation.id"
                            
                             v-on:click="setActiveConversation(conversation.id)"
                         >
-                            <div class="flex  p-2 ">
+                            <div class="justify-self-start flex flex-col-2 items-center my-3 px-6">
                                 <div
                                     v-for="user in conversation.users"
                                     v-bind:key="user.id"
                                     class=""
                                 >
-                                    <div class="flex flex-row items-center">
+                                    <div class="flex flex-row items-center" v-if="user.id !== userStore.user.id" >
                                         <img :src="user.get_avatar" class="w-[45px] rounded-img ">
-
-                                        <p 
-                                            class="font-semibold text-base pr-8"
-                                            v-if="user.id !== userStore.user.id"
-                                            >
-                                            {{ user.name }} 
+                                        <p class="font-semibold text-base">{{ user.name }} 
                                         </p>
                                     </div>
-                                
+                                    
                                 </div>
+                             
                             </div>    
-                            <span class="text-xs text-white font-light ">{{ conversation.modified_at_formatted }}</span>
                             
+                            <span class="text-xs text-gray-400 font-light pr-6">{{ conversation.modified_at_formatted }}</span>
                         </a>
 
         </div>
         <!-- messages -->
-        <div class="main-center col-span-2 space-y-4">
-            <div class="bg-purple_main rounded-full">
-                <div class="flex flex-col flex-grow p-6">
+        <div class="main-center col-span-2 space-y-4 ">
+            <div class="bg-purple_main rounded-full border-2 border-gray-400">
+                <div class="flex flex-col flex-grow p-6 ">
                     
                         <template 
                             v-for="message in activeConversation.messages" 
@@ -51,8 +47,8 @@
                                 v-if="message.created_by.id == userStore.user.id"
                             >
                                 <div>
-                                    <div class="bg-[#181327] text-white p-3 rounded-l-full rounded-br-full">
-                                        <p class="text-sm">{{ message.body }}</p>
+                                    <div class="bg-[#120719] text-white p-3 rounded-l-full rounded-br-full">
+                                        <p class="">{{ message.body }}</p>
                                     </div>
                                     <span class="text-xs text-gray-400 font-light leading-none"> {{ message.created_at_formatted }} ago</span>
                                 </div>
@@ -72,7 +68,7 @@
                                         <div class="bg-[#181327] p-3 rounded-r-full rounded-bl-full">
                                             <p class="text-sm">{{ message.body }}</p>
                                         </div>
-                                        <span class="text-xs text-gray-400 font-light leading-none">{{ message.created_at_formatted }} ago</span>
+                                        <span class="text-xs  text-gray-400 font-light leading-none">{{ message.created_at_formatted }} ago</span>
                                     </div>
                             </div>
                         </template>
@@ -83,7 +79,7 @@
       
                  <form v-on:submit.prevent="submitForm">
                     <label for="chat" class="sr-only ">your message</label>
-                        <div class="flex items-center p-4 rounded-large bg-gray-50 dark:bg-purple_main">
+                        <div class="flex items-center p-4 rounded-large bg-gray-50 dark:bg-purple_main border-2 border-gray-400">
                  
                             <textarea v-model="body" id="chat" rows="1" class="block mx-2 p-4 w-full rounded-img dark:bg-transparent" placeholder="your message.."></textarea>
                             <button type="submit" class="inline-flex justify-center p-3 text-blue-600 rounded-img cursor-pointer hover:bg-blue-100 dark:text-blue-500 dark:hover:bg-purple-900">

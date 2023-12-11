@@ -1,5 +1,6 @@
 import uuid
 from django.db import models
+from django.utils import timezone
 from django.utils.timesince import timesince
 from account.models import User
 
@@ -11,10 +12,13 @@ class Conversation(models.Model):
     modified_at = models.DateTimeField(auto_now=True) #auto_now - everytime it is saved, automatically updates
 
     def modified_at_formatted(self):
-        return timesince(self.created_at)
+        return timesince(self.modified_at)
 
+    def save(self, *args, **kwargs):
+        self.modified_at = timezone.now()  # Update modified_at field
+        super(Conversation, self).save(*args, **kwargs)
     class Meta:
-        ordering = ("-created_at",)
+        ordering = ("-modified_at",)
 
 class ConversationMessage(models.Model):
     id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
@@ -26,3 +30,8 @@ class ConversationMessage(models.Model):
 
     def created_at_formatted(self):
         return timesince(self.created_at)
+
+    def save(self, *args, **kwargs):
+        super(ConversationMessage, self).save(*args, **kwargs)
+        self.conversation.modified_at = timezone.now()  # Update modified_at field in related Conversation
+        self.conversation.save()

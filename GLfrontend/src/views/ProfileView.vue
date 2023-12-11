@@ -33,8 +33,8 @@
                 
                 </div>
                 <!-- about me -->
-                <p class="px-1 text-justify">{{ user.bio }}</p>
-                
+                <p v-if="user.bio" class="px-1 text-justify">{{ user.bio }}</p>
+
                 <!-- send friend request button -->
                 <div class = "mt-6">
                     <button 

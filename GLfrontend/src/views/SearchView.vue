@@ -24,7 +24,7 @@
                     @<RouterLink class="font-medium text-lg" :to="{name: 'profile', params:{'id': user.id}}">{{ user.name }}</RouterLink>                      
                  
                     <div class="mt-2 mb-2 flex space-x-8 justify-around">
-                        <p class="text-sm text-gray-400">{{ user.friends_count }} friends</p>
+                        <p class="text-sm text-gray-400">{{ user.charisma_score }} charisma</p>
                         <p class="text-sm text-gray-400">{{ user.posts_count }} posts</p>
                     </div>
                 </div>
@@ -39,8 +39,34 @@
             </div>
         </div>
 
-        <div class="main-right col-span-1 space-y-4">
-         
+ 
+        <div class="mt-4 bg-purple_main border-gray-400 border-2 rounded-full h-fit">
+            <h3 class="rounded-full font-semibold text-xl tracking-wide pl-6 py-4">People you may know</h3>
+
+            
+                <div v-for="user in users" :key="user.id" class="flex items-center justify-between border-gray-200 hover:bg-[#120719] hover:rounded-full">
+                    
+                    <div class="justify-self-start items-center flex my-3 px-6">
+                        <img :src="user.get_avatar" alt="avatar" class="h-12 rounded-img" width="50" height="50">
+                        <div class="flex flex-col">
+                            <RouterLink :to="{ name: 'profile', params: { 'id': user.id } }" >
+                            <span class="font-medium">{{ user.name }}</span>
+                            </RouterLink>
+                            <span class=" text-sm text-gray-400">{{ user.charisma_score }} charisma</span>
+                        </div>
+ 
+                    </div>
+
+                    <!-- <div>
+                        <RouterLink :to="{ name: 'profile', params: { 'id': user.id } }" class="py-3 px-6 hover:bg-[#120719] bg-[#28183e] text-sm rounded-img">
+                            view
+                        </RouterLink>
+                    </div> -->
+                </div>
+       
+
+
+
          
         </div>
     </div>
@@ -48,14 +74,14 @@
 
 <script>
 import axios from 'axios'
-import PeopleYouMayKnow from '../components/PeopleYouMayKnow.vue' 
+// import PeopleYouMayKnow from '../components/PeopleYouMayKnow.vue' 
 import FeedItem from '../components/FeedItem.vue'
 
 
 export default {
     name: 'SearchView',
     components: {
-        PeopleYouMayKnow,
+
         FeedItem,
     },
 
@@ -67,9 +93,24 @@ export default {
             posts: []
         }
     },
+    mounted() {
+        this.getFriendSuggestions();
 
+    },
     methods: 
     {
+        getFriendSuggestions() {
+            axios
+                .get('/api/friends/suggested/')
+                .then(response => {
+                    console.log(response.data);
+                    this.users = response.data;
+                })
+                .catch(error => {
+                    console.log('error', error);
+                });
+        },
+
         submitForm() 
         {
             console.log('submitForm', this.query)

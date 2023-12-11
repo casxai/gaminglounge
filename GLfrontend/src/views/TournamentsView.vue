@@ -1,6 +1,6 @@
 <template>
 
-    <div class="max-w-screen-2xl px-12 pt-4 mx-auto grid grid-cols-4 gap-4">
+    <div class="max-w-screen-2xl pt-4 mx-auto grid grid-cols-4 gap-6">
 
         <!-- left side  -->
         <div class="main-left space-y-6 sticky h-screen ">
@@ -9,7 +9,7 @@
 
         <!-- center -->
 
-        <div data-te-infinite-scroll-init class="ppx-4 main-center col-span-2 space-y-6">
+        <div data-te-infinite-scroll-init class=" main-center col-span-2 space-y-6">
 
             <div class="p-5 bg-purple_main rounded-full border-2 border-gray-400" v-for="post in posts" v-bind:key="post.id">
 

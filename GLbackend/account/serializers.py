@@ -7,8 +7,8 @@ class UserSerializer(serializers.ModelSerializer):
     bio = serializers.SerializerMethodField()
 
     def get_bio(self, obj):
-        return obj.bio if obj.bio else ""  # Return an empty string if bio is None
-    
+        return obj.bio if obj.bio else ""
+
     class Meta:
         model = User
         fields = (

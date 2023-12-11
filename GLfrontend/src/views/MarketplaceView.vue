@@ -1,6 +1,6 @@
 <template>
   
-    <div data-te-infinite-scroll-init class="max-w-screen-2xl pt-4 mx-auto grid grid-cols-4 gap-4">
+    <div data-te-infinite-scroll-init class="max-w-screen-2xl pt-4 mx-auto grid grid-cols-4 gap-6">
         <!-- left side -->
         <div class="main-left space-y-6 sticky h-screen "> 
             <LeftPanel /> 
@@ -9,7 +9,7 @@
        
 
         <!-- center side -->
-        <div class="px-4 main-center col-span-2 space-y-6">
+        <div class="main-center col-span-2 space-y-6">
          
             <div class="p-5 bg-purple_main rounded-full border-2 border-gray-400" v-for="post in posts" v-bind:key="post.id"> 
                 <FeedItem :post="post" @postDeleted="handlePostDeleted" />

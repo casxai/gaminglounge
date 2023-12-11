@@ -1,13 +1,13 @@
 <template>
 
-    <div data-te-infinite-scroll-init class="max-w-screen-2xl mx-auto grid grid-cols-4 gap-4 px-12 pt-4">
+    <div data-te-infinite-scroll-init class="max-w-screen-2xl mx-auto grid grid-cols-4 gap-6 pt-4">
         <div class="main-left space-y-6 sticky h-screen "> 
             <LeftPanel />    
         </div>
        
         <!-- center -->
         <!-- col-span-2: takes 2 of the 4 columnsspace-y-4: 6 spaces each post -->
-        <div class="px-4 main-center col-span-2 space-y-6 "> <!--whole feed-->
+        <div class="main-center col-span-2 space-y-6 "> <!--whole feed-->
             <!-- bg-gradient-to-r from-violet-900  -->
             <!-- post area -->
                 <div class="p-5 bg-purple_main rounded-full border-2 border-gray-400"  v-for="post in posts" v-bind:key="post.id">

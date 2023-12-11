@@ -378,12 +378,21 @@ def post_list_profile(request, id):
     post_serializer = PostSerializer(posts, many=True)
     user_serializer = UserSerializer(user)
 
+    excluded_ids = [
+        "3e9fe50b-5c31-439f-9fb6-8208a5c3dba9",
+        "1cfff9f3-1d81-4cb0-9028-c3376871a4bb",
+        "675a5aad-3287-452b-ba57-b5aec4f60cc8",
+    ] 
+
     can_send_friendship_request = True
     can_send_message = True 
     
-
     if request.user in user.friends.all():
         can_send_friendship_request = False
+
+    if str(user.id) in excluded_ids:
+        can_send_friendship_request = False
+        can_send_message = False
 
     check1 = FriendshipRequest.objects.filter(created_for=request.user).filter(
         created_by=user
@@ -392,19 +401,11 @@ def post_list_profile(request, id):
         created_by=request.user
     )
 
-    exclude_ids = [
-        "3e9fe50b-5c31-439f-9fb6-8208a5c3dba9",
-        "1cfff9f3-1d81-4cb0-9028-c3376871a4bb",
-        "675a5aad-3287-452b-ba57-b5aec4f60cc8",
-    ]  # Replace these IDs with actual IDs
-
-    check3 = User.objects.filter(id__in=exclude_ids) 
-
-    if check1 or check2 or check3:
+    if check1 or check2:
         can_send_friendship_request = False
 
-    if check3:
-        can_send_message = False
+    # if check3:
+    #     can_send_message = False
 
 
     is_close_to_ban = user.calculate_charisma_score() <= -35 
