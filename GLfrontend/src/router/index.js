@@ -8,12 +8,18 @@ import SearchView from '../views/SearchView.vue'
 import FriendsView from '../views/FriendsView.vue'
 import PostView from '../views/PostView.vue'
 import ChatView from '../views/ChatView.vue'
+import connectView from '../views/connectView.vue'
+import TournamentsView from '../views/TournamentsView.vue'
+import MarketplaceView from '../views/MarketplaceView.vue'
+import BetatestingView from '../views/BetatestingView.vue'
+
 import EditProfileView from '../views/EditProfileView.vue'
 import EditPasswordView from '../views/EditPasswordView.vue'
 import NotificationsView from '../views/NotificationsView.vue'
 import GamePopupView from '../views/GamePopupView.vue'
-
-
+import VerificationView from '../views/VerificationView.vue'
+import PopularGamesView from '../views/PopularGamesView.vue'
+import PopupView from '../views/PopupView.vue'
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -80,52 +86,52 @@ const router = createRouter({
     {
       path: '/connect',
       name: 'connect',
-      component: () => import('../views/connectView.vue')
+      component: connectView
     },
     {
       path: '/tournaments',
       name: 'tournaments',
-      component: () => import('../views/TournamentsView.vue')
+      component: TournamentsView
     },
     {
       path: '/marketplace',
       name: 'marketplace',
-      component: () => import('../views/MarketplaceView.vue')
+      component: MarketplaceView
     },
     {
       path: '/betatesting',
       name: 'betatesting',
-      component: () => import('../views/BetatestingView.vue')
+      component: BetatestingView
     },
     {
       path: '/search',
       name: 'search',
-      component: () => import('../views/SearchView.vue')
+      component: SearchView
     },
     {
       path: '/chat',
       name: 'chat',
-      component: () => import('../views/ChatView.vue')
+      component: ChatView
     },
     {
       path: '/verify',
       name: 'verify',
-      component: () => import('../views/VerificationView.vue')
+      component: VerificationView
     },
     {
       path: '/gametitle',
       name: 'gametitle',
-      component: () => import('../views/GamePopupView.vue')
+      component: GamePopupView
     },
     {
       path: '/popup',
       name: 'popup',
-      component: () => import('../views/PopupView.vue')
+      component: PopupView
     },
     {
       path: '/populargames/:id',
       name: 'PopularGamesView',
-      component: () => import('../views/PopularGamesView.vue')
+      component: PopularGamesView
     },
 
     
