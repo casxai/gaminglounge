@@ -7,10 +7,9 @@
 /* This injects Tailwind's utility classes and any utility classes registered by plugins. */
 @tailwind utilities;
 
+
 @layer base {
-    html {
+    body {
       font-family: Poppins, system-ui, sans-serif;
     }
-    
-    
   }

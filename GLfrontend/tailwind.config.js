@@ -14,7 +14,7 @@ module.exports = {
     extend: {
       backgroundImage: {
         'hero-pattern': "url('/src/assets/img/bg/hero.svg')",
-        'header-texture': "url('/src/assets/img/navbar/header.png')",
+  
       },
       colors: {
         'purple1': '#A35DD2', // for border

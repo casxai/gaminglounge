@@ -81,17 +81,7 @@ export default {
                 this.user.posts_count -= 1;
             }
         },
-        // getFeed() {
-        //     axios
-        //         .get('/api/posts/connect_posts/')
-        //         .then(response => {
-        //             console.log('data', response.data)
-        //             this.posts = response.data
-        //         })
-        //         .catch(error => {
-        //             console.log('error', error)
-        //         })
-        // },
+
         getFeed() {
             axios
                 .get(`/api/posts/connect_posts/?page=${this.currentPage}`)

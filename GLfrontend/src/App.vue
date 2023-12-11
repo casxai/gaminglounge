@@ -1,7 +1,9 @@
 
 
 	<template>
-		<nav style="background-img: url('http://api.gaminglounge.online/static/admin/img/header.png'); background-size:cover;" class="py-6 sticky max-w-screen z-20 top-0 left-0 bg-cover bg-[url('../assets/img/navbar/header.png')]" v-if="userStore.user.isAuthenticated && userStore.user.id"> 
+		<nav style="
+		background-image: url('http://api.gaminglounge.online/static/admin/img/header.png'); 
+		background-size:cover;" class="py-6 sticky max-w-screen z-20 top-0 left-0" v-if="userStore.user.isAuthenticated && userStore.user.id"> 
 			<div class=" mx-auto flex items-center flex-wrap justify-between px-12">
 				<!-- left menu logo start -->		
 					<a href="http://gaminglounge.online/" class="flex items-center space-x-3 rtl:space-x-reverse">
