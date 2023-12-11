@@ -1,6 +1,6 @@
 <template>
 
-    <div data-te-infinite-scroll-init class="max-w-screen mx-auto grid grid-cols-4 gap-4 px-12 pt-4">
+    <div data-te-infinite-scroll-init class="max-w-screen-2xl mx-auto grid grid-cols-4 gap-4 pt-4">
         <div class="main-left space-y-6 sticky h-screen "> 
             <LeftPanel />    
         </div>

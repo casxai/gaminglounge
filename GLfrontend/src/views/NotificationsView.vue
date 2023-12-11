@@ -1,9 +1,9 @@
 <template>
-<div class="max-w-screen mx-auto grid grid-cols-4 gap-4 pt-4">
+<div class="max-w-screen-2xl mx-auto grid grid-cols-4 gap-4 pt-4">
 
         <!-- left side 
         col-span-1: takes 1 of the 4 columns -->
-        <div class="main-left col-span-1 space-y-6"> 
+        <div class="main-left col-span-1"> 
         </div>
     <!-- center -->
         <!-- col-span-2: takes 2 of the 4 columns
@@ -31,6 +31,8 @@
         </div> 
     
     </div>
+    <div class="main-left col-span-1"> 
+        </div>
 
 </div> 
 
@@ -41,6 +43,7 @@ import axios from 'axios'
 
 export default{
     name: 'notifications', 
+    
     components: {
  
 

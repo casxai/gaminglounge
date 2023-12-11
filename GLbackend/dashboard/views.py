@@ -30,13 +30,14 @@ def dashboard(request):
     total_posts_count = Post.objects.count()
 
     today = timezone.now().date()
-    users_today_count = User.objects.filter(date_joined__date=today).count()
+    # Count the number of posts published today
+    published_posts_today_count = Post.objects.filter(is_offensive=False, created_at__date=today).count()
 
-    # Count the number of posts created today
-    posts_today_count = Post.objects.filter(created_at__date=today).count()
+    # Count the number of posts with foul words today
+    foul_posts_today_count = Post.objects.filter(is_offensive=True, created_at__date=today).count()
 
-    recent_posts = Post.objects.filter(created_at__date=today)[:3]
-    recent_users = User.objects.filter(date_joined__date=today)[:3]
+    recent_published_posts = Post.objects.filter(is_offensive=False, created_at__date=today)[:3]
+    recent_foul_posts = Post.objects.filter(is_offensive=True, created_at__date=today)[:3]
 
     # Count the number of games available in the community
     total_games_count = GameTitle.objects.count()
@@ -48,24 +49,24 @@ def dashboard(request):
 
     # GRAPH - LINE CHART
     # Create a dictionary to store counts for each day in November
-    data_for_chart = defaultdict(int)
+    data_for_chart = defaultdict(lambda: {"published": 0, "foul": 0})
 
-    # Set the start date as November 1st
+    # Set the start date as December 1st
     current_year = datetime.now().year
-    start_date = datetime(current_year, 11, 1).date()
+    start_date = datetime(current_year, 12, 1).date()
 
     # Loop through each day in November
-    while start_date <= today and start_date.month == 11:
-        # Count new users joined on this day
-        users_count = User.objects.filter(date_joined__date=start_date).count()
+    while start_date <= today and start_date.month == 12:
+        # Count number of published posts
+        allowed_posts_count = Post.objects.filter(is_offensive=False, created_at__date=start_date).count()
 
-        # Count posts created on this day
-        posts_count = Post.objects.filter(created_at__date=start_date).count()
+        # Count number of posts with detected foul words
+        foul_posts_count = Post.objects.filter(is_offensive=True, created_at__date=start_date).count()
 
         # Store the counts for this day in the dictionary
         data_for_chart[start_date.strftime("%Y-%m-%d")] = {
-            "users": users_count,
-            "posts": posts_count,
+            "published": allowed_posts_count,
+            "foul": foul_posts_count,
         }
 
         # Move to the next day
@@ -75,6 +76,31 @@ def dashboard(request):
     sorted_data_for_chart = dict(sorted(data_for_chart.items()))
     json_data_for_chart = json.dumps(sorted_data_for_chart)
 
+
+# --------
+    # # Set the start date for each month
+    # month = request.GET.get('month', '12')
+    # current_year = datetime.now().year
+    # start_date = datetime(current_year, int(month), 1).date()
+    # end_date = start_date.replace(day=1, month=int(month) % 12 + 1) if int(month) != 12 else start_date.replace(year=current_year + 1, month=1)
+
+    # while start_date < end_date:
+    #     allowed_posts_count = Post.objects.filter(is_offensive=False, created_at__date=start_date).count()
+    #     foul_posts_count = Post.objects.filter(is_offensive=True, created_at__date=start_date).count()
+
+    #     data_for_chart[start_date.strftime("%Y-%m-%d")] = {
+    #         "published": allowed_posts_count,
+    #         "foul": foul_posts_count,
+    #     }
+
+    #     # Move to the next day
+    #     start_date += timedelta(days=1)
+
+    # # Sort the dictionary by keys (dates)
+    # sorted_data_for_chart = dict(sorted(data_for_chart.items()))
+    # json_data_for_chart = json.dumps(sorted_data_for_chart)
+
+# ---------
     # POPULAR GAMES - PIE CHART
     top_games = (
         Post.objects.values("game_title__title")
@@ -90,13 +116,13 @@ def dashboard(request):
     post_counts_json = json.dumps(post_counts)
 
     # ENGAGEMENT - LINE CHART
-    # Create a dictionary to store the counts for each day in November
+    # Create a dictionary to store the counts for each day in December
     data_for_engagement = defaultdict(int)
-    engagement_start_date = datetime(current_year, 11, 1).date()
+    engagement_start_date = datetime(current_year, 12, 1).date()
     # Set the start date as November 1st
 
     # Loop through each day in November
-    while engagement_start_date <= today and engagement_start_date.month == 11:
+    while engagement_start_date <= today and engagement_start_date.month == 12:
         # Filter posts created on this day
         posts_on_day = Post.objects.filter(created_at__date=engagement_start_date)
         # Calculate total likes and comments for posts created on this day
@@ -126,10 +152,10 @@ def dashboard(request):
         "total_posts_count": total_posts_count,
         "total_games_count": total_games_count,
         "total_likes_count": total_likes_count,
-        "posts_today_count": posts_today_count,
-        "users_today_count": users_today_count,
-        "recent_posts": recent_posts,
-        "recent_users": recent_users,
+        "allowed_posts_today_count": published_posts_today_count,
+        "foul_posts_today_count": foul_posts_today_count,
+        "recent_published_posts": recent_published_posts,
+        "recent_foul_posts": recent_foul_posts,
         "data_for_chart_json": json_data_for_chart,
         "top_game_titles_json": top_game_titles_json,
         "post_counts_json": post_counts_json,
@@ -137,7 +163,6 @@ def dashboard(request):
     }
 
     return render(request, "admin/index.html", context)
-
 
 # EDIT ADMIN
 @login_required

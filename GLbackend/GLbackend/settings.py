@@ -16,11 +16,11 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = "django-insecure-jh+b7d0#gd$i_sd(6$5z8tvq19gonwi4t4uky10=&y0t4yr$w6"
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = False
+DEBUG = True
 
 ALLOWED_HOSTS = []
 
-WEBSITE_URL = "http://127.0.0.1:8000",
+WEBSITE_URL = "http://127.0.0.1:8000"
 
 LOGIN_URL = "admin_login"
 LOGOUT_REDIRECT_URL = "admin_login"
@@ -123,8 +123,6 @@ DATABASES = {
     "default": {
         "ENGINE": "django.db.backends.sqlite3",
         "NAME":  BASE_DIR / "db.sqlite3",
-        "HOST": "localhost",
-        "PORT": "",
     }
 }
 
@@ -178,7 +176,10 @@ STATIC_URL = "static/"
 MEDIA_URL = "media/"
 
 # STATICFILES_DIRS = ['/webapps/gaminglounge/GLbackend/static/']
-STATIC_ROOT = os.path.join(BASE_DIR, 'static')
+# STATIC_ROOT = os.path.join(BASE_DIR, 'static')
+# MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
+
+STATICFILES_DIRS =[os.path.join(BASE_DIR, 'static')]
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 
 # Default primary key field type

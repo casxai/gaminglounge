@@ -69,15 +69,15 @@ class User(
     REQUIRED_FIELDS = []
 
     def is_close_to_ban(self):
-        ban_threshold = -5
-        close_threshold = -3
+        ban_threshold = -40
+        close_threshold = -35
 
         if self.charisma_score <= close_threshold and self.charisma_score > ban_threshold:
             return True
         return False
 
     def ban_user(self):
-            if self.charisma_score <= -5:
+            if self.charisma_score <= -40:
                 self.is_active = False
             else:
                 self.is_active = True
@@ -102,7 +102,7 @@ class User(
             (total_likes_received * 5)
             + (total_comments_received * 3)
             + (total_friends * 2)
-            # + (total_posts * 1)
+            + (total_posts * 1)
             - (offensive_posts_count * 1)
         )
 
@@ -115,7 +115,7 @@ class User(
         if self.avatar:
             return settings.WEBSITE_URL + self.avatar.url
         else:
-            default_avatar_path = "/media/avatars/default.jpg"
+            default_avatar_path = "/media/avatars/default.jpg"  
         return settings.WEBSITE_URL + default_avatar_path
 
 

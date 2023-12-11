@@ -379,6 +379,8 @@ def post_list_profile(request, id):
     user_serializer = UserSerializer(user)
 
     can_send_friendship_request = True
+    can_send_message = True 
+    
 
     if request.user in user.friends.all():
         can_send_friendship_request = False
@@ -390,17 +392,30 @@ def post_list_profile(request, id):
         created_by=request.user
     )
 
-    if check1 or check2:
+    exclude_ids = [
+        "3e9fe50b-5c31-439f-9fb6-8208a5c3dba9",
+        "1cfff9f3-1d81-4cb0-9028-c3376871a4bb",
+        "675a5aad-3287-452b-ba57-b5aec4f60cc8",
+    ]  # Replace these IDs with actual IDs
+
+    check3 = User.objects.filter(id__in=exclude_ids) 
+
+    if check1 or check2 or check3:
         can_send_friendship_request = False
 
-    is_close_to_ban = user.calculate_charisma_score() <= -3 
+    if check3:
+        can_send_message = False
+
+
+    is_close_to_ban = user.calculate_charisma_score() <= -35 
 
     return JsonResponse(
         {
             "posts": post_serializer.data,
             "user": user_serializer.data,
             "can_send_friendship_request": can_send_friendship_request,
-             "is_close_to_ban": is_close_to_ban,  # Include is_close_to_ban in the response
+            "can_send_message": can_send_message,
+            "is_close_to_ban": is_close_to_ban,  # Include is_close_to_ban in the response
         },
         safe=False,
     )

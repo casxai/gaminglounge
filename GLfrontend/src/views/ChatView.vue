@@ -1,6 +1,6 @@
 <template>
     <!-- scroll: h-full overflow-y-scroll -->
-    <div class="max-w-screen mx-auto grid grid-cols-4 gap-4 px-12 pt-4">
+    <div class="max-w-screen-2xl mx-auto grid grid-cols-4 gap-4 pt-4">
         <!-- inbox -->
         <div class="main-left col-span-1 flex flex-col bg-purple_main rounded-full p-6 overflow-auto h-full">
             
@@ -38,7 +38,7 @@
 
         </div>
         <!-- messages -->
-        <div class="main-center col-span-3 space-y-4">
+        <div class="main-center col-span-2 space-y-4">
             <div class="bg-purple_main rounded-full">
                 <div class="flex flex-col flex-grow p-6">
                     
@@ -99,6 +99,7 @@
             
             
         </div>
+       
     </div>
 
 </template>

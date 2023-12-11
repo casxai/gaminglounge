@@ -7,7 +7,7 @@ from .serializers import NotificationSerializer
 
 @api_view(['GET'])
 def notifications(request):
-    received_notifications = request.user.received_notifications.filter(is_read=False)
+    received_notifications = request.user.received_notifications.filter(is_read=False).exclude(created_by=request.user)
     serializer = NotificationSerializer(received_notifications, many=True)
     
     return JsonResponse(serializer.data, safe=False)

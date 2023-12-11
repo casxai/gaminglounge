@@ -31,4 +31,5 @@ class Notification(models.Model):
     created_for = models.ForeignKey(User, related_name='received_notifications', on_delete=models.CASCADE)
     created_at = models.DateTimeField(auto_now_add=True)
 
-
+    class Meta:
+        ordering = ("-created_at",)

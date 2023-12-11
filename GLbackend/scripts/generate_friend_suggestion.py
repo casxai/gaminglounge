@@ -8,7 +8,7 @@ from django.utils import timezone
 
 
 sys.path.append(os.path.join(os.path.abspath(os.path.dirname(__file__)), '..'))
-os.environ.setdefault("DJANGO_SETTINGS_MODULE", "GLbackend.settings")
+os.environ.setdefault("DJANGO_SETTINGS_MODULE", "GLbackend.settingsprod")
 django.setup()
 
 

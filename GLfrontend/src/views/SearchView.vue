@@ -1,5 +1,5 @@
 <template>
-    <div class="max-w-7xl mx-auto grid grid-cols-4 gap-4">
+    <div class="max-w-screen-2xl mx-auto grid grid-cols-4 gap-4">
         <!--Search bar-->
         <div class="main-left col-span-3">
             
@@ -10,8 +10,6 @@
 						</svg>
                     </button>
                 </form>
-          
-
             <div 
                 class="p-4 grid grid-cols-4 gap-4"
                 v-if="users.length"
@@ -42,7 +40,7 @@
         </div>
 
         <div class="main-right col-span-1 space-y-4">
-           <PeopleYouMayKnow />
+         
          
         </div>
     </div>

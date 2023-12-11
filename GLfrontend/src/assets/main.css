@@ -9,7 +9,8 @@
 
 
 @layer base {
-    body {
+    html {
       font-family: Poppins, system-ui, sans-serif;
     }
+
   }

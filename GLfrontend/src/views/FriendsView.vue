@@ -1,5 +1,5 @@
 <template>
-    <div class="max-w-7xl mx-auto grid grid-cols-4 gap-4">
+    <div class="max-w-screen-2xl mx-auto grid grid-cols-4 gap-4">
 
         <!-- left side 
              col-span-1: takes 1 of the 4 columns -->

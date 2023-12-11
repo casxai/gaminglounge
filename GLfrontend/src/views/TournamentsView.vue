@@ -1,5 +1,6 @@
 <template>
-    <div class="max-w-screen px-12 pt-4 mx-auto grid grid-cols-4 gap-4">
+
+    <div class="max-w-screen-2xl px-12 pt-4 mx-auto grid grid-cols-4 gap-4">
 
         <!-- left side  -->
         <div class="main-left space-y-6 sticky h-screen ">

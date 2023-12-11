@@ -1,72 +1,83 @@
 <template>
   
+    <div class="p-6 bg-purple_main border-gray-400 border-2 rounded-full">
+            <h3 class="mb-2 font-semibold text-xl tracking-wide text-center">Leaderboards</h3>
 
+            <div class="text-left">
+                <div v-for="user in leaderboard" :key="user.id"
+                    class="flex items-center justify-between border-gray-200 font-medium">
+
+                    <div class="justify-self-start flex my-3">
+                        <img :src="user.avatar" alt="avatar" class="h-12 rounded-img" width="50" height="50">
+                        <div class="flex flex-col">
+                            <RouterLink :to="{ name: 'profile', params: { 'id': user.id } }"><span class="font-semibold">{{
+                                user.name }}</span>
+                            </RouterLink>
+                            <span class="">{{ user.charisma_score }}</span>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+
+        </div>
     <!-- game links -->
     <div class="p-6 bg-purple_main border-gray-400 h-fit border-2 rounded-full ">
+        
+        <h3 class="mb-2 font-semibold text-xl tracking-wide text-center">Useful Links</h3>
+            <div class="space-y-4">
+                <div class="game news ">  
+                    <p class="font-semibold">Gaming News:</p>
+                   <ul class=" flex flex-wrap justify-between ml-6 mt-1">
+                            <li class="hover:underline ">
+                                <a href="https://www.gamespot.com/" target="_blank" rel="noopener noreferrer">  
+                                    <span>GameSpot</span>
+                                </a>
+                            </li>
 
-        <h3 class="mb-4 font-semibold text-xl tracking-wide text-center">Useful Links</h3>
-        <div class="space-y-4">
-             
-                <div class="game news">  
-                   
-                    <ul class="menu space-y-2">
-                        <p class="font-semibold">Gaming News:</p>
-                        <li class="hover:underline ">
-                          <a href="https://www.gamespot.com/" target="_blank" rel="noopener noreferrer" class="flex items-center">
-                               
-                                <span>GameSpot</span>
-                        </a>
-                        </li>
+                       
 
-                        <li class="hover:underline">
-                            <a href="https://www.ign.com/news" target="_blank" rel="noopener noreferrer" class="flex items-center">
-                               <span>IGN</span></a>
-                              </li>
+                            <li class="hover:underline">
+                                <a href="https://www.polygon.com/" target="_blank" rel="noopener noreferrer"><span>Polygon</span></a>
+                            </li>
 
-                              <li class="hover:underline">
-                                  <a href="https://www.polygon.com/" target="_blank" rel="noopener noreferrer" class="flex items-center"><span>Polygon</span></a>
-                              </li>
-
-                              <li class="hover:underline">
-                                  <a href="https://www.thegamer.com/" target="_blank" rel="noopener noreferrer" class="flex items-center"><span>TheGamer</span></a>
-                              </li>
+                            <li class="hover:underline">
+                                <a href="https://www.thegamer.com/" target="_blank" rel="noopener noreferrer" ><span>TheGamer</span></a>
+                            </li>
                        
                   </ul>
                 </div>
                 <div class="game gears">  
-                    <ul class="menu space-y-2">
-                        <p class="font-semibold">Gaming Gears:</p>
+                    <p class="font-semibold">Gaming Gears:</p>
+                    <ul class="ml-6 mt-1 flex flex-wrap justify-between">
+                        
                         <li class="hover:underline">
-                          <a href="https://www.razer.com/ap-en" target="_blank" rel="noopener noreferrer" class="flex items-center">
+                          <a href="https://www.razer.com/ap-en" target="_blank" rel="noopener noreferrer">
                                
                                 <span>Razer</span>
                         </a>
                         </li>
 
                         <li class="hover:underline">
-                            <a href="https://www.logitechg.com/" target="_blank" rel="noopener noreferrer" class="flex items-center">
+                            <a href="https://www.logitechg.com/" target="_blank" rel="noopener noreferrer">
                                <span>Logitech</span></a>
                               </li>
 
+                        
                               <li class="hover:underline">
-                                  <a href="https://www.sony.com.ph/gaming-gear" target="_blank" rel="noopener noreferrer" class="flex items-center"><span>Sony</span></a>
+                                  <a href="https://hyperx.com/" target="_blank" rel="noopener noreferrer"><span>HyperX</span></a>
                               </li>
                               <li class="hover:underline">
-                                  <a href="https://hyperx.com/" target="_blank" rel="noopener noreferrer" class="flex items-center"><span>HyperX</span></a>
+                                  <a href="https://www.corsair.com/us/en" target="_blank" rel="noopener noreferrer"><span>Corsair</span></a>
                               </li>
-                              <li class="hover:underline">
-                                  <a href="https://www.corsair.com/us/en" target="_blank" rel="noopener noreferrer" class="flex items-center"><span>Corsair</span></a>
-                              </li>
-                          </ul>
+                    </ul>
                 </div>
                
-
-
                 <div class="download games">  
-                      
-                          <ul class="menu">
-                            <p class="font-semibold">Download Games:</p>
-                            <div class="space-y-2">
+                    <p class="font-semibold">Download Games:</p>
+                   
+                          <ul class="menu flex flex-wrap justify-between ml-6 mt-2 gap-3">
+                            
                                 <li class="hover:underline">
                                   <a href="https://www.riotgames.com/en" target="_blank" rel="noopener noreferrer" class="flex items-center">
                                       <img src="/assets/img/logo/riot_logo.png" class="h-auto max-w-full" alt="logo" />
@@ -89,34 +100,16 @@
                                   <a href="https://us.shop.battle.net/en-us" target="_blank" rel="noopener noreferrer" class="flex items-center"><img
                                           src="/assets/img/logo/battle_logo.png" class="h-auto max-w-full" alt="logo" /><span>Battle.net</span></a>
                               </li>
-                            </div>
+                         
 
                      
                           </ul>
+                        </div>
                 </div>
                 
         </div>
-    </div>
-    <!-- rules -->        
-    <!-- <div class="p-6 bg-purple_main border-gray-400  border-2 rounded-full h-30">
-            <h3 class="mb-4 font-semibold text-xl tracking-wide text-center">get your game on at gaming lounge!</h3>
-            
-                <div class="flex items-center justify-between overflow-y-auto"> 
-                                             
-                        <p class="text-justify lowercase overflow-y-auto">Welcome to your ultimate gamer destination, designed for gamers by gamers! Our platforms allow you to connect through forums, tournaments, marketplace and more - all centered around gaming.<br><br>
+  
 
-                            We encourage open and passionate discussion while fostering a positive community. Our Offensive Language Sheriff system automatically detects and discourages negative behavior. Users gain points for engagement like making connections, commenting, and participating, keeping conversations uplifting.<br><br>
-
-                            At Gaming Lounge you can share wisdom, find squads, and talk games to your heart's content in an inclusive space. Just bring your A-game attitude and get involved in our community - the positivity you spread will continue to shape this space for all gamers.<br><br>
-
-                            So get your game on with us and experience gaming's finest digital playground! Join passionate, like-minded gamers where you direct the vibe. We can't wait for you to plug into our supportive community and make it even better.
-                        </p>
-              
-
-            </div>
-
-    </div> -->
-       
 
 </template>
 <style>
@@ -138,5 +131,31 @@ li{
 }
 </style>
 <script>
+import axios from 'axios'
+import { RouterLink } from 'vue-router'
 
+export default {
+    data() {
+        return {
+            users: [],
+            leaderboard: [],
+        };
+    },
+    mounted() {
+
+        this.fetchLeaderboard();
+    },
+    methods: {
+        fetchLeaderboard() {
+            axios.get('/api/leaderboard') // Replace with your actual API endpoint
+                .then(response => {
+                    this.leaderboard = response.data;
+                })
+                .catch(error => {
+                    console.error('Error fetching leaderboard:', error);
+                });
+        },
+    },
+    components: { RouterLink }
+}
 </script>

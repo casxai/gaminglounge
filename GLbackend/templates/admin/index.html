@@ -72,8 +72,8 @@
                     <h3 class="section-head">Recent</h3>
                     <div class="rev-content">
                             <div class="rev-info">
-                                <h1> POSTS</h1>
-                                <small>{{ posts_today_count }} today</small>
+                                <h1> ALLOWED POSTS</h1>
+                                <small>{{ allowed_posts_today_count }} today</small>
                             </div>
                             <div class="rev-sum">
                               <table style="border-collapse: collapse; width: 100%;">
@@ -84,7 +84,7 @@
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    {% for post in recent_posts %}
+                                    {% for post in recent_published_posts %}
                                     <tr>
                                         <td style="border: 1px solid #dddddd; text-align: left; font-size: 11px; padding: 3px;">
                                             {% if post.body|wordcount > 8 %}
@@ -102,25 +102,31 @@
                     </div>
                     <div class="rev-content">
                         <div class="rev-info">
-                            <h4 style="font-size: 14px">USERS</h4>
-                            <h4 style="font-size: 14px">{{ users_today_count }} <small>today</small></h1>
+                            <h1>REJECTED POSTS (FOUL)</h1>
+                            <h4 style="font-size: 14px">{{ foul_posts_today_count }} <small>today</small></h1>
                         </div>
                       <div class="rev-sum">
                         <table style="border-collapse: collapse; width: 100%;">
                           <thead>
                               <tr>
-                                  <th style="border: 1px solid #dddddd; text-align: left; font-size: 11px; padding: 8px;">Name</th>
-                                  <th style="border: 1px solid #dddddd; text-align: left; font-size: 11px; padding: 8px;">Preferred Game Category</th>
+                                  <th style="border: 1px solid #dddddd; text-align: left; font-size: 11px; padding: 8px;">Description</th>
+                                  <th style="border: 1px solid #dddddd; text-align: left; font-size: 11px; padding: 8px;">Game</th>
                               </tr>
                           </thead>
                           <tbody>
-                              {% for user in recent_users %}
-                              <tr>
-                                  <td style="border: 1px solid #dddddd; text-align: left; font-size: 11px; padding: 8px;">{{ user.name }}</td>
-                                  <td style="border: 1px solid #dddddd; text-align: left; font-size: 11px; padding: 8px;">{{ user.pref_game_category}}</td>
-                              </tr>
-                              {% endfor %}
-                          </tbody>
+                            {% for post in recent_foul_posts %}
+                            <tr>
+                                <td style="border: 1px solid #dddddd; text-align: left; font-size: 11px; padding: 3px;">
+                                    {% if post.body|wordcount > 8 %}
+                                        {{ post.body|truncatewords:8 }}.
+                                    {% else %}
+                                        {{ post.body }}
+                                    {% endif %}
+                                </td>
+                                <td style="border: 1px solid #dddddd; text-align: left; font-size: 11px; padding: 3px;">{{ post.game_title.title }}</td>
+                            </tr>
+                            {% endfor %}
+                        </tbody>
                       </table>
                   </div>
                       </div>
@@ -141,7 +147,8 @@
                               </div>
                           </div>
                           <div class="graph-select">
-                              <select name="" id="">
+                              <select id="monthSelector">
+                                  <option value="monthly">Monthly (December)</option>
                                   <option value="monthly">Monthly (November)</option>
                               </select>
                           </div>
@@ -208,14 +215,14 @@
     if (dataForChart) {
       const dates = Object.keys(dataForChart);
 
-      const postsData = dates.map(date => ({
+      const publishedPostsData = dates.map(date => ({
         x: new Date(date).getTime(),
-        y: dataForChart[date].posts
+        y: dataForChart[date].published
       }));
 
-      const usersData = dates.map(date => ({
+      const foulPostsData = dates.map(date => ({
         x: new Date(date).getTime(),
-        y: dataForChart[date].users
+        y: dataForChart[date].foul
       }));
 
       new Chart(ctx, {
@@ -224,15 +231,15 @@
           labels: dates,
           datasets: [
             {
-              label: 'Number of Posts', 
-              data: postsData,
+              label: 'Published Posts', 
+              data: publishedPostsData,
               borderColor: 'rgba(255, 99, 132, 1)', 
               borderWidth: 2,
               fill: false, 
             },
             {
-              label: 'Number of Users', 
-              data: usersData,
+              label: 'Rejected Posts (Foul Words)', 
+              data: foulPostsData,
               borderColor: 'rgba(54, 162, 235, 1)', 
               borderWidth: 2,
               fill: false, 

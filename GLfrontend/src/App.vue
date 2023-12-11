@@ -1,10 +1,8 @@
-
-
-	<template>
+<template>
 		<nav style="
 		background-image: url('http://api.gaminglounge.online/static/admin/img/header.png'); 
-		background-size:cover;" class="py-6 sticky max-w-screen z-20 top-0 left-0" v-if="userStore.user.isAuthenticated && userStore.user.id"> 
-			<div class=" mx-auto flex items-center flex-wrap justify-between px-12">
+		background-size:cover;" class="py-6 sticky z-20 top-0 left-0" v-if="userStore.user.isAuthenticated && userStore.user.id"> 
+			<div class="max-w-screen-2xl mx-auto flex items-center flex-wrap justify-between">
 				<!-- left menu logo start -->		
 					<a href="http://gaminglounge.online/feed" class="flex items-center space-x-3 rtl:space-x-reverse">
 						<!-- <span class="self-center text-2xl font-semibold whitespace-nowrap dark:text-white">Gaming Lounge.</span> -->
@@ -59,7 +57,7 @@
 	<!-- header end -->
 	<!-- main view-->
 	<Toast /> <!--  shows the alert sa frontend -->
-		<main class="pt-2"> 
+		<main class="pt-2 px-8"> 
 			<RouterView /> 
 		</main>
 		<Toast /> <!--  shows the alert sa frontend -->

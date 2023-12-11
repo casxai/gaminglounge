@@ -1,6 +1,6 @@
 <template>
    
-    <div class=" max-w-7xl mx-auto grid grid-cols-2 gap-4">
+    <div class="max-w-screen-2xl mx-auto grid grid-cols-2 gap-4">
         <!-- left part -->
         <div class="main-left self-center ">    
                 <h1 class="mb-6 tracking-wide leading-tight font-black text-6xl">

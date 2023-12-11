@@ -1,5 +1,5 @@
 <template>
-    <div class="max-w-7xl  mx-auto grid pt-16">
+    <div class="max-w-screen-2xl  mx-auto grid pt-16">
 
         <div class="main-center justify-self-center">
             <h1 class="mb-14 font-bold tracking-wide text-6xl">

@@ -13,6 +13,9 @@ class Conversation(models.Model):
     def modified_at_formatted(self):
         return timesince(self.created_at)
 
+    class Meta:
+        ordering = ("-created_at",)
+
 class ConversationMessage(models.Model):
     id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
     conversation = models.ForeignKey(Conversation, related_name='messages', on_delete=models.CASCADE) #if a conversation is deleted, all messages will also be deleted
