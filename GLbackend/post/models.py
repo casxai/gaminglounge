@@ -49,10 +49,12 @@ class PostAttachment(models.Model):
                 "https://"
             ):
                 return self.image.url
-            return "http://127.0.0.1:8000" + self.image.url
+            return settings.WEBSITE_URL + self.image.url
+        
         elif self.image_url:
             return self.image_url
         return ""  # Return a default image or an empty string if no image is set
+
 
 
 class Category(models.Model):

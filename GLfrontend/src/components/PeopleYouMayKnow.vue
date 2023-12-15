@@ -31,7 +31,7 @@
                             <RouterLink :to="{ name: 'profile', params: { 'id': user.id } }" >
                             <span class="font-medium">{{ user.name }}</span>
                             </RouterLink>
-                            <span class=" text-sm text-gray-400">{{ user.charisma_score }} charisma</span>
+                            <span class=" text-sm text-gray-400">{{ user.friends_count }} friends</span>
                         </div>
  
                     </div>

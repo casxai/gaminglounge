@@ -3,7 +3,7 @@
     <div class="max-w-screen-2xl mx-auto grid grid-cols-3 gap-6 pt-4">
         <!-- inbox -->
         <div
-            class="main-left col-span-1 flex flex-col bg-purple_main rounded-full overflow-auto h-fit py-4 border-2 border-gray-400">
+            class="main-left col-span-1 flex flex-col bg-purple_main rounded-full overflow-auto h-134 py-4 border-2 border-gray-400">
 
             <label for="" class="rounded-full font-semibold text-xl tracking-wide pl-7 mb-3">Messages</label>
 
@@ -29,8 +29,8 @@
         <!-- messages -->
         <div class="main-center col-span-2 space-y-4 ">
             <div class="bg-purple_main rounded-full border-2 border-gray-400">
-                <div class="flex flex-col flex-grow p-6 ">
-
+                <div class="flex flex-col h-128 p-6 overflow-hidden hover:overflow-y-auto">
+              
                     <template v-for="message in activeConversation.messages" v-bind:key="message.id">
                         <div class="flex w-full mt-2 space-x-3 max-w-md ml-auto justify-end"
                             v-if="message.created_by.id == userStore.user.id">
@@ -51,10 +51,10 @@
                                 <img :src="message.created_by.get_avatar" class="w-[40px] rounded-full">
                             </div>
                             <div>
-                                <div class="bg-[#181327] p-3 rounded-r-full rounded-bl-full">
-                                    <p class="text-sm">{{ message.body }}</p>
+                                <div class="bg-[#120719] p-3 rounded-r-full rounded-bl-full">
+                                    <p class="">{{ message.body }}</p>
                                 </div>
-                                <span class="text-xs  text-gray-400 font-light leading-none">{{ message.created_at_formatted
+                                <span class="text-xs text-gray-400 font-light leading-none">{{ message.created_at_formatted
                                 }} ago</span>
                             </div>
                         </div>
@@ -66,7 +66,7 @@
 
             <form v-on:submit.prevent="submitForm">
                 <label for="chat" class="sr-only ">your message</label>
-                <div class="flex items-center p-4 rounded-large bg-gray-50 dark:bg-purple_main border-2 border-gray-400">
+                <div class="flex items-center p-4 rounded-full bg-gray-50 dark:bg-purple_main border-2 border-gray-400">
 
                     <textarea v-model="body" id="chat" rows="1"
                         class="block mx-2 p-4 w-full rounded-img dark:bg-transparent"

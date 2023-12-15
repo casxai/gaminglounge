@@ -1,7 +1,7 @@
 <template>
 
     <div data-te-infinite-scroll-init class="max-w-screen-2xl mx-auto grid grid-cols-4 gap-6 pt-4">
-        <div class="main-left space-y-6 sticky h-screen "> 
+        <div class="main-left space-y-6 sticky top-[8rem] h-fit "> 
             <LeftPanel />    
         </div>
        
@@ -19,7 +19,7 @@
         </div>
 
         <!-- right side -->
-        <div class="main-right col-span-1 space-y-6 sticky h-screen">
+        <div class="main-right col-span-1 space-y-6 sticky top-[8rem] h-fit ">
             <PeopleYouMayKnow />
         </div>
         <!-- <div

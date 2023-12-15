@@ -16,6 +16,10 @@ module.exports = {
         'hero-pattern': "url('/src/assets/img/bg/hero.svg')",
   
       },
+      height: {
+        '128': '43rem',
+        '134': '50rem',
+      },
       colors: {
         'purple1': '#A35DD2', // for border
         'violet1': '#8150CA',  // for border
