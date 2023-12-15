@@ -20,7 +20,7 @@ DEBUG = False
 
 ALLOWED_HOSTS = ["api.gaminglounge.online"]
 
-WEBSITE_URL = "http://api.gaminglounge.online"
+WEBSITE_URL = "https://api.gaminglounge.online"
 
 LOGIN_URL = "admin_login"
 LOGOUT_REDIRECT_URL = "admin_login"
@@ -64,11 +64,11 @@ REST_FRAMEWORK = {
 
 
 CORS_ALLOWED_ORIGINS = [
-    "http://gaminglounge.online",
+    "https://gaminglounge.online",
 ]
 
 CSRF_TRUSTED_ORIGINS = [
-    "http://gaminglounge.online",
+    "https://gaminglounge.online",
 ]
 
 INSTALLED_APPS = [

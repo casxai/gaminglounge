@@ -1,10 +1,10 @@
 <template>
 		<nav style="
-		background-image: url('http://api.gaminglounge.online/static/admin/img/header.png'); 
+		background-image: url('https://api.gaminglounge.online/static/admin/img/header.png'); 
 		background-size:cover;" class="py-6 sticky z-20 top-0 left-0" v-if="userStore.user.isAuthenticated && userStore.user.id"> 
 			<div class="max-w-screen-2xl mx-auto flex items-center flex-wrap justify-between">
 				<!-- left menu logo start -->		
-					<a href="http://gaminglounge.online/feed" class="flex items-center space-x-3 rtl:space-x-reverse">
+					<a href="https://gaminglounge.online/feed" class="flex items-center space-x-3 rtl:space-x-reverse">
 						<!-- <span class="self-center text-2xl font-semibold whitespace-nowrap dark:text-white">Gaming Lounge.</span> -->
 					
 						<img src="/assets/img/logo/gl_logo.png" alt="logo" class="object-none w-25 mr-4"/></a>		
