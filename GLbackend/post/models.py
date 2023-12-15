@@ -90,11 +90,11 @@ class Post(models.Model):
     post_url = models.TextField(blank=True, null=True)
 
     MENU_CHOICES = [
-        ("discussions", "Discussions"),
-        ("marketplace", "Marketplace"),
-        ("connect", "Connect"),
-        ("tournament", "Tournament"),
-        ("beta", "Beta Testing"),
+        ("Discussions", "Discussions"),
+        ("Marketplace", "Marketplace"),
+        ("Connect", "Connect"),
+        ("Tournament", "Tournament"),
+        ("Beta Testing", "Beta Testing"),
     ]
 
     menu = models.CharField(max_length=20, choices=MENU_CHOICES, default="Discussions")

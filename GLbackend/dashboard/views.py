@@ -5,6 +5,7 @@ from django.shortcuts import render
 from django.shortcuts import render, redirect
 from account.models import User
 from post.models import Post, GameTitle
+from .csv_processing import process_csv
 
 from django.db.models import Count, Sum
 from django.utils import timezone
@@ -163,6 +164,17 @@ def dashboard(request):
     }
 
     return render(request, "admin/index.html", context)
+
+@login_required
+def upload_csv(request):
+    if request.method == 'POST' and 'csv_file' in request.FILES:  # Check if a file is uploaded
+        csv_file = request.FILES['csv_file']  # Access the uploaded file
+
+        # Pass the uploaded CSV file to the function for processing
+        process_csv(csv_file)
+
+        return JsonResponse({'message': 'File processed successfully'})
+    return JsonResponse({'error': 'File upload failed'}, status=400)
 
 # EDIT ADMIN
 @login_required

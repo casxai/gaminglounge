@@ -11,10 +11,11 @@
                     <img :src="user.get_avatar" class="h-[80px] w-[80px] rounded-img"> 
                     <p class="font-semibold text-xl">{{ user.name }}</p>
                     <!-- Conditionally display the warning -->
-                    <div v-if="isCloseToBan" class="p-6 bg-red-400 rounded-full border border-2 border-gray-400">
+                    <!-- <div v-if="isCloseToBan" class="p-6 bg-red-400 rounded-full border border-2 border-gray-400"> -->
+                </div>
+                <div v-if="isCloseToBan && userStore.user.id === user.id" class="p-2 bg-red-400 rounded-full border border-2 border-gray-400">
                         Account Ban Warning
                     </div>
-                </div>
                 <!-- charisma points nd posts-->
                 <div class="my-5 px-12 py-4 flex flex-row justify-between items-center bg-transparent border-y-2 border-gray-400 text-center">
                     <div>
@@ -281,7 +282,6 @@ export default {
                 .get(`/api/posts/profile/${this.$route.params.id}/`) //using ` for the js
                 .then(response => {
                     console.log('data', response.data)
-
                     this.posts = response.data.posts
                     this.user = response.data.user
                     this.can_send_friendship_request = response.data.can_send_friendship_request

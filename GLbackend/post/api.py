@@ -371,7 +371,7 @@ def post_detail(request, pk):
 @api_view(["GET"])
 def post_list_profile(request, id):
     user = User.objects.get(pk=id)  # change later to feed only
-    posts = Post.objects.filter(created_by_id=id)
+    posts = Post.objects.filter(created_by_id=id, is_offensive=False)
     if not request.user in user.friends.all():
         posts = posts.filter(is_private=False, is_offensive=False)
 
@@ -599,6 +599,7 @@ def get_gametitle(request, *args, **kwargs):
 def get_user_post_count(request, user_id):
     try:
         user = User.objects.get(id=user_id)
+        user.update_posts_count()  # Update posts_count based on non-offensive posts
         post_count = user.posts_count
         return JsonResponse({"posts_count": post_count})
     except User.DoesNotExist:

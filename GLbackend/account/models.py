@@ -118,6 +118,10 @@ class User(
             default_avatar_path = "/media/avatars/default.jpg"  
         return settings.WEBSITE_URL + default_avatar_path
 
+    def update_posts_count(self):
+        non_offensive_post_count = self.posts.filter(is_offensive=False).count()
+        self.posts_count = non_offensive_post_count
+        self.save()
 
 class FriendshipRequest(models.Model):
     SENT = "sent"

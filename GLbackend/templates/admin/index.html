@@ -13,10 +13,25 @@
         </div>
     </div>
     <div class="header-action">
-        <button class="btn btn-main">
-            UPLOAD
-        </button>
+      <input type="file" id="csv_file_input" style="display: none;" accept=".csv">
+      <button class="btn btn-main" onclick="handleUpload()">
+          UPLOAD
+      </button>
+  </div>
+
+  <!-- Modal for file confirmation -->
+  <div id="fileConfirmationModal" class="modal">
+    <div class="modal-content">
+        <span class="close" onclick="closeModal()">&times;</span>
+        <h2>Confirm Upload</h2>
+        <p id="fileName"></p>
+        <input type="file" id="csv_file_input" style="display: none;" accept=".csv">
+        <button onclick="changeFile()">Select Another File</button>
+        <button onclick="uploadFile()">Confirm Upload</button>
+        <button onclick="closeModal()">Cancel</button>
     </div>
+  </div>
+
 </header>
 
         <main>
@@ -187,10 +202,76 @@
 
 {% comment %} For ChartJS {% endcomment %}
 <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 
 {% comment %} 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.3/Chart.min.js"></script>
 <script src="https://cdn.jsdelivr.net/gh/emn178/chartjs-plugin-labels/src/chartjs-plugin-labels.js"></script> {% endcomment %}
+
+
+{% comment %} script for uploading of csv {% endcomment %}
+<script>
+  function handleUpload() {
+      var fileInput = document.getElementById('csv_file_input');
+      
+      // Trigger click on file input element
+      fileInput.click();
+      
+      // Handle file selection event
+      fileInput.addEventListener('change', function(event) {
+          var file = event.target.files[0];
+          
+          // Check if a file is selected
+          if (file) {
+              document.getElementById('fileName').innerText = 'File Name: ' + file.name;
+              showModal();
+          }
+      });
+  }
+
+  function showModal() {
+      var modal = document.getElementById('fileConfirmationModal');
+      modal.style.display = 'block';
+  }
+
+  function closeModal() {
+      var modal = document.getElementById('fileConfirmationModal');
+      modal.style.display = 'none';
+  }
+
+  function changeFile() {
+      closeModal(); // Close current modal
+      handleUpload(); // Trigger file input click again
+  }
+
+  function uploadFile() {
+      var file = document.getElementById('csv_file_input').files[0];
+      closeModal(); // Close modal before AJAX call
+      
+      var formData = new FormData();
+      formData.append('csv_file', file);
+      
+      // Send file via AJAX to Django backend
+      $.ajax({
+          url: '/upload_csv/', // Replace with your Django URL endpoint
+          type: 'POST',
+          headers: {
+            "X-CSRFToken": csrfToken,
+          },
+          data: formData,
+          processData: false,
+          contentType: false,
+          success: function(response) {
+              alert('File uploaded successfully: ' + file.name);
+              // Perform further actions if needed
+          },
+          error: function(xhr, status, error) {
+              alert('Error uploading file: ' + error);
+          }
+      });
+  }
+</script>
+
 
 {% comment %} Script for Line Chart {% endcomment %}
 
