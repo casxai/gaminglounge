@@ -41,7 +41,7 @@ def conversation_get_or_create(request, user_pk):
     return JsonResponse(serializer.data, safe=False)
 
 @api_view(['POST'])
-def conversation_send_message(request, pk ):
+def conversation_send_message(request, pk):
     conversation = Conversation.objects.filter(users__in=list([request.user])).get(pk=pk)
     
     for user in conversation.users.all():
@@ -55,7 +55,7 @@ def conversation_send_message(request, pk ):
         sent_to=sent_to
     )
     
-    serializer = ConversationDetailSerializer(conversation_message)
+    serializer = ConversationMessageSerializer(conversation_message)
     
     return JsonResponse(serializer.data, safe=False)
 
