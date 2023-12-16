@@ -1,6 +1,7 @@
 <template>
 
     <div class="px-2">
+        
         <!-- top part ng post-->
         <div class="mb-4 flex items-center justify-between">
             <!-- username nd pfp -->

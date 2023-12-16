@@ -4,18 +4,20 @@
         <div class="main-left space-y-6 sticky top-[8rem] h-fit "> 
             <LeftPanel />    
         </div>
+        
        
         <!-- center -->
         <!-- col-span-2: takes 2 of the 4 columnsspace-y-4: 6 spaces each post -->
         <div class="main-center col-span-2 space-y-6 "> <!--whole feed-->
             <!-- bg-gradient-to-r from-violet-900  -->
             <!-- post area -->
+
                 <div class="p-5 bg-purple_main rounded-full border-2 border-gray-400"  v-for="post in posts" v-bind:key="post.id">
                 
                 <!-- loop ng post -->
 
                 <FeedItem :post="post" @postDeleted="handlePostDeleted"/>
-            </div>
+                </div>
         </div>
 
         <!-- right side -->
@@ -33,6 +35,7 @@
   </div> -->
 
     </div>
+    
 </template> 
 
 
@@ -45,8 +48,6 @@ import FeedItem from '../components/FeedItem.vue'
 import PeopleYouMayKnow from '../components/PeopleYouMayKnow.vue'
 import { useUserStore } from '@/stores/user'
 import LeftPanel from '@/components/LeftPanel.vue'
-
-
 
 export default {
     name: 'FeedView',
@@ -94,6 +95,8 @@ export default {
                 this.getFeed();
             }
         };
+  
+
     },
     methods:
     {

@@ -64,11 +64,11 @@ REST_FRAMEWORK = {
 
 
 CORS_ALLOWED_ORIGINS = [
-    "http://gaminglounge.online",
+    "https://gaminglounge.online",
 ]
 
 CSRF_TRUSTED_ORIGINS = [
-    "http://gaminglounge.online",
+    "https://gaminglounge.online",
 ]
 
 INSTALLED_APPS = [
