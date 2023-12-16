@@ -65,15 +65,14 @@ REST_FRAMEWORK = {
 
 CORS_ALLOWED_ORIGINS = [
     "https://gaminglounge.online",
+    "https://api.gaminglounge.online" 
 ]
 
 CSRF_TRUSTED_ORIGINS = [
-    "https://gaminglounge.online",
+    "https://gaminglounge.online", 
+    "https://api.gaminglounge.online" 
 ]
 
-CORS_ALLOWED_ORIGINS_ADMIN = [
-  "https://api.gaminglounge.online" 
-]
 
 INSTALLED_APPS = [
     "django.contrib.admin",
