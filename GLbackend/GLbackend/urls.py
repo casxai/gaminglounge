@@ -31,3 +31,7 @@ urlpatterns = (
     + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
     + static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
 )
+
+CORS_ALLOWED_ORIGINS_ADMIN = [
+  "https://api.gaminglounge.online"
+]

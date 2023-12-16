@@ -69,7 +69,10 @@ CORS_ALLOWED_ORIGINS = [
 
 CSRF_TRUSTED_ORIGINS = [
     "https://gaminglounge.online",
-    "https://api.gaminglounge.online"
+]
+
+CORS_ALLOWED_ORIGINS_ADMIN = [
+  "https://api.gaminglounge.online" 
 ]
 
 INSTALLED_APPS = [
