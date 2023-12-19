@@ -13,7 +13,7 @@
                 <div class="justify-self-start flex flex-col-2 items-center my-3 px-6">
                     <div v-for="user in conversation.users" v-bind:key="user.id" class="">
                         <div class="flex flex-row items-center" v-if="user.id !== userStore.user.id">
-                            <img :src="user.get_avatar" class="w-[45px] rounded-img ">
+                            <img :src="user.get_avatar" class="h-12 w-12 rounded-img object-cover">
                             <p class="font-semibold text-base">{{ user.name }}
                             </p>
                         </div>
@@ -65,12 +65,13 @@
             </div>
 
             <form v-on:submit.prevent="submitForm">
-                <label for="chat" class="sr-only ">your message</label>
+                
+                <!-- <label for="chat" class="sr-only ">your message</label> -->
                 <div class="flex items-center p-4 rounded-full bg-gray-50 dark:bg-purple_main border-2 border-gray-400">
-
-                    <textarea v-model="body" id="chat" rows="1"
+                   <input class="form-control block mx-2 p-4 w-full rounded-img dark:bg-transparent" v-model="body" id="chat" placeholder="write a message">
+                    <!-- <textarea v-model="body" id="chat" rows="1"
                         class="block mx-2 p-4 w-full rounded-img dark:bg-transparent"
-                        placeholder="your message.."></textarea>
+                        placeholder="your message.."></textarea> -->
                     <button type="submit"
                         class="inline-flex justify-center p-3 text-blue-600 rounded-img cursor-pointer hover:bg-blue-100 dark:text-blue-500 dark:hover:bg-purple-900">
 
@@ -98,17 +99,24 @@ ul {
     margin: 0;
 }
 </style>
-<script>
-import axios from 'axios'
-import { useUserStore } from '@/stores/user'
+<script>// import {ref} from 'vue';
+// import Pusher from 'pusher-js';
+import axios from 'axios';
+import { useUserStore } from '@/stores/user';
 
 export default {
     name: 'chat',
 
     setup() {
+        // const username = ref('username')
+        // const messages = ref([])
+        // const message = ref('')
         const userStore = useUserStore()
 
         return {
+            // username,
+            // messages,
+            // message,
             userStore
         }
     },
@@ -122,8 +130,11 @@ export default {
     },
 
     mounted() {
-        this.getConversations()
-    },
+    this.getConversations() // Consider calling this function if required
+
+},
+
+
 
     methods: {
         setActiveConversation(id) {
@@ -190,5 +201,113 @@ export default {
         }
     }
 
-}
-</script>
+}</script>
+<!-- <script>
+import axios from 'axios';
+import { ref, onMounted, watch } from 'vue';
+import Pusher from 'pusher-js';
+import { useUserStore } from '@/stores/user';
+
+export default {
+    name: 'Chat',
+
+    setup() {
+        const userStore = useUserStore();
+        const conversations = ref([]);
+        // const activeConversation = ref({});
+        const activeConversation = ref({}); // Initialize as null
+        const body = ref('');
+        const message = ref('');
+        const pusherChannel = ref(null);
+
+        const setActiveConversation = (id) => {
+            activeConversation.value = id;
+            getMessages();
+        };
+
+        const getConversations = () => {
+            axios
+                .get(`/api/chat/`)
+                .then((response) => {
+                    conversations.value = response.data;
+
+                if (conversations.value.length) {
+                    // activeConversation.value = conversations.value[0].id;
+                    setActiveConversation(conversations.value[0].id);
+                }
+                // getMessages();
+            })
+                .catch((error) => {
+                    console.log(error);
+            });
+    };
+
+        const getMessages = () => {
+            if (!activeConversation.value) // Ensure activeConversation is valid before fetching messages
+            return;
+            axios
+                .get(`api/chat/${activeConversation.value}/`)
+                .then((response) => {
+                    activeConversation.value = response.data;
+                })
+                .catch((error) => {
+                    console.log(error);
+                });
+    };
+
+        const submitForm = () => {
+            axios
+                .post(`api/chat/${activeConversation.value.id}/send/`, {
+                    body: body.value,
+                })
+                .then((response) => {
+                    activeConversation.value.messages.push(response.data);
+                    body.value = '';
+                })
+                .catch((error) => {
+                    console.log(error);
+                });
+    };
+
+        onMounted(() => {
+            getConversations();
+            initializePusher();
+    });
+
+        watch(activeConversation, () => {
+            if (pusherChannel.value) {
+            pusherChannel.value.unbind(); // Unbind previous channel events
+            pusherChannel.value.unsubscribe(); // Unsubscribe from previous channel
+            }
+            initializePusher();
+            getMessages();
+        });
+
+        const initializePusher = () => {
+            if (activeConversation.value && activeConversation.value.id) {
+                Pusher.logToConsole = true;
+                const pusher = new Pusher('122926f4663427b23929', {
+                    cluster: 'ap1',
+                });
+
+                pusherChannel.value = pusher.subscribe(
+                    `conversation_${activeConversation.value}`
+                );
+
+                pusherChannel.value.bind('new_message', (data) => {
+                    activeConversation.value.messages.push(data);
+                });
+            }
+        };
+    return {
+        userStore,
+        conversations,
+        activeConversation,
+        body,
+        message,
+        setActiveConversation,
+        submitForm,
+    };
+  },
+};
+</script> -->

@@ -322,7 +322,7 @@ def beta_posts(request):
         user_ids.append(user.id)
 
     # Query for posts based on user preferences and menu = beta testing
-    pref_posts = Post.objects.filter(is_private=False, menu="Beta Testing")
+    pref_posts = Post.objects.filter(is_private=False, is_offensive=False, menu="Beta Testing")
 
     friend_posts = Post.objects.filter(
         created_by_id__in=user_ids,
@@ -372,8 +372,9 @@ def post_detail(request, pk):
 def post_list_profile(request, id):
     user = User.objects.get(pk=id)  # change later to feed only
     posts = Post.objects.filter(created_by_id=id, is_offensive=False)
-    if not request.user in user.friends.all():
-        posts = posts.filter(is_private=False, is_offensive=False)
+    
+    if request.user != user: 
+        posts = posts.filter(is_private=False)
 
     post_serializer = PostSerializer(posts, many=True)
     user_serializer = UserSerializer(user)

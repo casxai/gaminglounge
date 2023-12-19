@@ -32,6 +32,7 @@ class PostSerializer(serializers.ModelSerializer):
             "id",
             "body",
             "is_private",
+            "is_offensive",
             "likes_count",
             "comments_count",
             "created_by",

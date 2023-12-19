@@ -12,7 +12,6 @@ import connectView from '../views/connectView.vue'
 import TournamentsView from '../views/TournamentsView.vue'
 import MarketplaceView from '../views/MarketplaceView.vue'
 import BetatestingView from '../views/BetatestingView.vue'
-
 import EditProfileView from '../views/EditProfileView.vue'
 import EditPasswordView from '../views/EditPasswordView.vue'
 import NotificationsView from '../views/NotificationsView.vue'
@@ -20,6 +19,7 @@ import GamePopupView from '../views/GamePopupView.vue'
 import VerificationView from '../views/VerificationView.vue'
 import PopularGamesView from '../views/PopularGamesView.vue'
 import PopupView from '../views/PopupView.vue'
+import ChatTest from '../views/ChatTest.vue'
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -132,6 +132,11 @@ const router = createRouter({
       path: '/populargames/:id',
       name: 'PopularGamesView',
       component: PopularGamesView
+    },
+    {
+      path: '/chattest',
+      name: 'ChatTest',
+      component: ChatTest
     },
 
     

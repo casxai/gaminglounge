@@ -1,3 +1,4 @@
+
 from django.http import JsonResponse
 
 from rest_framework.decorators import api_view, authentication_classes, permission_classes
@@ -6,7 +7,17 @@ from account.models import User
 
 from .models import Conversation, ConversationMessage
 from .serializers import ConversationSerializer, ConversationDetailSerializer, ConversationMessageSerializer
+from rest_framework.response import Response
+import pusher
 
+
+pusher_client = pusher.Pusher(
+  app_id='1725847',
+  key='122926f4663427b23929',
+  secret='fcac78ecc03cb83bc6a3',
+  cluster='ap1',
+  ssl=True
+)
 
 @api_view(['GET'])
 def conversation_list(request):
@@ -38,7 +49,9 @@ def conversation_get_or_create(request, user_pk):
     
     serializer = ConversationDetailSerializer(conversation)
     
+    
     return JsonResponse(serializer.data, safe=False)
+
 
 @api_view(['POST'])
 def conversation_send_message(request, pk):
@@ -57,5 +70,9 @@ def conversation_send_message(request, pk):
     
     serializer = ConversationMessageSerializer(conversation_message)
     
+    pusher_client.trigger(f'conversation_{pk}', 'new_message', serializer.data)
+    
     return JsonResponse(serializer.data, safe=False)
+
+
 

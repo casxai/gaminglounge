@@ -27,11 +27,9 @@ urlpatterns = (
         path("", include("account.urls")),
         path("", include("dashboard.urls")),
         path("", include("post.urls")),
+       
     ]
     + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
     + static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
-)
 
-CORS_ALLOWED_ORIGINS_ADMIN = [
-  "https://api.gaminglounge.online"
-]
+)

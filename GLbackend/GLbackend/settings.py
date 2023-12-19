@@ -77,6 +77,7 @@ INSTALLED_APPS = [
     "django.contrib.sessions",
     "django.contrib.messages",
     "django.contrib.staticfiles",
+    "rest_framework.authtoken", 
     "account",
     "chat",
     "notification",
@@ -85,6 +86,7 @@ INSTALLED_APPS = [
     "rest_framework",
     "rest_framework_simplejwt",
     "corsheaders",
+    "channels",
 ]
 
 MIDDLEWARE = [
@@ -97,6 +99,7 @@ MIDDLEWARE = [
     "django.contrib.messages.middleware.MessageMiddleware",
     "django.middleware.clickjacking.XFrameOptionsMiddleware",
     "post.middleware.UserVisitMiddleware"
+    
 ]
 
 ROOT_URLCONF = "GLbackend.urls"
@@ -120,23 +123,23 @@ TEMPLATES = [
 WSGI_APPLICATION = "GLbackend.wsgi.application"
 
 
-# DATABASES = {
-#     "default": {
-#         "ENGINE": "django.db.backends.sqlite3",
-#         "NAME":  BASE_DIR / "db.sqlite3",
-#     }
-# }
-
 DATABASES = {
     "default": {
-        "ENGINE": "django.db.backends.postgresql_psycopg2",
-        "NAME":  "gaminglounge",
-        "USER": "gluser",
-        "PASSWORD": "adminadmin02",
-        "HOST": "localhost",
-        "PORT": "",
-     }
+        "ENGINE": "django.db.backends.sqlite3",
+        "NAME":  BASE_DIR / "db.sqlite3",
+    }
 }
+
+# DATABASES = {
+#     "default": {
+#         "ENGINE": "django.db.backends.postgresql_psycopg2",
+#         "NAME":  "gaminglounge",
+#         "USER": "gluser",
+#         "PASSWORD": "adminadmin02",
+#         "HOST": "localhost",
+#         "PORT": "",
+#      }
+# }
 
 
 # Password validation
@@ -157,6 +160,14 @@ AUTH_PASSWORD_VALIDATORS = [
     },
 ]
 
+# CHANNEL_LAYERS = {
+#   'default': {
+#     'BACKEND': 'channels_redis.core.RedisChannelLayer',
+#     'CONFIG': {
+#       "hosts": [('127.0.0.1', 6379)],
+#     },
+#   },
+# }
 
 # Internationalization
 # https://docs.djangoproject.com/en/4.2/topics/i18n/

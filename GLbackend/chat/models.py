@@ -35,3 +35,4 @@ class ConversationMessage(models.Model):
         super(ConversationMessage, self).save(*args, **kwargs)
         self.conversation.modified_at = timezone.now()  # Update modified_at field in related Conversation
         self.conversation.save()
+        
