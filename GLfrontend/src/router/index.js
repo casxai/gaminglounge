@@ -19,7 +19,7 @@ import GamePopupView from '../views/GamePopupView.vue'
 import VerificationView from '../views/VerificationView.vue'
 import PopularGamesView from '../views/PopularGamesView.vue'
 import PopupView from '../views/PopupView.vue'
-import ChatTest from '../views/ChatTest.vue'
+
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -34,11 +34,7 @@ const router = createRouter({
       name: 'signup',
       component: SignupView
     },
-    {
-      path: '/',
-      name: 'login',
-      component: LoginView
-    },
+
     {
       path: '/feed',
       name: 'feed',
@@ -133,10 +129,11 @@ const router = createRouter({
       name: 'PopularGamesView',
       component: PopularGamesView
     },
+
     {
-      path: '/chattest',
-      name: 'ChatTest',
-      component: ChatTest
+      path: '/',
+      name: 'login',
+      component: LoginView
     },
 
     

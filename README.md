@@ -1,3 +1,2 @@
 # Gaming Lounge
 
-Capstone Project

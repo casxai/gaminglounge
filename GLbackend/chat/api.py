@@ -48,8 +48,6 @@ def conversation_get_or_create(request, user_pk):
         conversation.save()
     
     serializer = ConversationDetailSerializer(conversation)
-    
-    
     return JsonResponse(serializer.data, safe=False)
 
 
@@ -73,6 +71,7 @@ def conversation_send_message(request, pk):
     pusher_client.trigger(f'conversation_{pk}', 'new_message', serializer.data)
     
     return JsonResponse(serializer.data, safe=False)
+
 
 
 

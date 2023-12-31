@@ -1,40 +1,29 @@
 <template>
-  <!-- scroll: h-full overflow-y-scroll -->
   <div class="max-w-screen-2xl mx-auto grid grid-cols-3 gap-6 pt-4">
     <!-- inbox -->
-    <div
-      class="main-left col-span-1 flex flex-col bg-purple_main rounded-full overflow-auto h-134 py-4 border-2 border-gray-400"
-    >
-      <label
-        for=""
-        class="rounded-full font-semibold text-xl tracking-wide pl-7 mb-3"
-        >Messages</label
-      >
-
+    <div v-if="activeConversation" class="main-left col-span-1 flex flex-col bg-purple_main rounded-full overflow-auto h-134 py-4 border-2 border-gray-400">
+      <label class="rounded-full font-semibold text-xl tracking-wide pl-7 mb-3">inbox</label>
       <a
         class="flex items-center justify-between border-gray-200 hover:bg-[#120719] rounded-full text-left"
         v-for="conversation in conversations"
         v-bind:key="conversation.id"
         v-on:click="setActiveConversation(conversation.id)"
       >
-        <div class="justify-self-start flex flex-col-2 items-center my-3 px-6">
-          <div v-for="user in conversation.users" v-bind:key="user.id" class="">
-            <div
-              class="flex flex-row items-center"
-              v-if="user.id !== userStore.user.id"
-            >
-              <img
-                :src="user.get_avatar"
-                class="h-12 w-12 rounded-img object-cover"
-              />
-              <p class="font-semibold text-base">{{ user.name }}</p>
+          <div class="justify-self-start flex flex-col-2 items-center my-3 px-6">
+                <div v-for="user in conversation.users" v-bind:key="user.id" class="">
+                  <div
+                      class="flex flex-row items-center"
+                      v-if="user.id !== userStore.user.id"
+                  >
+                      <img
+                          :src="user.get_avatar"
+                          class="h-12 w-12 rounded-img object-cover"
+                      />
+                      <p class="font-semibold text-base">{{user.name}}</p>
+                  </div>
+              </div>
             </div>
-          </div>
-        </div>
-
-        <span class="text-xs text-gray-400 font-light pr-6">{{
-          conversation.modified_at_formatted
-        }}</span>
+        <span class="text-xs text-gray-400 font-light pr-6">{{ conversation.modified_at_formatted }}</span>
       </a>
     </div>
     <!-- messages -->
@@ -45,46 +34,37 @@
         >
           <template
             v-for="message in activeConversation.messages"
-            v-bind:key="message.id"
+            v-bind:key="message.id" 
           >
-            <div
-              class="flex w-full mt-2 space-x-3 max-w-md ml-auto justify-end"
-              v-if="message.created_by.id == userStore.user.id"
-            >
-              <div>
-                <div
-                  class="bg-[#120719] text-white p-3 rounded-l-full rounded-br-full"
-                >
-                  <p class="">{{ message.body }}</p>
+            <!-- message sent -->
+            <div class="flex w-full mt-2 space-x-3 max-w-md ml-auto justify-end" v-if="message.created_by.id == userStore.user.id"> 
+                <div class="message-sent">
+                  <div class="bg-[#120719] text-white p-3 rounded-l-full rounded-br-full">
+                    <p>{{ message.body }}</p>
+                  </div>
+                  <span class="text-xs text-gray-400 font-light leading-none">
+                    {{ message.created_at_formatted }} ago </span>
                 </div>
-                <span class="text-xs text-gray-400 font-light leading-none">
-                  {{ message.created_at_formatted }} ago</span
-                >
-              </div>
-              <div class="flex-shrink-0 h-10 w-10 rounded-full bg-gray-300">
-                <img
-                  :src="message.created_by.get_avatar"
-                  class="w-[40px] rounded-full"
-                />
-              </div>
+                <div class="flex-shrink-0 h-10 w-10 rounded-full bg-gray-300">
+                  <img
+                    :src="message.created_by.get_avatar"
+                    class="w-[40px] rounded-full"
+                  />
+                </div>
+            </div>
+            <!-- message received -->
+            <div class="flex w-full mt-2 space-x-3 max-w-md" v-else>
+                <div class="flex-shrink-0 h-10 w-10 rounded-full bg-gray-300">
+                  <img :src="message.created_by.get_avatar" class="w-[40px] rounded-full"/>
+                </div>
+                <div>
+                  <div class="bg-[#120719] p-3 rounded-r-full rounded-bl-full">
+                    <p>{{ message.body }}</p>
+                  </div>
+                    <span class="text-xs text-gray-400 font-light leading-none">{{ message.created_at_formatted }} ago</span>
+                </div>
             </div>
 
-            <div class="flex w-full mt-2 space-x-3 max-w-md" v-else>
-              <div class="flex-shrink-0 h-10 w-10 rounded-full bg-gray-300">
-                <img
-                  :src="message.created_by.get_avatar"
-                  class="w-[40px] rounded-full"
-                />
-              </div>
-              <div>
-                <div class="bg-[#120719] p-3 rounded-r-full rounded-bl-full">
-                  <p class="">{{ message.body }}</p>
-                </div>
-                <span class="text-xs text-gray-400 font-light leading-none"
-                  >{{ message.created_at_formatted }} ago</span
-                >
-              </div>
-            </div>
           </template>
         </div>
       </div>
@@ -100,9 +80,7 @@
             id="chat"
             placeholder="write a message"
           />
-          <!-- <textarea v-model="body" id="chat" rows="1"
-                        class="block mx-2 p-4 w-full rounded-img dark:bg-transparent"
-                        placeholder="your message.."></textarea> -->
+  
           <button
             type="submit"
             class="inline-flex justify-center p-3 text-blue-600 rounded-img cursor-pointer hover:bg-blue-100 dark:text-blue-500 dark:hover:bg-purple-900"
@@ -133,7 +111,7 @@ ul {
   margin: 0;
 }
 </style>
-<script>
+<!-- <script>
 // import {ref} from 'vue';
 // import Pusher from 'pusher-js';
 import axios from "axios";
@@ -232,113 +210,113 @@ export default {
     },
   },
 };
-</script>
-<!-- <script>
+</script> -->
+
+<script>
+
 import axios from 'axios';
 import { ref, onMounted, watch } from 'vue';
-import Pusher from 'pusher-js';
 import { useUserStore } from '@/stores/user';
+import { pusher } from '@/stores/pusher';
 
 export default {
     name: 'Chat',
 
     setup() {
         const userStore = useUserStore();
-        const conversations = ref([]);
-        // const activeConversation = ref({});
-        const activeConversation = ref({}); // Initialize as null
+        const conversations = ref([]); //users 
+        const activeConversation = ref({}); //current room
         const body = ref('');
-        const message = ref('');
-        const pusherChannel = ref(null);
+        
+        let channel = null;
 
-        const setActiveConversation = (id) => {
-            activeConversation.value = id;
-            getMessages();
-        };
-
-        const getConversations = () => {
-            axios
-                .get(`/api/chat/`)
-                .then((response) => {
-                    conversations.value = response.data;
-
-                if (conversations.value.length) {
-                    // activeConversation.value = conversations.value[0].id;
-                    setActiveConversation(conversations.value[0].id);
-                }
-                // getMessages();
-            })
-                .catch((error) => {
-                    console.log(error);
+        const initializePusher = () => {
+          if (channel) {return;}
+          channel = pusher.subscribe(`conversation_${activeConversation.value.id}`);
+          channel.bind('new-message', (data) => {
+         // activeConversation.messages.push(JSON.stringify(data));
+            activeConversation.value.messages.push(JSON.stringify(data));
             });
-    };
+          };
 
-        const getMessages = () => {
-            if (!activeConversation.value) // Ensure activeConversation is valid before fetching messages
-            return;
-            axios
-                .get(`api/chat/${activeConversation.value}/`)
-                .then((response) => {
-                    activeConversation.value = response.data;
-                })
-                .catch((error) => {
-                    console.log(error);
-                });
-    };
+        // get the list of conversations
+        const getConversations = () => {
+          axios
+            .get(`/api/chat/`) 
+            .then((response) => {
+                conversations.value = response.data;
+                if (conversations.value.length) {
+                  setActiveConversation(conversations.value[0].id); //show first in the list of conversations
+                }
+              })
+            .catch((error) => {
+                console.log(error);
+              });
+          };
 
+        // set active
+        const setActiveConversation = (id) => {
+            // console.log("Before setActiveConversation:", activeConversation.value); 
+            activeConversation.value = id;
+            // console.log("After setActiveConversation:", activeConversation.value);
+            getMessages();
+          };
+
+        // get messages for a specific conversation
+        const getMessages = () => { // console.log(activeConversation.value)
+
+          const conversationId = typeof activeConversation.value === 'object' ? activeConversation.value.id : activeConversation.value;
+          axios
+            .get(`api/chat/${conversationId}/`) 
+            .then((response) => {
+              console.log(response.data)
+                activeConversation.value.id = response.data;   
+              })
+            .catch((error) => {
+                console.log(error);
+              });
+          };
+        
+        // submit message
         const submitForm = () => {
-            axios
-                .post(`api/chat/${activeConversation.value.id}/send/`, {
-                    body: body.value,
-                })
-                .then((response) => {
-                    activeConversation.value.messages.push(response.data);
-                    body.value = '';
-                })
-                .catch((error) => {
-                    console.log(error);
-                });
-    };
-
+          axios
+            .post(`api/chat/${activeConversation.value.id}/send/`, {
+                body: body.value,
+              })
+            .then((response) => {
+                activeConversation.value.messages.push(response.data);
+                body.value = '';
+              })
+            .catch((error) => {
+                console.log(error);
+              });
+          };
+        
+        
+        // on mounted
         onMounted(() => {
             getConversations();
             initializePusher();
-    });
-
+          });
+        
+        // watch function
         watch(activeConversation, () => {
-            if (pusherChannel.value) {
-            pusherChannel.value.unbind(); // Unbind previous channel events
-            pusherChannel.value.unsubscribe(); // Unsubscribe from previous channel
-            }
+            if (pusher.value) {
+              pusher.value.unbind(); 
+              pusher.value.unsubscribe();
+              }
             initializePusher();
             getMessages();
-        });
+          });
 
-        const initializePusher = () => {
-            if (activeConversation.value && activeConversation.value.id) {
-                Pusher.logToConsole = true;
-                const pusher = new Pusher('122926f4663427b23929', {
-                    cluster: 'ap1',
-                });
-
-                pusherChannel.value = pusher.subscribe(
-                    `conversation_${activeConversation.value}`
-                );
-
-                pusherChannel.value.bind('new_message', (data) => {
-                    activeConversation.value.messages.push(data);
-                });
-            }
-        };
     return {
         userStore,
         conversations,
         activeConversation,
         body,
-        message,
         setActiveConversation,
         submitForm,
-    };
-  },
-};
-</script> -->
+      };
+    },
+  };
+</script>
