@@ -372,8 +372,8 @@ def post_detail(request, pk):
 def post_list_profile(request, id):
     user = User.objects.get(pk=id)  # change later to feed only
     posts = Post.objects.filter(created_by_id=id, is_offensive=False)
-    
-    if request.user != user: 
+
+    if (request.user != user) and (not request.user in user.friends.all()):
         posts = posts.filter(is_private=False)
 
     post_serializer = PostSerializer(posts, many=True)
@@ -459,6 +459,8 @@ def post_create(request):
     if form.is_valid():
         post = form.save(commit=False)  # commit false so it wont go through the backend
         post.created_by = request.user
+        is_private = request.data.get("is_private")
+        post.is_private = is_private.lower() == "true" if is_private else False
         post.menu = request.data.get("menu")
 
         post.save()

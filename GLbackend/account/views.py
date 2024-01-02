@@ -11,6 +11,7 @@ from django.contrib.auth import get_user_model
 from django.utils.encoding import force_bytes, force_str
 from django.core.mail import EmailMessage
 from django.utils import timezone
+from datetime import datetime
 from .tokens import account_activation_token
 
 from .forms import adminForm, SignupForm, UserEditForm
@@ -149,8 +150,8 @@ def admin_users(request):
     current_time = timezone.now()
 
     # Set the start and end dates for November with timezone information
-    start_date = timezone.datetime(current_time.year, 11, 1, tzinfo=timezone.utc)
-    end_date = timezone.datetime(current_time.year, 12, 1, tzinfo=timezone.utc)
+    start_date = datetime(current_time.year, 12, 1, tzinfo=timezone.utc)
+    end_date = datetime(current_time.year, 12, 31, tzinfo=timezone.utc)
 
     active_users_november_count = User.objects.filter(is_active=True).count()
 

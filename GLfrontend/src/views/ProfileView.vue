@@ -9,13 +9,14 @@
                 <!-- profile picture -->
                 <div class="flex items-center space-x-4">
                     <img :src="user.get_avatar" class="h-[80px] w-[80px] rounded-img"> 
-                    <p class="font-semibold text-xl">{{ user.name }}</p>
-                    <!-- Conditionally display the warning -->
-                    <!-- <div v-if="isCloseToBan" class="p-6 bg-red-400 rounded-full border border-2 border-gray-400"> -->
-                </div>
-                <div v-if="isCloseToBan && userStore.user.id === user.id" class="p-2 bg-red-400 rounded-full border border-2 border-gray-400">
-                        Account Ban Warning
+                    <div class="flex flex-col">
+                        <p class="font-semibold text-xl">{{ user.name }}</p>
+                        <label class="text-sm inline-block border border-2 border-gray-400 p-1">ADMIN</label>
+                        <div v-if="isCloseToBan && userStore.user.id === user.id" class="p-2 bg-red-400 rounded-full border border-2 border-gray-400">
+                            Account Ban Warning
+                            </div>
                     </div>
+                </div>
                 <!-- charisma points nd posts-->
                 <div class="my-5 px-12 py-4 flex flex-row justify-between items-center bg-transparent border-y-2 border-gray-400 text-center">
                     <div>
@@ -84,7 +85,7 @@
                  space-y-4: 6 spaces each post -->
         <div class="px-4 main-center col-span-2 space-y-6">
             <!-- write something -->
-            <div class="feed"> <!--modal design-->
+            <div class="feed" v-if="userStore.user.id === user.id"> <!--modal design-->
                     <Modal @close="toggleModal" :modalActive="modalActive">
                         <div class="rounded-full bg-transparent space-y-1 text-right model-content">
                            
