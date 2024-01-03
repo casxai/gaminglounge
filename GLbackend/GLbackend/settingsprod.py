@@ -1,19 +1,21 @@
 from datetime import timedelta
 from pathlib import Path
 import os
-from dotenv import load_dotenv
+import dotenv
 
-load_dotenv()
+# load_dotenv()
+
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
+dotenv.load_dotenv(os.path.join(BASE_DIR, '.env.prod'))
 
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/4.2/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = "django-insecure-jh+b7d0#gd$i_sd(6$5z8tvq19gonwi4t4uky10=&y0t4yr$w6"
+SECRET_KEY = os.getenv("SECRET_KEY")
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = False
@@ -29,13 +31,13 @@ LOGOUT_REDIRECT_URL = "admin_login"
 
 # application definition
 
-EMAIL_BACKEND = "django.core.mail.backends.smtp.EmailBackend"
-EMAIL_HOST = "smtp.gmail.com"
-EMAIL_FROM = "gamingglounge@gmail.com"
-EMAIL_HOST_USER = "gamingglounge@gmail.com"
-EMAIL_HOST_PASSWORD = "giciwtownjcylhtj"
-EMAIL_PORT = 587
-EMAIL_USE_TLS = True
+EMAIL_BACKEND = os.getenv("EMAIL_BACKEND")
+EMAIL_HOST = os.getenv("EMAIL_HOST")
+EMAIL_FROM = os.getenv("EMAIL_FROM")
+EMAIL_HOST_USER = os.getenv("EMAIL_HOST_USER")
+EMAIL_HOST_PASSWORD = os.getenv("EMAIL_HOST_PASSWORD")
+EMAIL_PORT = int(os.getenv("EMAIL_PORT"))
+EMAIL_USE_TLS = os.getenv("EMAIL_USE_TLS").lower() == "true"
 
 PASSWORD_RESET_TIMEOUT = 14400
 
@@ -123,23 +125,15 @@ TEMPLATES = [
 
 WSGI_APPLICATION = "GLbackend.wsgi.application"
 
-# DATABASES = {
-#     "default": {
-#         "ENGINE": "django.db.backends.sqlite3",
-#         "NAME":  BASE_DIR / "db.sqlite3",
-#         "HOST": "localhost",
-#         "PORT": "",
-#     }
-# }
 DATABASES = {
     "default": {
-        "ENGINE": "django.db.backends.postgresql_psycopg2",
-        "NAME":  "gaminglounge",
-        "USER": "gluser",
-        "PASSWORD": "adminadmin02",
-        "HOST": "localhost",
-        "PORT": "",
-     }
+        "ENGINE": os.getenv("DATABASE_ENGINE"),
+        "NAME": os.getenv("DATABASE_NAME"),
+        "USER": os.getenv("DATABASE_USER"),
+        "PASSWORD": os.getenv("DATABASE_PASSWORD"),
+        "HOST": os.getenv("DATABASE_HOST"),
+        "PORT": os.getenv("DATABASE_PORT"),
+    }
 }
 
 

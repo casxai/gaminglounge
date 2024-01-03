@@ -266,11 +266,13 @@ export default {
         const getMessages = () => { // console.log(activeConversation.value)
 
           const conversationId = typeof activeConversation.value === 'object' ? activeConversation.value.id : activeConversation.value;
+
+          if (!conversationId) { return false; }
           axios
             .get(`api/chat/${conversationId}/`) 
             .then((response) => {
               console.log(response.data)
-                activeConversation.value.id = response.data;   
+                activeConversation.value = response.data;   
               })
             .catch((error) => {
                 console.log(error);
@@ -300,14 +302,14 @@ export default {
           });
         
         // watch function
-        watch(activeConversation, () => {
-            if (pusher.value) {
-              pusher.value.unbind(); 
-              pusher.value.unsubscribe();
-              }
-            initializePusher();
-            getMessages();
-          });
+        // watch(activeConversation, () => {
+        //     if (pusher.value) {
+        //       pusher.value.unbind(); 
+        //       pusher.value.unsubscribe();
+        //       }
+        //     initializePusher();
+        //     getMessages();
+        //   });
 
     return {
         userStore,
