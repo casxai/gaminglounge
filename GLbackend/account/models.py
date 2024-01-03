@@ -4,11 +4,7 @@ import uuid  # unique identification for the users
 from django.conf import settings
 from django.contrib.auth.models import AbstractBaseUser, PermissionsMixin, UserManager
 from django.db import models
-from django.utils.timesince import timesince
 from django.utils import timezone
-from django.contrib.auth import get_user_model
-
-
 
 class CustomUserManager(UserManager):
     def _create_user(self, name, email, password, **extra_fields):
@@ -50,6 +46,7 @@ class User(
     pref_game_titles = models.TextField(blank=True, null=True)
 
     people_you_may_know = models.ManyToManyField("self")
+    friend_suggestion_timestamp = models.DateTimeField(null=True)
 
     posts_count = models.IntegerField(default=0)
 

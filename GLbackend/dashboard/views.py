@@ -1,7 +1,7 @@
+import csv
 from django.shortcuts import render
 
 # Create your views here.
-
 from django.shortcuts import render, redirect
 from account.models import User
 from post.models import Post, GameTitle
@@ -18,11 +18,17 @@ from account.forms import ProfileEditForm, ChangePasswordForm
 from collections import defaultdict
 import json
 
-# Create your views here.
-
+from django.views.decorators.cache import cache_page
+from django.core.cache import cache
 
 @login_required
+@cache_page(60 * 15) #cache for 15 minutes
 def dashboard(request):
+    
+    if 'refresh' in request.GET:
+        cache.delete('dashboard_view')
+        return redirect('dashboard')
+    
     admin = request.user
     # Total users count
     total_users_count = User.objects.count()
@@ -77,31 +83,6 @@ def dashboard(request):
     sorted_data_for_chart = dict(sorted(data_for_chart.items()))
     json_data_for_chart = json.dumps(sorted_data_for_chart)
 
-
-# --------
-    # # Set the start date for each month
-    # month = request.GET.get('month', '12')
-    # current_year = datetime.now().year
-    # start_date = datetime(current_year, int(month), 1).date()
-    # end_date = start_date.replace(day=1, month=int(month) % 12 + 1) if int(month) != 12 else start_date.replace(year=current_year + 1, month=1)
-
-    # while start_date < end_date:
-    #     allowed_posts_count = Post.objects.filter(is_offensive=False, created_at__date=start_date).count()
-    #     foul_posts_count = Post.objects.filter(is_offensive=True, created_at__date=start_date).count()
-
-    #     data_for_chart[start_date.strftime("%Y-%m-%d")] = {
-    #         "published": allowed_posts_count,
-    #         "foul": foul_posts_count,
-    #     }
-
-    #     # Move to the next day
-    #     start_date += timedelta(days=1)
-
-    # # Sort the dictionary by keys (dates)
-    # sorted_data_for_chart = dict(sorted(data_for_chart.items()))
-    # json_data_for_chart = json.dumps(sorted_data_for_chart)
-
-# ---------
     # POPULAR GAMES - PIE CHART
     top_games = (
         Post.objects.values("game_title__title")
@@ -167,14 +148,24 @@ def dashboard(request):
 
 @login_required
 def upload_csv(request):
-    if request.method == 'POST' and 'csv_file' in request.FILES:  # Check if a file is uploaded
-        csv_file = request.FILES['csv_file']  # Access the uploaded file
+    try:
+        if request.method == 'POST' and 'csv_file' in request.FILES: # Check if a file is uploaded
+            csv_file = request.FILES['csv_file'] # Access the uploaded file
+            
+            process_csv(csv_file)
+        
+            return JsonResponse({'message': 'file processed successfully'})
 
-        # Pass the uploaded CSV file to the function for processing
-        process_csv(csv_file)
+    except FileNotFoundError:
+        return JsonResponse({'error': 'csv file not found'}, status=404)
+        
+    except User.DoesNotExist:
+        return JsonResponse({'error': 'user not found'}, status=404)
 
-        return JsonResponse({'message': 'File processed successfully'})
-    return JsonResponse({'error': 'File upload failed'}, status=400)
+    except Exception as e:
+        return JsonResponse({'error': str(e)}, status=500)
+
+    return JsonResponse({'error': 'file upload failed'}, status=400)
 
 # EDIT ADMIN
 @login_required

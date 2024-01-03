@@ -7,13 +7,13 @@ from post.models import Post, PostAttachment
 from account.models import User  # Assuming your User model is in account.models
 
 
-def process_csv(csv_file):
+def process_csv(request, csv_file):
     # Get the current date and time
     current_datetime = datetime.now()
 
 # Format the datetime as a string (you can adjust the format as needed)
     formatted_datetime = current_datetime.strftime("%Y-%m-%d %H:%M:%S")
-    user_id = "675a5aad3287452bba57b5aec4f60cc8"  # Replace with your actual user ID
+    user_id = str(request.user.id) 
     user_instance = User.objects.get(id=user_id)  # Get the user instance
 
     # Get the file handle or path from the InMemoryUploadedFile object
