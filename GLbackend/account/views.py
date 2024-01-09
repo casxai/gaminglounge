@@ -88,22 +88,6 @@ def activateemail(request, user, to_email):
         )
 
 
-# Create your views here (not in the front end)
-# def activateemail(request):
-#     email = request.GET.get("email", "")
-#     id = request.GET.get("id", "")
-
-#     if email and id:
-#         user = User.objects.get(id=id, email=email)
-#         user.is_active = True
-#         user.save()
-
-#         return HttpResponse("the user is now activated. You can now log in.")
-
-#     else:
-#         return HttpResponse("The parameters is not valid")
-
-
 # ADMIN
 def admin_login(request):
     if request.method == "POST":
@@ -150,13 +134,13 @@ def admin_users(request):
     current_time = timezone.now()
 
     # Set the start and end dates for November with timezone information
-    start_date = datetime(current_time.year, 12, 1, tzinfo=timezone.utc)
-    end_date = datetime(current_time.year, 12, 31, tzinfo=timezone.utc)
+    start_date = datetime(current_time.year, 1, 1, tzinfo=timezone.utc)
+    end_date = datetime(current_time.year, 1, 31, tzinfo=timezone.utc)
 
-    active_users_november_count = User.objects.filter(is_active=True).count()
+    active_users_count = User.objects.filter(is_active=True).count()
 
-    # Retrieve new users in November
-    new_users_november = User.objects.filter(
+    # Retrieve new users in January
+    new_users = User.objects.filter(
         date_joined__gte=start_date, date_joined__lt=end_date
     ).count()
 
@@ -191,8 +175,8 @@ def admin_users(request):
         "admin_email": admin.email,
         "admin_avatar": admin.avatar,
         "total_users_count": total_users_count,
-        "active_users_november_count": active_users_november_count,
-        "new_users_november": new_users_november,
+        "active_users_count": active_users_count,
+        "new_users": new_users,
         "users": users,
         "discussion_visits": discussion_visits,
         "connect_visits": connect_visits,

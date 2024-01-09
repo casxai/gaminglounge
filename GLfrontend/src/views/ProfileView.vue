@@ -11,7 +11,7 @@
                     <img :src="user.get_avatar" class="h-[80px] w-[80px] rounded-img"> 
                     <div class="flex flex-col">
                         <p class="font-semibold text-xl">{{ user.name }}</p>
-                        <label class="text-sm inline-block border border-2 border-gray-400 p-1">ADMIN</label>
+                        <div v-if="is_admin" class="text-sm inline-block border border-2 border-gray-400 p-1">ADMIN</div>
                         <div v-if="isCloseToBan && userStore.user.id === user.id" class="p-2 bg-red-400 rounded-full border border-2 border-gray-400">
                             Account Ban Warning
                             </div>
@@ -187,6 +187,7 @@ export default {
     data(){
         return {
             isCloseToBan: false,
+            is_admin: false,
             posts:[],
             user: {
                 id: ''
@@ -287,6 +288,7 @@ export default {
                     this.user = response.data.user
                     this.can_send_friendship_request = response.data.can_send_friendship_request
                     this.can_send_message = response.data.can_send_message
+                    this.is_admin = response.data.is_admin
                     this.isCloseToBan = response.data.is_close_to_ban || false;
                 })
                 .catch(error => {

@@ -18,7 +18,7 @@ current_datetime = datetime.now()
 # Format the datetime as a string (you can adjust the format as needed)
 formatted_datetime = current_datetime.strftime("%Y-%m-%d %H:%M:%S")
 
-csv_file_path = r"E:\Codes\Capstone\gaming-lounge\GLbackend\post\data.csv"
+csv_file_path = r"D:\Backup\Users\Asus\Dropbox\My PC (LAPTOP-M7MDO82I)\Documents\gaminglounge\GLbackend\post\data.csv"
 
 # Read data from the CSV file and insert into the Django Post model
 with open(csv_file_path, "r", encoding="utf-8") as csv_file:
