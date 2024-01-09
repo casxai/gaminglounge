@@ -54,8 +54,8 @@
                             </div>
                             <div class="analytic-info">
                                 <h4>Active Users</h4>
-                                <h4>(November)</h4>
-                                <h1>{{ active_users_november_count }}</h1>
+                                <h4>(January)</h4>
+                                <h1>{{ active_users_count }}</h1>
                             </div>
                         </div>
         
@@ -65,7 +65,7 @@
                             </div>
                             <div class="analytic-info">
                                 <h4>New Users</h4>
-                                <h4>(November)</h4>
+                                <h4>(January)</h4>
                                 <h1>{{ new_users_november }}</h1>
                             </div>
                         </div>
@@ -103,8 +103,7 @@
                                     <th>Avatar</th>
                                     <th>Friends Count</th>
                                     <th>Posts Count</th>
-                                    <th>Active</th>
-                                    <th>Last Login</th>
+                                    <th>Account Status</th>
                                     <th>edit</th>
                                     <th>delete</th>
                                 </thead>
@@ -119,7 +118,6 @@
                                         <td>{{ user.friends_count }}</td>
                                         <td>{{ user.posts_count }}</td>
                                         <td>{% if user.is_active %} Active {% else %} Inactive {% endif %}</td>
-                                        <td>{% if user.last_login %} {{ user.last_login }} {% else %} Never Logged In {% endif %}</td>
                                         <td><div class="edit-button" class="btn-outline-primary" style="display: flex; justify-content: center; align-items: center;" ><a href="{% url 'edit_user' user.id %}"><i class="fa-solid fa-pen-to-square"></i></a></div></td>
                                         <td>
                                             <form method="post" action="{% url 'delete_user' user.id %}">

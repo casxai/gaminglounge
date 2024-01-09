@@ -1,4 +1,3 @@
-from django.core.exceptions import ValidationError
 from django.db.models import Q, Count
 from django.http import JsonResponse
 from django.shortcuts import get_object_or_404
@@ -20,7 +19,6 @@ from .serializers import (
     PostSerializer,
     PostDetailSerializer,
     CommentSerializer,
-    GameTitleSerializer,
 )
 from account.models import User
 
@@ -49,7 +47,7 @@ def discussion_posts(request):
         user_ids.append(user.id)
     # Query for posts based on user preferences and menu = discussions
     pref_posts = Post.objects.filter(
-        is_private=False, menu="Discussions"
+        is_private=False, menu="Discussions", is_offensive=False
     )  # Filter by menu field here
     if user_pref_titles:
         pref_posts = pref_posts.filter(Q(game_title__id__in=user_pref_titles))
@@ -58,9 +56,6 @@ def discussion_posts(request):
         pref_posts = pref_posts.filter(
             Q(game_title__categories__game_category__in=categories)
         )
-
-    # Ordering posts by likes count
-    pref_posts = pref_posts.order_by("-likes_count")  # Most liked posts first
 
     # Query for posts from user's friends
     friend_posts = Post.objects.filter(
@@ -78,13 +73,12 @@ def discussion_posts(request):
     )
     # Combine the results and sort them
     combined_posts = (
-        (pref_posts | friend_posts | own_posts).distinct().order_by("-likes_count")
+        (pref_posts | friend_posts | own_posts).distinct()
     )
-    sorted_posts = sorted(combined_posts, key=lambda x: x.likes_count, reverse=True)
     # Apply pagination
     paginator = PageNumberPagination()
     paginator.page_size = 5  # Number of posts per page
-    paginated_post = paginator.paginate_queryset(sorted_posts, request)
+    paginated_post = paginator.paginate_queryset(combined_posts, request)
 
     # Serialize paginated posts
     serializer = PostSerializer(paginated_post, many=True)
@@ -120,7 +114,7 @@ def marketplace_posts(request):
 
     # Query for posts based on user preferences and menu = Marketplace
     pref_posts = Post.objects.filter(
-        is_private=False, menu="Marketplace"
+        is_private=False, menu="Marketplace", is_offensive=False
     )  # Filter by menu field here
 
     if user_pref_titles:
@@ -130,9 +124,6 @@ def marketplace_posts(request):
         pref_posts = pref_posts.filter(
             Q(game_title__categories__game_category__in=categories)
         )
-
-    # Ordering posts by likes count
-    pref_posts = pref_posts.order_by("-likes_count")  # Most liked posts first
 
     # Query for posts from user's friends
     friend_posts = Post.objects.filter(
@@ -149,25 +140,14 @@ def marketplace_posts(request):
         menu="Marketplace",
     )
 
-    # # Combine the results
-    # combined_posts = (pref_posts | friend_posts | own_posts).distinct()
-    # sorted_posts = sorted(combined_posts, key=lambda x: x.likes_count, reverse=True)
-
-    # paginator = PageNumberPagination()
-    # paginator.page_size = 3
-    # paginated_post = paginator.paginate_queryset(sorted_posts, request)
-
-    # serializer = PostSerializer(paginated_post, many=True)
-    # return Response(serializer.data)
-    # Combine the results and sort them
     combined_posts = (
-        (pref_posts | friend_posts | own_posts).distinct().order_by("-likes_count")
+        (pref_posts | friend_posts | own_posts).distinct()
     )
-    sorted_posts = sorted(combined_posts, key=lambda x: x.likes_count, reverse=True)
+
     # Apply pagination
     paginator = PageNumberPagination()
     paginator.page_size = 5  # Number of posts per page
-    paginated_post = paginator.paginate_queryset(sorted_posts, request)
+    paginated_post = paginator.paginate_queryset(combined_posts, request)
 
     # Serialize paginated posts
     serializer = PostSerializer(paginated_post, many=True)
@@ -203,7 +183,7 @@ def connect_posts(request):
 
     # Query for posts based on user preferences and menu = discussions
     pref_posts = Post.objects.filter(
-        is_private=False, menu="Connect"
+        is_private=False, menu="Connect", is_offensive=False
     )  # Filter by menu field here
 
     if user_pref_titles:
@@ -213,9 +193,6 @@ def connect_posts(request):
         pref_posts = pref_posts.filter(
             Q(game_title__categories__game_category__in=categories)
         )
-
-    # Ordering posts by likes count
-    pref_posts = pref_posts.order_by("-likes_count")  # Most liked posts first
 
     # Query for posts from user's friends
     friend_posts = Post.objects.filter(
@@ -230,13 +207,12 @@ def connect_posts(request):
     )
     # Combine the results and sort them
     combined_posts = (
-        (pref_posts | friend_posts | own_posts).distinct().order_by("-likes_count")
+        (pref_posts | friend_posts | own_posts).distinct()
     )
-    sorted_posts = sorted(combined_posts, key=lambda x: x.likes_count, reverse=True)
-    # Apply pagination
+
     paginator = PageNumberPagination()
     paginator.page_size = 5 # Number of posts per page
-    paginated_post = paginator.paginate_queryset(sorted_posts, request)
+    paginated_post = paginator.paginate_queryset(combined_posts, request)
 
     # Serialize paginated posts
     serializer = PostSerializer(paginated_post, many=True)
@@ -272,7 +248,7 @@ def tournament_posts(request):
 
     # Query for posts based on user preferences and menu = discussions
     pref_posts = Post.objects.filter(
-        is_private=False, menu="Tournament"
+        is_private=False, menu="Tournament", is_offensive=False
     )  # Filter by menu field here
 
     if user_pref_titles:
@@ -282,9 +258,6 @@ def tournament_posts(request):
         pref_posts = pref_posts.filter(
             Q(game_title__categories__game_category__in=categories)
         )
-
-    # Ordering posts by likes count
-    pref_posts = pref_posts.order_by("-likes_count")  # Most liked posts first
 
     # Query for posts from user's friends
     friend_posts = Post.objects.filter(
@@ -299,13 +272,12 @@ def tournament_posts(request):
     )
     # Combine the results and sort them
     combined_posts = (
-        (pref_posts | friend_posts | own_posts).distinct().order_by("-likes_count")
+        (pref_posts | friend_posts | own_posts).distinct()
     )
-    sorted_posts = sorted(combined_posts, key=lambda x: x.likes_count, reverse=True)
-    # Apply pagination
+
     paginator = PageNumberPagination()
     paginator.page_size = 5  # Number of posts per page
-    paginated_post = paginator.paginate_queryset(sorted_posts, request)
+    paginated_post = paginator.paginate_queryset(combined_posts, request)
 
     # Serialize paginated posts
     serializer = PostSerializer(paginated_post, many=True)
@@ -343,11 +315,8 @@ def beta_posts(request):
 
     # Combine the results and sort them
     combined_posts = (
-        (pref_posts | friend_posts | own_posts).distinct().order_by("-likes_count")
-    )
-    sorted_posts = sorted(combined_posts, key=lambda x: x.likes_count, reverse=True)
-
-    serializer = PostSerializer(sorted_posts, many=True)
+        (pref_posts | friend_posts | own_posts).distinct())
+    serializer = PostSerializer(combined_posts, many=True)
 
     return Response(serializer.data)
 
@@ -387,9 +356,13 @@ def post_list_profile(request, id):
 
     can_send_friendship_request = True
     can_send_message = True 
+    isAdmin = False
     
     if request.user in user.friends.all():
         can_send_friendship_request = False
+
+    if user.is_staff == True:
+        isAdmin = True
 
     if str(user.id) in excluded_ids:
         can_send_friendship_request = False
@@ -417,6 +390,7 @@ def post_list_profile(request, id):
             "user": user_serializer.data,
             "can_send_friendship_request": can_send_friendship_request,
             "can_send_message": can_send_message,
+            "isAdmin" : isAdmin,
             "is_close_to_ban": is_close_to_ban,  # Include is_close_to_ban in the response
         },
         safe=False,

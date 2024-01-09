@@ -11,7 +11,7 @@
                     <img :src="user.get_avatar" class="h-[80px] w-[80px] rounded-img"> 
                     <div class="flex flex-col">
                         <p class="font-semibold text-xl">{{ user.name }}</p>
-                        <label class="text-sm inline-block border border-2 border-gray-400 p-1">ADMIN</label>
+                        <div v-if="isAdmin" class="text-sm inline-block border border-2 border-gray-400 p-1" >ADMIN</div>
                         <div v-if="isCloseToBan && userStore.user.id === user.id" class="p-2 bg-red-400 rounded-full border border-2 border-gray-400">
                             Account Ban Warning
                             </div>
@@ -117,7 +117,7 @@
                                                 
                             <p class="text-justify lowercase">Welcome to your ultimate gamer destination, designed for gamers by gamers! Our platforms allow you to connect through forums, tournaments, marketplace and more - all centered around gaming.<br><br>
 
-                                We encourage open and passionate discussion while fostering a positive community. Our Offensive Language Sheriff system automatically detects and discourages negative behavior. Users gain points for engagement like making connections, commenting, and participating, keeping conversations uplifting.<br><br>
+                                We encourage open and passionate discussion while fostering a positive community. Our Foul Language Sheriff system automatically detects and discourages negative behavior. Users gain points for engagement like making connections, commenting, and participating, keeping conversations uplifting.<br><br>
 
                                 At Gaming Lounge you can share wisdom, find squads, and talk games to your heart's content in an inclusive space. Just bring your A-game attitude and get involved in our community - the positivity you spread will continue to shape this space for all gamers.<br><br>
 
@@ -187,6 +187,7 @@ export default {
     data(){
         return {
             isCloseToBan: false,
+            isAdmin: false,
             posts:[],
             user: {
                 id: ''
@@ -287,6 +288,7 @@ export default {
                     this.user = response.data.user
                     this.can_send_friendship_request = response.data.can_send_friendship_request
                     this.can_send_message = response.data.can_send_message
+                    this.isAdmin = response.data.isAdmin
                     this.isCloseToBan = response.data.is_close_to_ban || false;
                 })
                 .catch(error => {
