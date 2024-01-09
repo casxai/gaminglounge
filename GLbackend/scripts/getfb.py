@@ -49,30 +49,28 @@ for group in group_feed:
                 user_instance = User.objects.get(id=user_id)
                 nav_bar = "Tournament"
 
-                if game_title == "CALL OF DUTY":
-                    game_name = 15
+                if game_title == "FARLIGHT84_CONNECT":
+                    game_name, nav_bar = 13, "Connect"
+                elif game_title == "GENSHIN IMPACT":
+                    game_name = 10
                 elif game_title == "CALL OF DUTY_CONNECT":
                     game_name, nav_bar = 15, "Connect"
-                elif game_title == "CALL OF DUTY_MARKETPLACE":
-                    game_name, nav_bar = 15, "Marketplace"
-                elif game_title == "FARLIGHT84":
-                    game_name = 13                  
-                # if game_title == "FARLIGHT84_CONNECT":
-                #     game_name, nav_bar = 13, "Connect"
-                elif game_title == "MOBILE LEGENDS":
-                    game_name = 31
-                elif game_title == "MOBILE LEGENDS_CONNECT":
-                    game_name, nav_bar = 31, "Connect"
-                elif game_title == "ML_MARKETPLACE":
-                    game_name, nav_bar = 31, "Marketplace"
                 elif game_title == "VALORANT":
                     game_name = 14
+                elif game_title == "MOBILE LEGENDS":
+                    game_name = 31
+                elif game_title == "FARLIGHT84":
+                    game_name = 13
                 elif game_title == "VALORANT_CONNECT":
-                    game_name, nav_bar = 14, "Connect"
-                elif game_title == "VALORANT_MARKETPLACE":
                     game_name, nav_bar = 14, "Connect"
                 elif game_title == "BETA-TESTING":
                     game_name, nav_bar = 34, "Beta Testing"
+                elif game_title == "CALL OF DUTY":
+                    game_name = 15
+                elif game_title == "CALL OF DUTY_MARKETPLACE":
+                    game_name, nav_bar = 15, "Marketplace"
+                elif game_title == "MOBILE LEGENDS_CONNECT":
+                    game_name, nav_bar = 31, "Connect"
 
                 existing_post = Post.objects.filter(outside_id=post_id).exists()
 

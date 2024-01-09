@@ -144,23 +144,16 @@ def admin_signup(request):
 def admin_users(request):
     admin = request.user
 
-    
+    total_users_count = User.objects.count()
 
-    exclude_ids = [
-        "3e9fe50b-5c31-439f-9fb6-8208a5c3dba9",
-        "1cfff9f3-1d81-4cb0-9028-c3376871a4bb",
-        "675a5aad-3287-452b-ba57-b5aec4f60cc8",
-    ] 
-
-    total_users_count = User.objects.exclude(Q(id__in=exclude_ids)).count()
     # Get the current time in the current timezone
-    current_time = datetime.now()
+    current_time = timezone.now()
 
     # Set the start and end dates for November with timezone information
-    start_date = datetime(current_time.year, 1, 1)
-    end_date = datetime(current_time.year, 1, 31)
+    start_date = datetime(current_time.year, 12, 1, tzinfo=timezone.utc)
+    end_date = datetime(current_time.year, 12, 31, tzinfo=timezone.utc)
 
-    active_users_count = User.objects.filter(is_active=True).exclude(Q(id__in=exclude_ids)).count()
+    active_users_november_count = User.objects.filter(is_active=True).count()
 
     # Retrieve new users in November
     new_users_november = User.objects.filter(
@@ -184,6 +177,11 @@ def admin_users(request):
     beta_visits = UserVisit.objects.filter(visited_page__contains="/beta_posts").count()
 
     # table
+    exclude_ids = [
+        "3e9fe50b-5c31-439f-9fb6-8208a5c3dba9",
+        "1cfff9f3-1d81-4cb0-9028-c3376871a4bb",
+        "675a5aad-3287-452b-ba57-b5aec4f60cc8",
+    ]  # Replace these IDs with actual IDs
 
     # Query to filter out users with specified IDs
     users = User.objects.exclude(Q(id__in=exclude_ids))
@@ -193,7 +191,7 @@ def admin_users(request):
         "admin_email": admin.email,
         "admin_avatar": admin.avatar,
         "total_users_count": total_users_count,
-        "active_users_count": active_users_count,
+        "active_users_november_count": active_users_november_count,
         "new_users_november": new_users_november,
         "users": users,
         "discussion_visits": discussion_visits,

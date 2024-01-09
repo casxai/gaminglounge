@@ -34,6 +34,45 @@ def me(request):
     )
 
 
+# @api_view(["POST"])
+# @authentication_classes([])
+# @permission_classes([])
+# def signup(request):
+#     data = request.data
+#     message = "success"
+
+#     form = SignupForm(
+#         {
+#             "name": data.get("name"),
+#             "email": data.get("email"),
+#             "password1": data.get("password1"),
+#             "password2": data.get("password2"),
+#         }
+#     )
+
+#     if form.is_valid():
+#         user = form.save()
+#         user.is_active = False
+#         user.save()
+
+#         url = f"{settings.WEBSITE_URL}/activateemail/?email={user.email}&id={user.id}"
+
+#         # send verification email later
+#         send_mail(
+#             "Please verify your email",
+#             f"The url for activating your account is: {url}",
+#             "gloungenoreply@gmail.com",
+#             [user.email],
+#             fail_silently=False,
+#         )
+#     else:
+#         message = form.errors.as_json()
+
+#     print(message)
+
+#     return JsonResponse({"message": message}, safe=False)
+
+
 @api_view(["POST"])
 @authentication_classes([])
 @permission_classes([])
