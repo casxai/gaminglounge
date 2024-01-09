@@ -57,6 +57,7 @@
 <script>
 import axios from 'axios'
 import PeopleYouMayKnow from '../components/PeopleYouMayKnow.vue'
+import { useToastStore } from '@/stores/toast'
 import { useUserStore } from '@/stores/user'
 import FeedItem from '../components/FeedItem.vue'
 import CommentItem from '../components/CommentItem.vue'
@@ -67,9 +68,11 @@ export default {
     emits: ['commentDeleted'],
 
     setup() {
+        const toastStore = useToastStore()
         const userStore = useUserStore()
 
         return {
+            toastStore,
             userStore
         }
     },
@@ -121,13 +124,28 @@ export default {
                     })
                 .then(response => {
                     console.log('data', response.data)
-
-                    this.post.comments.push(response.data)
-                    this.post.comments_count += 1
-                    this.body = ''
+                    if(!response.data.error){
+                        this.toastStore.showToast(5000, 'critical hit! your comment landed cleanly thanks for sharing your wisdom with the community! ˚ʚ♡ɞ˚ ', 'bg-emerald-700')
+                        this.post.comments.push(response.data)
+                        if(!response.data.is_offensive){
+                            this.post.comments_count += 1
+                        }
+                        this.body = ''
+                        }
+                    else {
+                        console.log('Error', reponse.data.error);
+                    }
                 })
                 .catch(error => {
-                    console.log('error', error)
+                    if (error.response.status === 400) {//profcheck
+                        const message = error.response.data.error//profcheck
+
+                        this.toastStore.showToast(//profcheck
+                            5000,  //profcheck
+                            'easy there partner! our foul word sheriff caught some foul language. rework your comment and giddy up again.  ✧˖°. ',//profcheck
+                            'bg-red-400' //profcheck
+                        )//profcheck
+                        }//profcheck
                 })
         },
         search() {

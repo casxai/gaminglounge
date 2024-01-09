@@ -498,13 +498,24 @@ def post_like(request, pk):
 
 @api_view(["POST"])
 def post_create_comment(request, pk):
-    comment = Comment.objects.create(
-        body=request.data.get("body"), created_by=request.user
+    body=request.data.get("body")
+    comment = Comment.objects.create(body=body, created_by=request.user
     )
+    
     post = Post.objects.get(pk=pk)
-    post.comments.add(comment)
-    post.comments_count = post.comments_count + 1
-    post.save()
+
+    if has_profanity(body):
+        comment.is_offensive = True
+        comment.save()
+
+        return Response(
+            {"error": "profanity detected"}, status=status.HTTP_400_BAD_REQUEST
+        )
+
+    if not comment.is_offensive:
+        post.comments.add(comment)
+        post.comments_count = post.comments_count + 1
+        post.save()
 
     notification = create_notification(request, "post_comment", post_id=post.id)
 
