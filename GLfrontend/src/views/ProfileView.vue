@@ -1,17 +1,17 @@
 <template>
-    <div class="max-w-screen-2xl pt-4 mx-auto grid grid-cols-4 gap-4">
+    <div class="grid grid-cols-4 gap-4">
 
         <!-- left side 
              col-span-1: takes 1 of the 4 columns -->
-        <div class="main-left col-span-1 space-y-6 sticky top-[8rem] h-fit "> 
+        <div class="main-left md:col-span-1 col-span-4 space-y-6 md:sticky top-[8rem] h-fit "> 
             <!-- profile -->
             <div class="p-6 bg-purple_main rounded-full border border-2 border-gray-400">
                 <!-- profile picture -->
                 <div class="flex items-center space-x-4">
-                    <img :src="user.get_avatar" class="h-[80px] w-[80px] rounded-img"> 
+                    <img :src="user.get_avatar" class="avatar aspect-square h-[80px] w-[80px] rounded-img"> 
                     <div class="flex flex-col">
-                        <p class="font-semibold text-xl">{{ user.name }}</p>
-                        <label class="text-sm inline-block border border-2 border-gray-400 p-1">ADMIN</label>
+                        <p class="font-semibold text-xl main">{{ user.name }}</p>
+                        <label class="text-sm inline-block">ADMIN</label>
                         <div v-if="isCloseToBan && userStore.user.id === user.id" class="p-2 bg-red-400 rounded-full border border-2 border-gray-400">
                             Account Ban Warning
                             </div>
@@ -20,27 +20,26 @@
                 <!-- charisma points nd posts-->
                 <div class="my-5 px-12 py-4 flex flex-row justify-between items-center bg-transparent border-y-2 border-gray-400 text-center">
                     <div>
-                        <p class="text-lg/none">{{ user.posts_count }}</p>
-                        <label class="text-sm">posts</label>
+                        <p class="text-lg/none sub">{{ user.posts_count }}</p>
+                        <label class="text-sm ">posts</label>
                     </div>
                     <div>
-                        <p class="text-lg/none">{{ user.charisma_score }}</p>
-                        <label class="text-sm">charisma</label>
+                        <p class="text-lg/none sub">{{ user.charisma_score }}</p>
+                        <label class="text-sm ">charisma</label>
                     </div>
                     <div>
-                        <p class="text-lg/none">{{ user.friends_count }}</p>
+                        <p class="text-lg/none sub">{{ user.friends_count }}</p>
                         <RouterLink :to="{name: 'friends', params: {id: user.id}}" class="text-sm">friends</RouterLink>
                     </div>
                     
-                
                 </div>
                 <!-- about me -->
-                <p v-if="user.bio" class="px-1 text-justify">{{ user.bio }}</p>
+                <p v-if="user.bio" class="px-1 text-justify sub">{{ user.bio }}</p>
 
                 <!-- send friend request button -->
-                <div class = "mt-6">
+                <div class = "md:mt-6 buttons">
                     <button 
-                        class = "inline-block py-3 hover:bg-purple-600 bg-[#28183e] font-semibold rounded-full w-full" 
+                        class = "inline-block md:py-3 inside hover:bg-purple-600 bg-[#28183e] font-semibold rounded-full w-full sub" 
                         @click="sendFriendshipRequest"
                         v-if="userStore.user.id !== user.id 
                         && can_send_friendship_request"
@@ -48,7 +47,7 @@
                         add friend
                     </button>
                     <button 
-                        class = "inline-block py-3 mt-4 hover:bg-purple-600 bg-[#28183e] font-semibold rounded-full w-full" 
+                        class = "inline-block md:py-3 md:mt-4 inside hover:bg-purple-600 bg-[#28183e] font-semibold rounded-full w-full sub" 
                         @click="sendDirectMessage"
                         v-if="userStore.user.id !== user.id
                         && can_send_message
@@ -59,7 +58,7 @@
                     
                     <!-- edit profile button -->
                     <RouterLink
-                        class = "inline-block py-3 my-4 text-center hover:bg-[#120719] bg-[#28183e] font-semibold rounded-full w-full" 
+                        class = "inline-block md:py-3 inside md:my-4 text-center hover:bg-[#120719] bg-[#28183e] font-semibold rounded-full w-full sub" 
                         to="/profile/edit"
                         v-if="userStore.user.id === user.id"
                         >
@@ -68,7 +67,7 @@
 
                     <!-- Logout button -->
                     <button 
-                        class = "inline-block py-3 hover:bg-red-400 bg-[#28183e] font-semibold rounded-full w-full" 
+                        class = "inline-block inside md:py-3 hover:bg-red-400 bg-[#28183e] font-semibold rounded-full w-full sub" 
                         @click="logout"
                         v-if="userStore.user.id === user.id"
                         >
@@ -76,14 +75,12 @@
                     </button> 
                  </div>
             </div>  
-            
-          
         </div> 
         
         <!-- center -->
             <!-- col-span-2: takes 2 of the 4 columns
                  space-y-4: 6 spaces each post -->
-        <div class="px-4 main-center col-span-2 space-y-6">
+        <div class="md:px-4 main-center md:col-span-2 col-span-4 space-y-6">
             <!-- write something -->
             <div class="feed" v-if="userStore.user.id === user.id"> <!--modal design-->
                     <Modal @close="toggleModal" :modalActive="modalActive">
@@ -93,9 +90,9 @@
                         </div>
                     </Modal>
                 <div class="flex items-center justify-between bg-purple_main border-2 border-gray-400 rounded-full space-x-2 p-4">
-                    <img :src="userStore.user.avatar" alt="user.profile" class="w-14 h-14 rounded-img">
-                    <button @click="toggleModal" class="py-4 px-3 w-full  bg-[#28183e] bg-opacity-100 rounded-img text-left transition-colors duration-150 focus:shadow-outline hover:bg-[#120719]"> 
-                        <span class="text-gray-400 pl-2 ">lets talk gaming?</span>
+                    <img :src="userStore.user.avatar" alt="user.profile" class="avatar aspect-square w-14 h-14 rounded-img">
+                    <button @click="toggleModal" class="md:py-4 md:px-3 w-full md:bg-[#28183e] bg-opacity-100 rounded-img text-left transition-colors duration-150 focus:shadow-outline md:hover:bg-[#120719]"> 
+                        <span class="text-gray-400 pl-2 sub">lets talk gaming?</span>
                     </button>
                 </div>
 
@@ -105,24 +102,24 @@
                     v-for="post in posts" 
                     v-bind:key="post.id"> <!-- loop ng post -->
 
-                    <FeedItem :post="post" @postDeleted="handlePostDeleted" />
+                <FeedItem :post="post" @postDeleted="handlePostDeleted" />
             </div>
         </div>
         
             <!-- right side -->
-            <div class="p-6 bg-purple_main border-gray-400 border-2 rounded-full h-fit sticky top-[8rem]">
+            <div class="p-6 bg-purple_main border-gray-400 border-2 rounded-full h-fit sticky top-[8rem] hide-on-mobile">
                 <h3 class="mb-4 font-semibold text-xl tracking-wide text-center">get your game on at gaming lounge!</h3>
             
                 <div class="flex items-center justify-between"> 
                                                 
-                            <p class="text-justify lowercase">Welcome to your ultimate gamer destination, designed for gamers by gamers! Our platforms allow you to connect through forums, tournaments, marketplace and more - all centered around gaming.<br><br>
+                    <p class="text-justify lowercase">Welcome to your ultimate gamer destination, designed for gamers by gamers! Our platforms allow you to connect through forums, tournaments, marketplace and more - all centered around gaming.<br><br>
 
-                                We encourage open and passionate discussion while fostering a positive community. Our Offensive Language Sheriff system automatically detects and discourages negative behavior. Users gain points for engagement like making connections, commenting, and participating, keeping conversations uplifting.<br><br>
+                    We encourage open and passionate discussion while fostering a positive community. Our Offensive Language Sheriff system automatically detects and discourages negative behavior. Users gain points for engagement like making connections, commenting, and participating, keeping conversations uplifting.<br><br>
 
-                                At Gaming Lounge you can share wisdom, find squads, and talk games to your heart's content in an inclusive space. Just bring your A-game attitude and get involved in our community - the positivity you spread will continue to shape this space for all gamers.<br><br>
+                    At Gaming Lounge you can share wisdom, find squads, and talk games to your heart's content in an inclusive space. Just bring your A-game attitude and get involved in our community - the positivity you spread will continue to shape this space for all gamers.<br><br>
 
-                                So get your game on with us and experience gaming's finest digital playground! Join passionate, like-minded gamers where you direct the vibe. We can't wait for you to plug into our supportive community and make it even better.
-                            </p>
+                    So get your game on with us and experience gaming's finest digital playground! Join passionate, like-minded gamers where you direct the vibe. We can't wait for you to plug into our supportive community and make it even better.
+                    </p>
                 
 
                 </div>
@@ -136,7 +133,7 @@
 
 </template> 
 
-<style>
+<style scoped>
 input[type="file"] {
     display: none;
 }
@@ -146,6 +143,36 @@ input[type="file"] {
     padding: 6px 12px;
     cursor: pointer;
 }
+
+@media (max-width: 768px) {
+  .hide-on-mobile {
+    display: none; /* Hide the logo on smaller screens */
+  }
+  .buttons {
+    margin-top: 10px;
+  }
+
+
+  .avatar {
+    height: 40px;
+    width: auto;
+    
+  }
+
+  .username {
+    font-size: 16px;
+    justify-self: start;
+    display: flex;
+  }
+  .main {
+    font-size: 16px;
+  }
+  .sub {
+    font-size: 14px;
+  }
+
+}
+
 </style>
 
 <script>

@@ -1,18 +1,17 @@
 <template>
-    <div class="max-w-screen-2xl mx-auto grid grid-cols-4 gap-4">
+    <div class="grid grid-cols-4 gap-4">
 
-        <div class="main-left col-span-1 space-y-6">
+        <div class="main-left col-span-1 space-y-6 hide-on-mobile">
             <!-- trending games -->
             <LeftPanel />
         </div>
-        <div class="col-span-2 space-y-2 ">
+        <div class="main-center md:col-span-2 col-span-4 space-y-2">
             <div class="bg-purple_main rounded-tr-full rounded-tl-full">
                 <!-- post area -->
                 <div class="p-4 text-lg border-b border-gray-400  rounded-tr-full rounded-tl-full" v-if="post.id">
 
                     <FeedItem v-bind:post="post" />
                 </div>
-
 
                 <!-- comment area -->
                 <div v-if="post.comments.length > 0" class="comments-section bg-purple_main rounded-b">
@@ -44,7 +43,7 @@
         </div>
 
         <!-- right side -->
-        <div class="main-right col-span-1  space-y-6">
+        <div class="main-right col-span-1  space-y-6 hide-on-mobile">
             <PeopleYouMayKnow />
 
         </div>
@@ -52,7 +51,14 @@
 
     </div>
 </template> 
+<style scoped>
+@media (max-width: 768px) {
+  .hide-on-mobile {
+    display: none; /* Hide the logo on smaller screens */
+  }
 
+}
+</style>
 
 <script>
 import axios from 'axios'
