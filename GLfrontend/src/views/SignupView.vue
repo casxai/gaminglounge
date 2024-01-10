@@ -14,25 +14,25 @@
             </div> -->
             <!-- right part -->
             <div class="main-center justify-self-center py-32">
-                <h1 class="mb-14 font-bold tracking-wide text-6xl">
+                <h1 class="md:mb-14 font-bold tracking-wide welcome md:text-6xl">
                     Welcome<br>Gamer!
                 </h1>
-                <form class="space-y-6 w-96" v-on:submit.prevent="submitForm">
+                <form class="md:space-y-6 md:w-96" v-on:submit.prevent="submitForm">
                     <div>
                         <!-- username -->
-                        <input type="text" v-model="form.name" placeholder="enter your username" class="bg-transparent w-full py-3 px-6 border border-purple1 rounded-full">
+                        <input type="text" v-model="form.name" placeholder="enter your username" class="forms-email bg-transparent w-full md:py-3 md:px-6 border border-purple1 rounded-full">
                     </div>
                     <div>
                         <!-- email -->
-                        <input type="email" v-model="form.email" placeholder="enter your email" class="bg-transparent w-full py-3 px-6 border font-white border-violet1 rounded-full">
+                        <input type="email" v-model="form.email" placeholder="enter your email" class="forms-email bg-transparent w-full md:py-3 md:px-6 border border-purple1 rounded-full">
                     </div>
                     <div>
                         <!-- password -->
-                        <input type="password" v-model="form.password1" placeholder="enter your password" class="bg-transparent w-full py-3 px-6 border border-purple1 rounded-full">
+                        <input type="password" v-model="form.password1" placeholder="enter your password" class="forms-email bg-transparent w-full md:py-3 md:px-6 border border-purple1 rounded-full">
                     </div>
                     <div>
                         <!-- confirm password -->
-                        <input type="password" v-model="form.password2" placeholder="confirm password" class="bg-transparent w-full py-3 px-6 border border-violet1 rounded-full">
+                        <input type="password" v-model="form.password2" placeholder="confirm password" class="forms-email bg-transparent w-full md:py-3 md:px-6 border border-purple1 rounded-full">
                     </div>
 
                     <template v-if="errors.length > 0">
@@ -44,7 +44,7 @@
                     
                     <div class="space-y-2">
                         
-                        <button class="active:bg-purple_main tracking-wider bg-[#8250CB] w-full py-3 px-6 text-white rounded-full font-semibold">register</button>
+                        <button class="login-button active:bg-purple_main tracking-wider bg-[#8250CB] w-full md:py-3 px-6 text-white rounded-full font-semibold">register</button>
 
                         <Modal @close="toggleTerms" :modalActive="modalActive">
                         <!-- <div class="rounded-full bg-transparent space-y-1 text-right model-content"> -->
@@ -58,11 +58,11 @@
                         
                         </Modal>   
                         
-                        <p class="text-center text-[0.84rem] font-light">by clicking register, you agree to the gaming lounges' 
+                        <p class="forms-email text-center md:text-[0.84rem] font-light">by clicking register, you agree to the gaming lounges' 
                             <button @click="toggleTerms" type="button" class="text-blue_link hover:underline active:text-[#0085FF]" >terms of service || data privacy</button> 
                         </p>
 
-                        <p class="text-center text-[0.86rem] font-medium p-2">already have an acconut? 
+                        <p class="forms-email text-center md:text-[0.86rem] font-medium p-2">already have an acconut? 
                             <RouterLink to="/" class="text-blue_link underline active:text-[#0085FF]" href="#">login</RouterLink>
                         </p>
 
@@ -74,7 +74,28 @@
         </div>
 
 </template>
+<style scoped>
+@media (max-width: 768px) {
+  .hide-on-mobile {
+    display: none; /* Hide the logo on smaller screens */
+  }
+  .welcome{
+    font-size: 28px;
+    margin-bottom: 1rem;
+    padding-left: 4px;
 
+  }
+  .login-button{
+    padding: 6px 10px 6px 10px;
+    font-size: 14px;
+  }
+  .forms-email {
+    margin-bottom: 0.5rem;
+    font-size: 14px;
+    padding: 6px 10px 6px 10px;
+  }
+}
+</style>
 <script>
 import axios from 'axios'
 

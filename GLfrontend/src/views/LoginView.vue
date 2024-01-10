@@ -1,6 +1,6 @@
 <template>
    
-    <div class="grid gap-4">
+    <div class="md:grid gap-4">
         <!-- left part -->
         <!-- <div class="main-left self-center ">    
                 <h1 class="mb-6 tracking-wide leading-tight font-black text-6xl">
@@ -18,18 +18,18 @@
                 <!-- <div class="mb-16">
 					<img src="/assets/img/logo/gl_logo.png" alt="logo"/>
 				</div> -->
-            <h1 class="mb-14 font-bold tracking-wide text-6xl">
+            <h1 class="md:mb-14 font-bold tracking-wide welcome md:text-6xl">
                 Welcome<br>Back!
             </h1>
-            <form class="space-y-6 w-96" v-on:submit.prevent="submitForm">
+            <form class="md:space-y-6 md:w-96" v-on:submit.prevent="submitForm">
                 <div>
                     <!-- email -->
-                    <input type="text" v-model="form.email" placeholder="enter your email" class="bg-transparent w-full py-3 px-6 border border-purple1 rounded-full">
+                    <input type="text" v-model="form.email" placeholder="enter your email" class="forms-email bg-transparent w-full md:py-3 md:px-6 border border-purple1 rounded-full">
                 </div>
 
                 <div>
                     <!-- password -->
-                    <input type="password" v-model="form.password" placeholder="enter your password" class="bg-transparent w-full py-3 px-6 border border-purple1 rounded-full">
+                    <input type="password" v-model="form.password" placeholder="enter your password" class="forms-email bg-transparent w-full md:py-3 md:px-6 border border-purple1 rounded-full">
                 </div>
 
                 <template v-if="errors.length > 0">
@@ -38,9 +38,9 @@
                     </template>
 
                 <div class="space-y-2">
-                    <button class="active:bg-purple_main tracking-wider bg-[#8250CB] w-full mt-8 py-3 px-6 text-white rounded-full font-semibold">login</button>
+                    <button class="login-button active:bg-purple_main tracking-wider bg-[#8250CB] w-full md:mt-8 md:py-3 px-6 text-white rounded-full font-semibold">login</button>
 
-                    <p class="text-center text-[0.86rem] font-light">not a user yet? 
+                    <p class="text-center md:text-[0.86rem] font-light forms-email">not a user yet? 
                         <RouterLink to="/Signup" class="text-blue_link underline active:text-[#0085FF]" href="#">click here</RouterLink> to register!
                         
                     </p>
@@ -54,6 +54,28 @@
 
    
 </template>
+<style scoped>
+@media (max-width: 768px) {
+  .hide-on-mobile {
+    display: none; /* Hide the logo on smaller screens */
+  }
+  .welcome{
+    font-size: 28px;
+    margin-bottom: 1rem;
+    padding-left: 4px;
+
+  }
+  .login-button{
+    padding: 6px 10px 6px 10px;
+    font-size: 14px;
+  }
+  .forms-email {
+    margin-bottom: 0.5rem;
+    font-size: 14px;
+    padding: 6px 10px 6px 10px;
+  }
+}
+</style>
 <script>
 import axios from 'axios'
 

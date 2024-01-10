@@ -13,14 +13,15 @@
                     </RouterLink>
                     </p>
                 <!-- time posted -->
-                <p class="text-gray-400 text-xs font-light">{{ post.created_at_formatted }}</p>
+                <p v-if="!is_integrated" class="text-gray-400 text-xs font-light">{{ post.created_at_formatted }}</p>
+                <p v-if="is_integrated" class="text-gray-400 text-xs tracking-wider font-light">Integrated</p>
                 </div>
             </div>
             <p class="mb-4 tracking-wider font-semibold username">{{ post.game_title ? post.game_title.title : 'No Game Title' }}</p>
         </div>
 
         <!--  -->
-        <p class="mb-4 text-base/7 sub">{{ post.body }}</p>
+        <p class="mb-4 text-base/7 sub text-ellipsis overflow-hidden">{{ post.body }}</p>
 
         <template v-if="post.attachments && post.attachments.length">
             <div v-for="image in post.attachments" :key="image.id">
@@ -30,9 +31,9 @@
             </div>
         </template>
         <template v-if="post.post_url">
-            <p class="text">
+            <p class="text sub">
                 SOURCE:
-                <a :href="post.post_url" target="_blank" class="italic text-blue-400 hover:text-blue-500 break-words">
+                <a :href="post.post_url" target="_blank" class="sub italic text-blue-400 hover:text-blue-500 break-words">
                     {{ post.post_url }}
                 </a>
             </p>
@@ -180,6 +181,20 @@ export default {
         post: Object
     },
 
+    computed: {
+        is_integrated() {
+        // Your excluded_ids array
+        const excluded_ids = [
+            "3e9fe50b-5c31-439f-9fb6-8208a5c3dba9",
+            "1cfff9f3-1d81-4cb0-9028-c3376871a4bb",
+            "675a5aad-3287-452b-ba57-b5aec4f60cc8",
+        ];
+        
+        // Check if post.created_by.id exists in excluded_ids array
+        return excluded_ids.includes(this.post.created_by.id);
+        }
+  },
+
     emits: ['postDeleted'],
 
     setup() {
@@ -196,7 +211,6 @@ export default {
         return {
             showExtraModal: false,
             isHovered: false,
-        
           
         }
     },

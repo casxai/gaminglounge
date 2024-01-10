@@ -5,7 +5,11 @@
   <head>
     <meta charset="UTF-8" />
     <title>Login</title>
-    <link rel="stylesheet" type="text/css"  href="{% static 'admin/css/login.css' %}" />
+    <link
+      rel="stylesheet"
+      type="text/css"
+      href="{% static 'admin/css/login.css' %}"
+    />
     <link
       href="https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css"
       rel="stylesheet"
@@ -44,11 +48,13 @@
 
         <button type="submit" class="btn">Login</button>
 
+        {% comment %}
         <div class="register-link">
           <p>
             Register as admin? <a href="{% url 'admin_signup' %}">Sign-up</a>
           </p>
         </div>
+        {% endcomment %}
       </form>
     </div>
   </body>

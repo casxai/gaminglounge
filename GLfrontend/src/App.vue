@@ -8,11 +8,11 @@
 				class="fixed inset-0 w-full pt-6 z-20 bg-[#29172D] md:hidden" 
 				>
 				<div class="flex flex-col p-4 h-fit">
-					<RouterLink to="/feed" class="hover:text-violet1 p-2 dark:hover:text-violet1 dark:text-white dark:hover:text-violet1 dark:hover:text-violet1 dark:hover:bg-transparent">discussions </RouterLink>  
-					<RouterLink to="/marketplace" class="hover:text-violet1 p-2 dark:hover:text-violet1 dark:text-white dark:hover:text-violet1 dark:hover:text-violet1 dark:hover:bg-transparent">marketplace</RouterLink>
-					<RouterLink to="/connect" class="hover:text-violet1 p-2 dark:hover:text-violet1 dark:text-white dark:hover:text-violet1 dark:hover:text-violet1 dark:hover:bg-transparent">connect</RouterLink>
-					<RouterLink to="/tournaments" class="hover:text-violet1 p-2 dark:hover:text-violet1 dark:text-white dark:hover:text-violet1 dark:hover:text-violet1 dark:hover:bg-transparent">tournaments</RouterLink>
-					<RouterLink to="/betatesting" class="hover:text-violet1 p-2 dark:hover:text-violet1 dark:text-white dark:hover:text-violet1 dark:hover:text-violet1 dark:hover:bg-transparent">beta testing</RouterLink>
+					<RouterLink @click="toggleNav" to="/feed" class="hover:text-violet1 p-2 dark:hover:text-violet1 dark:text-white dark:hover:text-violet1 dark:hover:text-violet1 dark:hover:bg-transparent">discussions </RouterLink>  
+					<RouterLink @click="toggleNav" to="/marketplace" class="hover:text-violet1 p-2 dark:hover:text-violet1 dark:text-white dark:hover:text-violet1 dark:hover:text-violet1 dark:hover:bg-transparent">marketplace</RouterLink>
+					<RouterLink @click="toggleNav" to="/connect" class="hover:text-violet1 p-2 dark:hover:text-violet1 dark:text-white dark:hover:text-violet1 dark:hover:text-violet1 dark:hover:bg-transparent">connect</RouterLink>
+					<RouterLink @click="toggleNav" to="/tournaments" class="hover:text-violet1 p-2 dark:hover:text-violet1 dark:text-white dark:hover:text-violet1 dark:hover:text-violet1 dark:hover:bg-transparent">tournaments</RouterLink>
+					<RouterLink @click="toggleNav" to="/betatesting" class="hover:text-violet1 p-2 dark:hover:text-violet1 dark:text-white dark:hover:text-violet1 dark:hover:text-violet1 dark:hover:bg-transparent">beta testing</RouterLink>
 				
 				</div>
 			</div> 
@@ -116,6 +116,11 @@ import { RouterLink } from 'vue-router'
 				
             }
         },
+		watch: {
+			$route(to, from) {
+			this.showMobileNav = false;
+			}
+		},
 		methods:{
 			toggleNav() {
 				this.showMobileNav = !this.showMobileNav

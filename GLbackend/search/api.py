@@ -25,6 +25,7 @@ def search(request):
     
     posts_serializer = PostSerializer(posts, many=True)
     
+    
     return JsonResponse({
         'users': users_serializer.data,
         'posts': posts_serializer.data

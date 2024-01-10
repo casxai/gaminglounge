@@ -6,11 +6,13 @@
         v-on:submit.prevent="submitForm"
             method="post">
                 <h1 class="text-center font-semibold tracking-wider text-xl h-11 username">share your gaming thoughts</h1>
-                <hr class="pb-4 border-t-2">
+                
+                <hr class="pb-2 border-t-2">
+               
 
                 <div class="grid md:grid-cols-2">
 
-                  <div class="md:justify-self-start md:self-center">
+                  <div class="justify-self-start md:self-center">
                     <input checked id="checked-checkbox" type="checkbox" v-model="is_private" class="md:w-6 md:h-6 text-purple-600 bg-gray-100 border-purple-300 rounded focus:ring-gray-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-purple-200 dark:border-gray-600 ">
                     <label class="sub private ms-2 font-medium text-purple-900 dark:text-purple-300">show to friends only</label>
                   </div>
@@ -32,6 +34,7 @@
               
           
                  <textarea v-model="body" class="sub p-4 w-full bg-purple_main rounded-full" placeholder="let's talk gaming.."></textarea>
+                 <h3 class="text-sm mb-2 text-purple-300 text-left">Note: Any <span class="text-red-300 font-semibold">foul language</span> that targets specific individual is strictly prohibited.</h3>
               <div  class="text-red-400 mb-2">
                 <p v-if="gameTitleError" class="sub">select a game before posting</p>
                 <p v-if="contentError" class="sub">please provide a description about your post.</p>
@@ -74,7 +77,7 @@
     
   }
   .svg {
-    width: 20px;
+    width: 25px;
   }
 .username {
     font-size: 16px;

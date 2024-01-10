@@ -42,7 +42,7 @@
                         change password
                     </RouterLink> <br>
                     <RouterLink to ="/popup" class="underline">
-                    change category & game titles
+                    change game preference
                     </RouterLink>
     
 

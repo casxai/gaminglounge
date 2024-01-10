@@ -82,6 +82,7 @@ def discussion_posts(request):
     paginator.page_size = 5  # Number of posts per page
     paginated_post = paginator.paginate_queryset(combined_posts, request)
 
+
     # Serialize paginated posts
     serializer = PostSerializer(paginated_post, many=True)
 

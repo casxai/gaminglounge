@@ -7,9 +7,6 @@ yarn-error.log*
 pnpm-debug.log*
 lerna-debug.log*
 
-
-
-# Editor directories and files
 # Created by https://www.toptal.com/developers/gitignore/api/django,vue,node
 # Edit at https://www.toptal.com/developers/gitignore?templates=django,vue,node
 
@@ -18,10 +15,10 @@ lerna-debug.log*
 *.pot
 *.pyc
 __pycache__/
-local_settings.py
-db.sqlite3
+
+
 db.sqlite3-journal
-media
+
 
 # If your build process includes running collectstatic, then you probably don't need or want to include staticfiles/
 # in your Git repository. Update and uncomment the following line accordingly.
@@ -35,25 +32,6 @@ media
 # C extensions
 *.so
 
-# Distribution / packaging
-.Python
-build/
-develop-eggs/
-# dist/
-downloads/
-eggs/
-.eggs/
-lib/
-lib64/
-parts/
-sdist/
-var/
-wheels/
-share/python-wheels/
-*.egg-info/
-.installed.cfg
-*.egg
-MANIFEST
 
 # PyInstaller
 #  Usually these files are written by a python script from a template
@@ -333,4 +311,3 @@ docs/_book
 test/
 
 # End of https://www.toptal.com/developers/gitignore/api/django,vue,node
-

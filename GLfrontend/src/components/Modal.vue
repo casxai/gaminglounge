@@ -4,7 +4,7 @@
     <div v-show="modalActive" class="modal ">
       <transition name="modal-animation-inner">
         <div v-show="modalActive" class="modal-inner">
-          <iconify-icon @click="close" class="icon" icon="fa:close"></iconify-icon>
+          <iconify-icon @click="close" class="icon " icon="fa:close"></iconify-icon>
           <!-- Modal Content -->
           <slot />
          
@@ -84,7 +84,7 @@ export default {
         .icon{
           position:absolute;
           top:140px;
-          right:140px;
+          right:20px;
           font-size:20px;
           
           cursor: pointer;

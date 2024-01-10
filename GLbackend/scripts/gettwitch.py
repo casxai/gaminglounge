@@ -33,7 +33,7 @@ USER_LOGINS = [
     "kyedae",
     "kodopro",
     "tmi98",
-    "xbultx",
+    # "xbultx",
     "loltyler1",
     "Dendi",
     "WikyamYT",
@@ -102,7 +102,7 @@ if token_response.status_code == 200:
                                 video_title = video["title"]
                                 video_url = f"https://www.twitch.tv/videos/{video['id']}"
                                 post_id = video["id"]
-                                thumbnail_url = video["thumbnail_url"]
+                                # thumbnail_url = video["thumbnail_url"]
                                 view_count = video["view_count"]
 
                                 if USER_LOGIN == "lunacuddles":
@@ -117,8 +117,8 @@ if token_response.status_code == 200:
                                     game_title = 15
                                 elif USER_LOGIN == "tmi98":
                                     game_title = 16
-                                elif USER_LOGIN == "xbultx":
-                                    game_title = 19
+                                # elif USER_LOGIN == "xbultx":
+                                #     game_title = 19
                                 elif USER_LOGIN == "loltyler1":
                                     game_title = 20
                                 elif USER_LOGIN == "Dendi":
@@ -135,22 +135,19 @@ if token_response.status_code == 200:
                                 )
                                 user_id = "1cfff9f31d814cb09028c3376871a4bb"
                                 user_instance = User.objects.get(id=user_id)
+                                existing_post = Post.objects.filter(outside_id=post_id).exists()
 
+                                if not existing_post:
                                 # Create a new Post instance
-                                new_post = Post.objects.create(
-                                    body=video_title,
-                                    created_at=formatted_datetime,
-                                    created_by_id=user_instance.id,
-                                    is_private=False,
-                                    game_title_id=game_title,
-                                    post_url=video_url,
-                                    outside_id=post_id,
-                                )
-
-                                new_attachment = PostAttachment.objects.create(
-                                    image_url=thumbnail_url, created_by=user_instance
-                                )
-                                new_post.attachments.add(new_attachment)
+                                    new_post = Post.objects.create(
+                                        body=video_title,
+                                        created_at=formatted_datetime,
+                                        created_by_id=user_instance.id,
+                                        is_private=False,
+                                        game_title_id=game_title,
+                                        post_url=video_url,
+                                        outside_id=post_id,
+                                    )
 
                     else:
                         print(f"No videos found for the user {USER_LOGIN}.")

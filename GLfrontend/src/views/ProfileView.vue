@@ -11,7 +11,7 @@
                     <img :src="user.get_avatar" class="avatar aspect-square h-[80px] w-[80px] rounded-img"> 
                     <div class="flex flex-col">
                         <p class="font-semibold text-xl">{{ user.name }}</p>
-                        <div v-if="is_admin" class="text-sm inline-block border border-2 border-gray-400 p-1">ADMIN</div>
+                        <div v-if="is_admin" class="text-sm inline-block">ADMIN</div>
                         <div v-if="isCloseToBan && userStore.user.id === user.id" class="p-2 bg-red-400 rounded-full border border-2 border-gray-400">
                             Account Ban Warning
                             </div>
