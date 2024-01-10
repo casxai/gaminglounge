@@ -1,5 +1,5 @@
 <template>
-  <div class="flex justify-center items-center p-2">
+  <div class="flex justify-center items-center">
     <form @submit.prevent="handleSubmit" class="p-6 bg-purple_main max-w-2xl rounded-full">
       <div class="mb-6">
         <img src="/assets/img/logo/gl_logo.png" alt="logo" class="mx-auto" />

@@ -1,5 +1,5 @@
 <template>
-    <div class="max-w-screen-2xl mx-auto grid grid-cols-4 gap-4">
+    <div class=" grid grid-cols-4 gap-4">
 
         <!-- left side 
              col-span-1: takes 1 of the 4 columns -->
@@ -8,8 +8,8 @@
             <div class="p-4 bg-purple_main rounded-full">
                 <!-- profile picture -->
                 <div class="flex items-center space-x-4">
-                    <img :src="user.get_avatar" class="w-[80px] rounded-img">
-                    <p class="font-semibold text-xl">{{ user.name }}</p>
+                    <img :src="user.get_avatar" class="aspect-square w-[80px] rounded-img">
+                    <p class="font-semibold text-xl ">{{ user.name }}</p>
                 </div>
                 <!-- charisma points nd posts-->
                 <div class="my-5 px-12 py-4 flex flex-row justify-between items-center bg-dark_purple rounded-full text-center">
@@ -70,7 +70,7 @@
                     v-for="user in friends"
                     v-bind:key="user.id"
                 >
-                    <img :src="user.get_avatar" class="w-[80px] rounded-img">
+                    <img :src="user.get_avatar" class="w-[80px] aspect-square rounded-img">
                                  
                      @<RouterLink class="font-medium text-lg" :to="{name: 'profile', params:{'id': user.id}}">{{ user.name }}</RouterLink>
                        

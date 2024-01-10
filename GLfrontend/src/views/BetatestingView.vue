@@ -1,21 +1,21 @@
 <template>
 
-    <div data-te-infinite-scroll-init class ="max-w-screen-2xl pt-4 mx-auto grid grid-cols-4 gap-6">
+    <div data-te-infinite-scroll-init class ="grid grid-cols-4 gap-6">
 
         <!-- left side -->
-        <div class="main-left space-y-6 sticky top-[8rem] h-screen "> 
+        <div class="main-left space-y-6 sticky top-[8rem] h-screen hide-on-mobile"> 
             <LeftPanel />    
         </div>
        
         <!-- center -->
-        <div class="main-center col-span-2 space-y-6">
+        <div data-te-infinite-scroll-init class="main-center md:col-span-2 col-span-4 space-y-6 ">
             <div class="p-5 bg-purple_main rounded-full border-2 border-gray-400" v-for="post in posts" v-bind:key="post.id"> 
                 <FeedItem :post="post" @postDeleted="handlePostDeleted" />
             </div>
         </div>
 
         <!-- right side -->
-        <div class="main-right col-span-1 space-y-6 sticky top-[8rem] h-screen ">
+        <div class="main-right col-span-1 space-y-6 sticky top-[8rem] h-screen hide-on-mobile">
 
             <PeopleYouMayKnow />
 
@@ -25,7 +25,14 @@
     </div>
 </template> 
 
+<style scoped>
+@media (max-width: 768px) {
+  .hide-on-mobile {
+    display: none; /* Hide the logo on smaller screens */
+  }
 
+}
+</style>
 <script>
 import axios from 'axios'
 import PeopleYouMayKnow from '../components/PeopleYouMayKnow.vue'

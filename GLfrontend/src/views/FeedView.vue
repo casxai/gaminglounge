@@ -1,14 +1,13 @@
 <template>
 
-    <div data-te-infinite-scroll-init class="max-w-screen-2xl mx-auto grid grid-cols-4 gap-6 pt-4">
-        <div class="main-left space-y-6 sticky top-[8rem] h-fit "> 
+    <div data-te-infinite-scroll-init class="grid grid-cols-4 gap-6 ">
+        <div class="main-left space-y-6 sticky top-[8rem] h-fit hide-on-mobile"> 
             <LeftPanel />    
         </div>
-        
        
         <!-- center -->
         <!-- col-span-2: takes 2 of the 4 columnsspace-y-4: 6 spaces each post -->
-        <div class="main-center col-span-2 space-y-6 "> <!--whole feed-->
+        <div data-te-infinite-scroll-init class="main-center md:col-span-2 col-span-4 space-y-6"> <!--whole feed-->
             <!-- bg-gradient-to-r from-violet-900  -->
             <!-- post area -->
 
@@ -21,24 +20,22 @@
         </div>
 
         <!-- right side -->
-        <div class="main-right col-span-1 space-y-6 sticky top-[8rem] h-fit ">
+        <div class="main-right col-span-1 space-y-6 sticky top-[8rem] h-fit hide-on-mobile">
             <PeopleYouMayKnow />
         </div>
-        <!-- <div
-            id="spinner"
-            class="hidden h-8 w-8 animate-spin rounded-full border-4 border-solid border-current border-r-transparent align-[-0.125em] motion-reduce:animate-[spin_1.5s_linear_infinite]"
-            role="status">
-            <span
-            class="!absolute !-m-px !h-px !w-px !overflow-hidden !whitespace-nowrap !border-0 !p-0 ![clip:rect(0,0,0,0)]"
-            >Loading...</span
-            >
-  </div> -->
 
     </div>
     
 </template> 
 
+<style scoped>
+@media (max-width: 768px) {
+  .hide-on-mobile {
+    display: none; /* Hide the logo on smaller screens */
+  }
 
+}
+</style>
 <script>
 
 

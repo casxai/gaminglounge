@@ -1,15 +1,15 @@
 <template>
 
-    <div class="max-w-screen-2xl pt-4 mx-auto grid grid-cols-4 gap-6">
+    <div class="grid grid-cols-4 gap-6">
 
         <!-- left side  -->
-        <div class="main-left space-y-6 top-[8rem] h-fit sticky ">
+        <div class="main-left space-y-6 top-[8rem] h-fit sticky hide-on-mobile">
             <LeftPanel />
         </div>
 
         <!-- center -->
 
-        <div data-te-infinite-scroll-init class=" main-center col-span-2 space-y-6">
+        <div data-te-infinite-scroll-init class="main-center md:col-span-2 col-span-4 space-y-6 ">
 
             <div class="p-5 bg-purple_main rounded-full border-2 border-gray-400" v-for="post in posts" v-bind:key="post.id">
 
@@ -18,14 +18,21 @@
         </div>
 
         <!-- right side -->
-        <div class="main-right col-span-1 space-y-6 top-[8rem] h-fit sticky">
+        <div class="main-right col-span-1 space-y-6 top-[8rem] h-fit sticky hide-on-mobile">
             <PeopleYouMayKnow />
 
         </div>
     </div>
 </template> 
 
+<style scoped>
+@media (max-width: 768px) {
+  .hide-on-mobile {
+    display: none; /* Hide the logo on smaller screens */
+  }
 
+}
+</style>
 <script>
 import axios from 'axios'
 import PeopleYouMayKnow from '../components/PeopleYouMayKnow.vue'

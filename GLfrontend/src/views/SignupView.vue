@@ -1,7 +1,7 @@
 <template>
-        <div class="max-w-screen-2xl mx-auto grid grid-cols-2 gap-4">
+        <div class="grid gap-4">
             <!-- left part -->
-            <div class="main-left self-center ">    
+            <!-- <div class="main-left self-center ">    
                     <h1 class="mb-6 tracking-wide leading-tight font-black text-6xl">
                         DISCOVER YOUR<br>GAMING QUEST.
                     </h1>
@@ -11,9 +11,9 @@
                     <p class="font-medium text-xl">
                     already have an account? <RouterLink to="/" class="font-semibold active:text-blue_link underline">click here </RouterLink> to login!
                     </p>
-            </div>
+            </div> -->
             <!-- right part -->
-            <div class="main-right py-28 justify-self-end">
+            <div class="main-center justify-self-center py-32">
                 <h1 class="mb-14 font-bold tracking-wide text-6xl">
                     Welcome<br>Gamer!
                 </h1>
@@ -41,9 +41,11 @@
                             </p>                        
                         </div>
                     </template>
-
+                    
                     <div class="space-y-2">
-                        <button class="active:bg-purple_main tracking-wider bg-[#8250CB] w-full mt-8 py-3 px-6 text-white rounded-full font-semibold">register</button>
+                        
+                        <button class="active:bg-purple_main tracking-wider bg-[#8250CB] w-full py-3 px-6 text-white rounded-full font-semibold">register</button>
+
                         <Modal @close="toggleTerms" :modalActive="modalActive">
                         <!-- <div class="rounded-full bg-transparent space-y-1 text-right model-content"> -->
                             <Terms />
@@ -52,12 +54,19 @@
                         <!-- <div class="rounded-full bg-transparent space-y-1 text-right model-content"> -->
                             <DataPrivacy />
                         <!-- </div> -->
+
+                        
                         </Modal>   
-                
-                        <p class="text-center text-[0.86rem] font-light">by clicking register, you agree to the gaming lounges' 
+                        
+                        <p class="text-center text-[0.84rem] font-light">by clicking register, you agree to the gaming lounges' 
                             <button @click="toggleTerms" type="button" class="text-blue_link hover:underline active:text-[#0085FF]" >terms of service || data privacy</button> 
-                 
                         </p>
+
+                        <p class="text-center text-[0.86rem] font-medium p-2">already have an acconut? 
+                            <RouterLink to="/" class="text-blue_link underline active:text-[#0085FF]" href="#">login</RouterLink>
+                        </p>
+
+                       
                     </div>
                 </form>
             </div>

@@ -1,8 +1,8 @@
 <template>
    
-    <div class="max-w-screen-2xl mx-auto grid grid-cols-2 gap-4">
+    <div class="grid gap-4">
         <!-- left part -->
-        <div class="main-left self-center ">    
+        <!-- <div class="main-left self-center ">    
                 <h1 class="mb-6 tracking-wide leading-tight font-black text-6xl">
                     DISCOVER YOUR<h1 class="text-[#8250CB]">GAMING</h1>QUEST. 
                 </h1>
@@ -12,9 +12,9 @@
                 <p class="font-medium text-xl">
                 not a user yet? <RouterLink to="/Signup" class="font-semibold active:text-blue_link underline">click here</RouterLink> to register!
                 </p>
-        </div>
+        </div> -->
         <!-- right part -->
-        <div class="main-right py-32 justify-self-end ">
+        <div class="main-center justify-self-center py-32">
                 <!-- <div class="mb-16">
 					<img src="/assets/img/logo/gl_logo.png" alt="logo"/>
 				</div> -->
@@ -40,9 +40,9 @@
                 <div class="space-y-2">
                     <button class="active:bg-purple_main tracking-wider bg-[#8250CB] w-full mt-8 py-3 px-6 text-white rounded-full font-semibold">login</button>
 
-                    <p class="text-center text-[0.86rem] font-light">by clicking register, you agree to the gaming lounges' 
-                        <a class="text-blue_link underline active:text-[#0085FF]" href="#">terms of service</a> and 
-                        <a class="text-blue_link underline active:text-[#0085FF]" href="#">privacy policy</a>
+                    <p class="text-center text-[0.86rem] font-light">not a user yet? 
+                        <RouterLink to="/Signup" class="text-blue_link underline active:text-[#0085FF]" href="#">click here</RouterLink> to register!
+                        
                     </p>
                 </div>
             </form>

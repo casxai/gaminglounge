@@ -1,14 +1,14 @@
 <template>
-<div class="max-w-screen-2xl mx-auto grid grid-cols-4 gap-4 pt-4">
+<div class=" grid grid-cols-4 gap-4">
 
         <!-- left side 
         col-span-1: takes 1 of the 4 columns -->
-        <div class="main-left col-span-1"> 
+        <div class="main-left md:col-span-1"> 
         </div>
     <!-- center -->
         <!-- col-span-2: takes 2 of the 4 columns
             space-y-4: 6 spaces each post -->
-    <div class="px-4 main-center col-span-2 space-y-6">
+    <div class="md:px-4 main-center md:col-span-2 col-span-4 space-y-6">
         <!-- write something -->
         <!-- post area -->     
         <div class="p-4 bg-purple_main rounded-full"
@@ -16,28 +16,40 @@
                 v-bind:key="notification.id"
                 v-if="notifications.length"
             > <!-- loop ng notifications -->
-            
-                {{ notification.body }}
+                
+                    <p class="notification">{{ notification.body }}
 
-                <button class="underline" @click="readNotification(notification)">
-                        read more
+                    <button class="underline notification" @click="readNotification(notification)">
+                        view
                     </button>
+                    </p>    
+               
+ 
         </div>
 
-        <div class="p-6 bg-purple_main rounded-full"
+        <div class="p-6 bg-purple_main rounded-full notification"
                 v-else
         >
             you don't have any unread notifications!
         </div> 
     
     </div>
-    <div class="main-left col-span-1"> 
+    <div class="main-left md:col-span-1"> 
         </div>
 
 </div> 
 
 </template>
-
+<style scoped>
+@media (max-width: 768px) {
+  .hide-on-mobile {
+    display: none; /* Hide the logo on smaller screens */
+  }
+  .notification {
+    font-size: 14px;
+  }
+}
+</style>
 <script>
 import axios from 'axios'
 

@@ -30,6 +30,9 @@ export default {
 
 
 <style lang="scss" scoped>
+  @media (max-width: 768px) {
+
+  }
   .modal-animation-enter-active,
   .modal-animation-leave-active{
     transition: opacity .3s cubic-bezier(0.52, 0.02, 0.19, 1.02);
@@ -76,7 +79,7 @@ export default {
       justify-content: center;
       align-content: center;
       // box-shadow: 0 4px 6px -1px rgba($color: #000000, $alpha: 0.1), 0 2px 4px -1px rgba($color: #000000, $alpha: 0.06);
-      padding: 120px ;
+      padding-top: 120px ;
 
         .icon{
           position:absolute;

@@ -1,6 +1,6 @@
 <template>
   
-    <div class="py-4 bg-purple_main border-gray-400 border-2 rounded-full">
+    <div class="py-4 bg-purple_main border-gray-400 border-2 rounded-full ">
             <h3 class="rounded-full font-semibold text-xl tracking-wide pl-7 mb-3">Leaderboards</h3>
 
     
@@ -108,8 +108,7 @@
 
 
 </template>
-<style>
-
+<style scoped>
 img{
     margin-right: 10px;
 }
@@ -124,6 +123,11 @@ li{
     display: inline-block;
     margin-right: 10px;
  
+}
+@media (max-width: 768px) {
+  .hide-on-mobile {
+    display: none; /* Hide the logo on smaller screens */
+  }
 }
 </style>
 <script>

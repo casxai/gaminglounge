@@ -1,5 +1,5 @@
 <template>
-    <div class="max-w-screen-2xl mx-auto grid grid-cols-1 gap-4">
+    <div class="grid grid-cols-1 gap-4">
         <!-- left part -->
 
         <!-- right part -->
