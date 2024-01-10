@@ -27,7 +27,7 @@ class Comment(models.Model):
         User, related_name="comments", on_delete=models.CASCADE
     )
     created_at = models.DateTimeField(auto_now_add=True)
-
+    is_offensive = models.BooleanField(default=False)
     class Meta:
         ordering = ("created_at",)
 
@@ -105,8 +105,3 @@ class Post(models.Model):
     def created_at_formatted(self):
         return timesince(self.created_at)
 
-    # def clean(self):  # profcheck
-    #     if has_profanity(self.body):
-    #         self.save()  # profcheck
-    #         raise ValidationError("Profanity detected")  # profcheck  # profcheck
-    #         # has_profanity() is called in Post.clean() #profcheck

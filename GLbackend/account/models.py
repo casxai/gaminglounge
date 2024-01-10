@@ -94,6 +94,7 @@ class User(
         total_posts = self.posts.count()
 
         offensive_posts_count = self.posts.filter(is_offensive=True).count()
+        foul_comments_count = self.comments.filter(is_offensive=True).count()
             
         # Calculate the charisma score
         charisma_score = (
@@ -102,6 +103,7 @@ class User(
             + (total_friends * 2)
             + (total_posts * 1)
             - (offensive_posts_count * 1)
+            - (foul_comments_count * 1)
         )
 
         self.charisma_score = charisma_score

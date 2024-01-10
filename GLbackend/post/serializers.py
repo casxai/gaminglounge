@@ -54,6 +54,7 @@ class CommentSerializer(serializers.ModelSerializer):
             "body",
             "created_by",
             "created_at_formatted",
+            "is_offensive"
         )
 
 
