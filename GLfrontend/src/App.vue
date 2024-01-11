@@ -1,7 +1,9 @@
 <template>
 		<nav style="
-		background-image: url('https://api.gaminglounge.online/static/admin/img/header.png'); 
-		background-size:cover;" class="py-6 sticky z-20 top-0" v-if="userStore.user.isAuthenticated && userStore.user.id"> 
+	
+		background-size:cover;" 
+		
+		class="py-6 sticky z-20 bg-[url('https://api.gaminglounge.online/static/admin/img/header.png')] top-0" v-if="userStore.user.isAuthenticated && userStore.user.id"> 
 		<!-- mobile view -->
 			<div
 				v-if="showMobileNav"
@@ -24,6 +26,7 @@
 					<a href="https://gaminglounge.online/feed" class="flex items-center">			
 					 	<img src="/assets/img/logo/gl_logo.png" alt="logo" class="object-none w-25 hide-on-mobile"/>	
 					</a>
+
 					<!-- div class="justify-between w-full md:flex md:w-auto" id="navbar-use" -->
 					<div class="justify-between hidden md:flex " id="navbar-use">
 						<ul class="flex items-center font-semibold tracking-wider md:tracking-wider p-4 md:p-0 mt-4 rounded-lg md:flex-row md:space-x-8 md:mt-0">

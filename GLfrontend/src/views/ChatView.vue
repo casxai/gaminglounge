@@ -64,7 +64,7 @@
               <div class="flex-shrink-0 h-10 w-10 rounded-full bg-gray-300">
                 <img
                   :src="message.created_by.get_avatar"
-                  class="w-[40px] rounded-full aspect-square"
+                  class="w-[40px] rounded-full object-cover aspect-square"
                 />
               </div>
             </div>
@@ -73,7 +73,7 @@
               <div class="flex-shrink-0 h-10 w-10 rounded-full bg-gray-300">
                 <img
                   :src="message.created_by.get_avatar"
-                  class="w-[40px] rounded-full aspect-square"
+                  class="w-[40px] rounded-full object-cover aspect-square"
                 />
               </div>
               <div>

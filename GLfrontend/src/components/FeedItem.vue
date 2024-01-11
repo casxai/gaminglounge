@@ -6,7 +6,7 @@
         <div class="mb-4 flex items-center justify-between">
             <!-- username nd pfp -->
             <div class="flex items-center space-x-2">
-                <img :src="post.created_by.get_avatar" class="avatar aspect-square h-[50px] w-[50px] rounded-img">
+                <img :src="post.created_by.get_avatar" class="avatar aspect-square h-[50px] w-[50px] object-cover  rounded-img">
                 <div>
                     <p class="font-semibold username text-xl tracking-wide">
                     <RouterLink :to="{ name: 'profile', params: { 'id': post.created_by.id } }">{{ post.created_by.name }}

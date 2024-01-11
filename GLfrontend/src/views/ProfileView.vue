@@ -8,7 +8,7 @@
             <div class="p-6 bg-purple_main rounded-full border border-2 border-gray-400">
                 <!-- profile picture -->
                 <div class="flex items-center space-x-4">
-                    <img :src="user.get_avatar" class="avatar aspect-square h-[80px] w-[80px] rounded-img"> 
+                    <img :src="user.get_avatar" class="avatar object-cover aspect-square h-[80px] w-[80px] rounded-img"> 
                     <div class="flex flex-col">
                         <p class="font-semibold text-xl">{{ user.name }}</p>
                         <div v-if="is_admin" class="text-sm inline-block">ADMIN</div>
@@ -90,7 +90,7 @@
                         </div>
                     </Modal>
                 <div class="flex items-center justify-between bg-purple_main border-2 border-gray-400 rounded-full space-x-2 p-4">
-                    <img :src="userStore.user.avatar" alt="user.profile" class="avatar aspect-square w-14 h-14 rounded-img">
+                    <img :src="userStore.user.avatar" alt="user.profile" class="avatar object-cover  aspect-square w-14 h-14 rounded-img">
                     <button @click="toggleModal" class="md:py-4 md:px-3 w-full md:bg-[#28183e] bg-opacity-100 rounded-img text-left transition-colors duration-150 focus:shadow-outline md:hover:bg-[#120719]"> 
                         <span class="text-gray-400 pl-2 sub">lets talk gaming?</span>
                     </button>

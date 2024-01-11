@@ -8,7 +8,7 @@
                     class="flex items-center justify-between border-gray-200 hover:bg-[#120719] rounded-full text-left ">
 
                     <div class="justify-self-start items-center flex my-3 px-6">
-                        <img :src="user.avatar" alt="avatar" class="h-12 rounded-img" width="50" height="50">
+                        <img :src="user.avatar" alt="avatar" class="object-cover aspect-square h-12 rounded-img" width="50" height="50">
                         <div class="flex flex-col">
                             <RouterLink :to="{ name: 'profile', params: { 'id': user.id } }"><span class=" font-medium">{{
                                 user.name }}</span>
@@ -80,7 +80,7 @@
                             
                                 <li class="hover:underline">
                                   <a href="https://www.riotgames.com/en" target="_blank" rel="noopener noreferrer" class="flex items-center">
-                                      <img src="/assets/img/logo/riot_logo.png" class="h-auto max-w-full" alt="logo" />
+                                      <img src="/assets/img/logo/riot_logo.png" class="h-auto max-w-full " alt="logo" />
                                       <span>Riot Games</span>
                                   </a>
                               </li>

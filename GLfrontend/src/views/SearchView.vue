@@ -55,7 +55,7 @@
                 <div v-for="user in users" :key="user.id" class="flex items-center justify-between border-gray-200 hover:bg-[#120719] hover:rounded-full">
                     
                     <div class="justify-self-start items-center flex my-3 px-6">
-                        <img :src="user.get_avatar" alt="avatar" class="h-12 rounded-img aspect-square mr-3" width="50" height="50">
+                        <img :src="user.get_avatar" alt="avatar" class="h-12 rounded-img object-cover aspect-square mr-3" width="50" height="50">
                         <div class="flex flex-col">
                             <RouterLink :to="{ name: 'profile', params: { 'id': user.id } }" >
                             <span class="font-medium">{{ user.name }}</span>
