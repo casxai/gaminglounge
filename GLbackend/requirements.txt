@@ -1,5 +1,5 @@
 asgiref==3.7.2
-best-profanity==1.1.4
+best-profanity==1.1.5
 certifi==2023.11.17
 charset-normalizer==3.3.2
 DateTime==5.3

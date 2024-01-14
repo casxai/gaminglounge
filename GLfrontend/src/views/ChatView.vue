@@ -92,10 +92,10 @@
       <form v-on:submit.prevent="submitForm">
         <!-- <label for="chat" class="sr-only ">your message</label> -->
         <div
-          class="flex items-center p-4 rounded-full bg-gray-50 dark:bg-purple_main border-2 border-gray-400"
+          class="flex items-center p-4 rounded-full bg-gray-50 dark:bg-purple_main bg-purple_main border-2 border-gray-400"
         >
           <input
-            class="form-control block mx-2 p-4 w-full rounded-img dark:bg-transparent"
+            class="form-control block mx-2 p-4 w-full rounded-img bg-transparent dark:bg-transparent"
             v-model="body"
             id="chat"
             placeholder="write a message"
@@ -105,7 +105,7 @@
                         placeholder="your message.."></textarea> -->
           <button
             type="submit"
-            class="inline-flex justify-center p-3 text-blue-600 rounded-img cursor-pointer hover:bg-blue-100 dark:text-blue-500 dark:hover:bg-purple-900"
+            class="inline-flex justify-center p-3 text-blue-600 rounded-img cursor-pointer hover:bg-blue-100 text-blue-500 dark:text-blue-500 dark:hover:bg-purple-900 hover:bg-purple-900"
           >
             <svg
               class="w-8 h-8 rotate-90"

@@ -1,3 +1,4 @@
+from smtplib import SMTPDataError
 from django.conf import settings
 from django.contrib.auth.forms import PasswordChangeForm
 from django.core.mail import send_mail
@@ -90,25 +91,26 @@ def signup(request):
     )
     if request.method == "POST":
         if form.is_valid():
-            user = form.save(commit=False)
-            user.is_active = False
-            user.save()
-            activateemail(request, user, form.cleaned_data.get("email"))
-
-            # send verification email later
-            # send_mail(
-            #     "Please verify your email",
-            #     f"The url for activating your account is: {url}",
-            #     "gloungenoreply@gmail.com",
-            #     [user.email],
-            #     fail_silently=False,
-            # )
+            try:
+                user = form.save(commit=False)
+                user.is_active = False
+                user.save()
+                activateemail(request, user, form.cleaned_data.get("email"))
+                
+                return JsonResponse({'message': 'success'})
+                
+            except SMTPDataError as e:
+                if "Daily user sending limit exceeded" in str(e):
+                    user = form.save(commit=False)
+                    user.is_active = True 
+                    user.save()
+                    
+                    return JsonResponse({'message': 'Success but email verification skipped'})
         else:
-            message = form.errors.as_json()
+            message = form.errors.as_json()  
+            return JsonResponse({"message": message}, status=400, safe=False)
 
-    print(message)
-
-    return JsonResponse({"message": message}, safe=False)
+    return JsonResponse({"message": message}, safe=False)   
 
 
 @api_view(["GET"])  # receiving friend request

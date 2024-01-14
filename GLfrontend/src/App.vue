@@ -1,8 +1,6 @@
 <template>
 		<nav style="
-	
 		background-size:cover;" 
-		
 		class="py-6 sticky z-20 bg-[url('https://api.gaminglounge.online/static/admin/img/header.png')] top-0" v-if="userStore.user.isAuthenticated && userStore.user.id"> 
 		<!-- mobile view -->
 			<div
@@ -24,7 +22,7 @@
 				class="w-[92%] mx-auto md:flex items-center flex-wrap justify-between">
 				<!-- left menu logo start -->		
 					<a href="https://gaminglounge.online/feed" class="flex items-center">			
-					 	<img src="/assets/img/logo/gl_logo.png" alt="logo" class="object-none w-25 hide-on-mobile"/>	
+					 	<img src="/assets/img/logo/gl_logo.png" alt="logo" class="object-none w-25 pr-16 hide-on-mobile"/>	
 					</a>
 
 					<!-- div class="justify-between w-full md:flex md:w-auto" id="navbar-use" -->

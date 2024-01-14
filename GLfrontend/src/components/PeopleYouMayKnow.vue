@@ -19,28 +19,28 @@
 
         <!-- ------------------------- -->
 
-        <div class="mt-4 bg-purple_main border-gray-400 border-2 rounded-full h-fit">
-            <h3 class="rounded-full font-semibold text-xl tracking-wide pl-6 py-4">People you may know</h3>
+            <div class="mt-4 bg-purple_main border-gray-400 border-2 rounded-full h-fit">
+                <h3 class="rounded-full font-semibold text-xl tracking-wide pl-6 py-4">People you may know</h3>
 
-            
-                <div v-for="user in users" :key="user.id" class="flex items-center justify-between border-gray-200 hover:bg-[#120719] hover:rounded-full">
-                    
-                    <div class="justify-self-start items-center flex my-3 px-6">
-                        <img :src="user.get_avatar" alt="avatar" class="h-12 rounded-img object-cover aspect-square mr-3" width="50" height="50">
-                        <div class="flex flex-col">
-                            <RouterLink :to="{ name: 'profile', params: { 'id': user.id } }" >
-                            <span class="font-medium">{{ user.name }}</span>
-                            </RouterLink>
-                            <span class=" text-sm text-gray-400">{{ user.friends_count }} friends</span>
+                <div v-if="users.length === 0">
+                    <p class="pl-6 pb-4 text-gray-500">No people you may know yet</p>
+                </div>
+                <div v-else class="">
+                    <div v-for="user in users" :key="user.id" class="flex items-center justify-between border-gray-200 hover:bg-[#120719] hover:rounded-full">
+                        
+                        <div class="justify-self-start items-center flex px-6 my-3">
+                            <img :src="user.get_avatar" alt="avatar" class="h-12 rounded-img object-cover aspect-square mr-3" width="50" height="50">
+                            <div class="flex flex-col">
+                                <RouterLink :to="{ name: 'profile', params: { 'id': user.id } }" >
+                                <span class="font-medium">{{ user.name }}</span>
+                                </RouterLink>
+                                <span class=" text-sm text-gray-400">{{ user.friends_count }} friends</span>
+                            </div>
+    
                         </div>
- 
+
                     </div>
 
-                    <!-- <div>
-                        <RouterLink :to="{ name: 'profile', params: { 'id': user.id } }" class="py-3 px-6 hover:bg-[#120719] bg-[#28183e] text-sm rounded-img">
-                            view
-                        </RouterLink>
-                    </div> -->
                 </div>
        
 

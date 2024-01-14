@@ -172,12 +172,25 @@ export default {
                     .post('/api/signup/', this.form)
                     .then(response => {
                         if (response.data.message === 'success') {
-                            this.toastStore.showToast(5000, 'The user is registered. Please activate your account by clicking your email link','bg-emerald-700')
+                            this.toastStore.showToast(5000, 'Nice! Please activate your account by clicking the link from your email  ','bg-emerald-700')
+                            
                             this.form.name = ''
                             this.form.email = ''
                             this.form.password1 = ''
                             this.form.password2 = ''
-                        } else {
+                            this.$router.push('/')
+                        } 
+                        else if (response.data.message === 'Success but email verification skipped') {
+                            this.toastStore.showToast(5000, 'Signed up but email verification skipped!','bg-emerald-700')
+
+                            this.form.name = ''
+                            this.form.email = ''
+                            this.form.password1 = ''
+                            this.form.password2 = ''
+                            this.$router.push('/')
+                        }
+                        
+                        else {
                             // signup error
                             const data = JSON.parse(response.data.message)
                             for(const key in data){
