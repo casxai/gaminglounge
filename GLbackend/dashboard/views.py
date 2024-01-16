@@ -60,10 +60,10 @@ def dashboard(request):
 
     # Set the start date as December 1st
     current_year = datetime.now().year
-    start_date = datetime(current_year, 12, 1).date()
+    start_date = datetime(current_year, 1, 1).date()
 
     # Loop through each day in November
-    while start_date <= today and start_date.month == 12:
+    while start_date <= today and start_date.month == 1:
         # Count number of published posts
         allowed_posts_count = Post.objects.filter(is_offensive=False, created_at__date=start_date).count()
 
@@ -100,11 +100,11 @@ def dashboard(request):
     # ENGAGEMENT - LINE CHART
     # Create a dictionary to store the counts for each day in December
     data_for_engagement = defaultdict(int)
-    engagement_start_date = datetime(current_year, 12, 1).date()
-    # Set the start date as November 1st
+    engagement_start_date = datetime(current_year, 1, 1).date()
+    # Set the start date as January 1st
 
-    # Loop through each day in November
-    while engagement_start_date <= today and engagement_start_date.month == 12:
+    # Loop through each day in January
+    while engagement_start_date <= today and engagement_start_date.month == 1:
         # Filter posts created on this day
         posts_on_day = Post.objects.filter(created_at__date=engagement_start_date)
         # Calculate total likes and comments for posts created on this day
